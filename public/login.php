@@ -10,7 +10,6 @@
 <body>
     <div class="main-container d-flex flex-column min-vh-100">
         
-        <!-- Navbar Superior -->
         <nav class="navbar navbar-dark navbar-ismaga py-3">
             <div class="container justify-content-center">
                 <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
