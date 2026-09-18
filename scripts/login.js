@@ -30,6 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Login realizado com sucesso! Bem-vindo de volta.');
 
        
-        window.location.href = "home.html"; 
+        window.location.href = "home.php"; 
     });
 });
