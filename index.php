@@ -11,30 +11,27 @@ $pageTitle = "Já Ismaga - Início";
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Estilo customizado do projeto -->
-    <link rel="stylesheet" href="styles/style.css">
+    <!-- CSS com versão para ignorar o Cache -->
+    <link rel="stylesheet" href="styles/style.css?v=<?= time(); ?>">
 </head>
 <body class="bg-light">
 
     <div class="main-container">
-        <!-- Navegação -->
-        <nav class="navbar navbar-dark bg-dark py-3 navbar-ismaga">
+        <nav class="navbar navbar-dark bg-dark py-3">
             <div class="container-fluid px-4">
                 <h2 class="m-0 text-white fs-3"><strong>+ Já</strong>.Ismaga</h2>
             </div>
         </nav>
         
-        <!-- Conteúdo Principal -->
         <div class="login-wrapper text-center px-3 my-5">
             <div class="container">
                 <div class="row justify-content-center">
                     
-                    <!-- Imagem principal com caminho corrigido -->
+                    <!-- Imagem com parâmetro para forçar recarregamento -->
                     <div class="col-12 mb-4 topo">
-                        <img src="assets/imagem_1.webp.png" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
+                        <img src="assets/imagem_1.webp.png?v=<?= time(); ?>" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
                     </div>
                     
-                    <!-- Textos da landing page -->
                     <div class="col-12">
                         <h1 class="display-5 fw-normal text-dark">
                             Acompanhe seu metrô
@@ -43,9 +40,8 @@ $pageTitle = "Já Ismaga - Início";
                             em <span class="text-warning">tempo real</span>
                         </h1>
                         
-                        <!-- Botão com fallback de classe Bootstrap para garantir o visual -->
                         <div class="mt-4">
-                            <a href="public/login.php" class="btn btn-warning btn-lg px-4 py-2 fw-bold text-dark botao">
+                            <a href="public/login.php" class="btn btn-warning btn-lg px-4 py-2 fw-bold text-dark">
                                 Clique aqui para acessar
                             </a>
                         </div>
@@ -56,7 +52,6 @@ $pageTitle = "Já Ismaga - Início";
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
