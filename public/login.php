@@ -18,6 +18,24 @@ $pageTitle = "Já Ismaga - Login";
     <div class="main-container">
         <!-- Primary Navigation -->
         <nav class="navbar navbar-dark bg-dark navbar-ismaga py-3">
+<<<<<<< HEAD
+=======
+=======
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Já Ismaga - Login</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/style.css">
+</head>
+<body>
+    <div class="main-container d-flex flex-column min-vh-100">
+        
+        <nav class="navbar navbar-dark navbar-ismaga py-3">
+>>>>>>> a2fa8778a542cbaa4b5288af4385ef5df839cab4
+>>>>>>> 86c515094b25b29c848958ffcfd367a1b843ce14
             <div class="container justify-content-center">
                 <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
             </div>
