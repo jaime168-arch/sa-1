@@ -31,13 +31,11 @@ $rotas = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
     
-    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light">
 
-    <!-- Primary Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
@@ -55,10 +53,8 @@ $rotas = [
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <main class="container my-4">
         
-        <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h3 class="fw-bold text-dark m-0">Gestão de Rotas</h3>
@@ -67,7 +63,6 @@ $rotas = [
             <a href="rota-form.php" class="btn btn-warning text-white fw-bold">Nova Rota</a>
         </div>
 
-        <!-- Data Table Card -->
         <div class="card border-0 shadow-sm">
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -122,7 +117,6 @@ $rotas = [
 
     </main>
 
-    <!-- Scripts Section -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function confirmarExclusao(id) {

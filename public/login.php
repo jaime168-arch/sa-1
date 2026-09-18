@@ -1,5 +1,4 @@
 <?php
-// Configurações e definições da página
 $pageTitle = "Já Ismaga - Login";
 ?>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@ $pageTitle = "Já Ismaga - Login";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
     
-
+    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
@@ -22,7 +21,7 @@ $pageTitle = "Já Ismaga - Login";
             </div>
         </nav>
     
-      
+        <!-- Login Form Wrapper -->
         <div class="login-wrapper my-5">
             <div class="container">
                 <div class="row justify-content-center w-100 m-0">
@@ -35,7 +34,7 @@ $pageTitle = "Já Ismaga - Login";
                                     <p class="text-muted small">Acesse o sistema ferroviário</p>
                                 </div>
 
-                               
+                                <!-- Form enviado via POST para processar ou redirecionar para home -->
                                 <form id="loginForm" action="usuarios.php" method="POST">
                                     <div class="mb-3">
                                         <label for="email" class="form-label fw-semibold">E-mail</label>
@@ -65,7 +64,6 @@ $pageTitle = "Já Ismaga - Login";
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/script.js"></script> 
 </body>
