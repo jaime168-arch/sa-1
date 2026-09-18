@@ -1,22 +1,25 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Login</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
-    <div class="main-container">
-        <nav class="navbar navbar-dark navbar-ismaga">
+    <div class="main-container d-flex flex-column min-vh-100">
+        
+        <!-- Navbar Superior -->
+        <nav class="navbar navbar-dark navbar-ismaga py-3">
             <div class="container justify-content-center">
                 <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
             </div>
         </nav>
-    
-        <div class="login-wrapper">
+            <div class="login-wrapper d-flex align-items-center flex-grow-1 py-5">
             <div class="container">
-                <div class="row justify-content-center w-100 m-0">
+                <div class="row justify-content-center m-0">
                     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
                         
                         <div class="card shadow-lg border-0 p-4">
@@ -37,7 +40,7 @@
                                         <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
                                     </div>
                                     
-                                    <div class="d-grid gap-2 mb-3">
+                                    <div class="d-grid gap-2 mb-3 mt-4">
                                       <button type="submit" class="btn btn-ismaga">Entrar</button>
                                     </div>
                                 </form>
@@ -54,12 +57,7 @@
             </div>
         </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://home.php"></script>
     <script src="../js/script.js"></script> 
-</body>
-</html>
-
 </body>
 </html>
