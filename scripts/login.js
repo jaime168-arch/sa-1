@@ -1,35 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm') || document.querySelector('form'); 
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    if (!loginForm) return;
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    loginForm.addEventListener('submit', (event) => {
-        event.preventDefault();
+    <!-- Script de Redirecionamento -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio padrão do formulário (recarregar a página)
 
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        if (email === '' || password === '') {
-            alert('Por favor, preencha todos os campos.');
-            return;
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email)) {
-            alert('Por favor, insira um e-mail válido.');
-            return;
-        }
+            // Pegar os dados digitados (caso queira usar depois)
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-      
-        if (password.length < 4) {
-            alert('A senha deve conter pelo menos 4 caracteres.');
-            return;
-        }
-
-   
-        console.log("Login realizado com sucesso para:", email);
-        alert('Login realizado com sucesso! Bem-vindo de volta.');
-
-       
-        window.location.href = "home.html"; 
-    });
-});
+            // Insira aqui sua validação de login se necessário.
+            // Se tudo estiver certo, redireciona para a página principal:
+            window.location.href = 'dashboard.php'; 
+        });
+    </script>
+</body>
+</html>
