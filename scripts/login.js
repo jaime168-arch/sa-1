@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Login realizado com sucesso para:", email);
         alert('Login realizado com sucesso! Bem-vindo de volta.');
 
-       
-        window.location.href = "home.html"; 
+       <a href="home.php"> </a>
+        window.location.href = "home.php"; 
+
     });
 });
