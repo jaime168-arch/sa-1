@@ -1,212 +1,29 @@
-:root {
-    --laranja-ismaga: #FF7F00;
-    --azul-ismaga: #002B5B;
-    --cinza-fundo: #f4f7f6;
-    --sidebar-width: 260px;
-}
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body, html {
-    height: 100%;
-    background-color: var(--cinza-fundo);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #000000;
-}
-.main-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-.navbar-ismaga {
-    background-color: var(--laranja-ismaga);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    width: 100%; 
-    height: 80px; 
-    display: flex;
-    align-items: center;
-    justify-content: center; 
-    padding: 0 20px;
-    color: white;
-}
-.sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    position: fixed;
-    background: var(--azul-ismaga) !important;
-    color: white;
-    transition: all 0.3s;
-    z-index: 1000;
-    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
-}
-.sidebar .brand-area {
-    padding: 2rem 1rem;
-    text-align: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.sidebar a {
-    color: rgba(255,255,255,0.7);
-    text-decoration: none;
-    padding: 12px 25px;
-    display: flex;
-    align-items: center;
-    transition: 0.2s;
-    border-left: 4px solid transparent;
-    border-radius: 5px;
-    margin: 5px 15px;
-}
-.sidebar a i { 
-    font-size: 1.2rem; 
-}
-.sidebar a:hover, .sidebar a.active, .nav-link:hover, .nav-link.active {
-    background-color: var(--laranja-ismaga) !important;
-    color: white !important;
-    border-left: 4px solid white;
-}
-.main-content {
-    margin-left: var(--sidebar-width);
-    padding: 40px;
-}
-.login-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.form-container {
-    background-color: white;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    border-left: 5px solid var(--laranja-ismaga) !important;
+body{
+    background-color: rgb(228, 193, 165);
 }
 
-.form-control:focus {
-    border-color: var(--laranja-ismaga);
-    box-shadow: 0 0 0 0.25rem rgba(255, 127, 0, 0.25);
-}
-
-.table-container { 
-    background-color: white; 
-    border-radius: 12px; 
-    padding: 25px; 
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
-    border-left: 5px solid var(--azul-ismaga); 
-}
-
-.thead-azul { 
-    background-color: var(--azul-ismaga); 
-    color: white; 
+.site {
+    display: grid;
+    justify-items: center;
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 247, 233);
 }
 
 
-.card {
-    border-radius: 15px;
-    overflow: hidden;
-    border-top: 5px solid var(--laranja-ismaga);
-}
-
-.card-ismaga {
-    border: none;
-    border-radius: 12px;
-    transition: transform 0.3s;
-}
-
-.card-ismaga:hover {
-    transform: translateY(-5px);
-}
-
-.card-stats {
-    border: none;
-    border-radius: 12px;
-    border-bottom: 4px solid var(--laranja-ismaga); 
-    transition: transform 0.3s ease;
-}
-
-.card-stats:hover {
-    transform: translateY(-8px);
-}
-
-.icon-box {
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 127, 0, 0.1);
-    color: var(--laranja-ismaga);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-.bg-laranja { background-color: var(--laranja-ismaga); color: white; }
-.bg-azul { background-color: var(--azul-ismaga); color: white; }
-.border-ismaga { border-left: 5px solid var(--laranja-ismaga) !important; }
-.text-ismaga { color: var(--azul-ismaga); }
-.badge-sucesso { background-color: #d4edda; color: #155724; }
-.badge-pendente { background-color: #fff3cd; color: #856404; }
-
-
-.btn-ismaga, .btn-ismaga-primary {
-    background-color: var(--laranja-ismaga) !important;
-    border: none;
-    color: white !important;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.btn-ismaga:hover, .btn-ismaga-primary:hover {
-    background-color: #e67200 !important;
-    color: white !important;
-    transform: translateY(-2px);
-}
-
-.btn-ismaga-outline {
-    border: 2px solid var(--azul-ismaga);
-    color: var(--azul-ismaga);
-    font-weight: bold;
-    border-radius: 8px;
-    transition: 0.3s;
-}
-
-.btn-ismaga-outline:hover {
-    background-color: var(--azul-ismaga);
-    color: white;
+.navbar {
+    background-color: rgb(255, 116, 3);
+    width: 1920px;
+    height: 100px;
 }
 
 .botao {
     background-color: rgb(255, 116, 3);
-    color: white !important; 
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
+    color: white;            
+    padding: 15px 40px;        
+    border-radius: 50px;       
+    text-decoration: none;    
+    font-family: Arial, sans-serif;
     font-size: 18px;
-    font-weight: bold;
-    display: inline-block;
-    transition: all 0.3s ease; 
-    border: none;
-    cursor: pointer;
+    display: inline-block;    
 }
 
-.botao:hover {
-    background-color: rgb(220, 100, 0);
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(255, 116, 3, 0.3);
-}
-
-@media (max-width: 768px) {
-    .sidebar { margin-left: calc(-1 * var(--sidebar-width)); }
-    .main-content { margin-left: 0; }
-    .sidebar.active { margin-left: 0; }
-}
-
-:root {
-    --laranja-ismaga: #FF7F00;
-    --azul-ismaga: #002B5B;
-    --cinza-fundo: #f4f7f6;
-    --sidebar-width: 260px;
-}
