@@ -8,27 +8,22 @@ $pageTitle = "Já Ismaga - Início";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
     
-    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Subir um nível (../) para encontrar a pasta styles na raiz -->
     <link rel="stylesheet" href="../styles/style.css?v=<?= time(); ?>">
 </head>
 <body class="bg-light">
 
     <div class="main-container">
-        <!-- Navegação -->
         <nav class="navbar navbar-dark bg-dark py-3 navbar-ismaga">
             <div class="container-fluid px-4">
                 <h2 class="m-0 text-white fs-3"><strong>+ Já</strong>.Ismaga</h2>
             </div>
         </nav>
         
-        <!-- Conteúdo Principal -->
         <div class="login-wrapper text-center px-3 my-5">
             <div class="container">
                 <div class="row justify-content-center">
                     
-                    <!-- Subir um nível (../) para encontrar a pasta assets na raiz -->
                     <div class="col-12 mb-4 topo">
                         <img src="../assets/imagem_1.webp.png" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
                     </div>
@@ -41,7 +36,6 @@ $pageTitle = "Já Ismaga - Início";
                             em <span class="text-warning" style="color: var(--laranja-ismaga);">tempo real</span>
                         </h1>
                         
-                        <!-- Como o login.php está na mesma pasta (public), removeu-se o 'public/' do href -->
                         <div class="mt-4">
                             <a href="login.php" class="btn btn-warning btn-lg px-4 py-2 fw-bold text-dark botao">
                                 Clique aqui para acessar
@@ -54,7 +48,6 @@ $pageTitle = "Já Ismaga - Início";
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

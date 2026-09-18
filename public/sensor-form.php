@@ -1,9 +1,6 @@
 <?php
-// Configurações e definições da página
 $pageTitle = "Já Ismaga - Cadastro de Sensor";
 
-// Mock temporário para popular a seleção de trens e rotas no formulário
-// Futuramente, esses dados virão do banco de dados via MySQLi
 $trens = [
     ['id' => 1, 'nome' => 'Trem 101 - Linha Verde'],
     ['id' => 2, 'nome' => 'Trem 202 - Linha Azul']
@@ -21,13 +18,11 @@ $rotas = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
     
-    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light">
 
-    <!-- Primary Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
@@ -45,7 +40,6 @@ $rotas = [
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <main class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -55,10 +49,8 @@ $rotas = [
                     </div>
                     <div class="card-body p-4">
                         
-                        <!-- Form Handler -->
                         <form id="sensorForm" action="sensor-salvar.php" method="POST">
                             
-                            <!-- Campo oculto para ID (Edição) -->
                             <input type="hidden" name="id" value="">
 
                             <div class="row mb-3">
@@ -121,7 +113,6 @@ $rotas = [
 
                             <hr class="my-4">
 
-                            <!-- Form Controls -->
                             <div class="d-flex justify-content-between">
                                 <a href="sensores.php" class="btn btn-secondary px-4 fw-bold">Cancelar</a>
                                 <button type="submit" class="btn btn-warning text-white px-4 fw-bold">Salvar Sensor</button>
@@ -134,7 +125,6 @@ $rotas = [
         </div>
     </main>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
