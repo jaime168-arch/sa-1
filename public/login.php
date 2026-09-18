@@ -56,8 +56,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://jsdelivr.net"></script>
-    
+    <script src="https://home.php"></script>
     <script src="../js/script.js"></script> 
 </body>
 </html>
