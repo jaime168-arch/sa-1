@@ -18,7 +18,7 @@
                 <div class="row justify-content-center">
                     
                     <div class="col-12 mb-4 topo">
-                        <img src="assets/imagem_1.webp.png" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
+                        <img src="assets\imagem_1.webp.png" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
                     </div>
                     
                     <div class="col-12">
