@@ -13,7 +13,7 @@ $pageTitle = "Já Ismaga - Login";
 <body class="bg-light">
 
     <div class="main-container">
-        <nav class="navbar navbar-dark bg-dark navbar-ismaga py-3">
+        <nav class="navbar navbar-orange navbar-ismaga py-3">
             <div class="container justify-content-center">
                 <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
             </div>
@@ -49,7 +49,7 @@ $pageTitle = "Já Ismaga - Login";
 
                                 <div class="text-center mt-3">
                                     <small class="text-muted">Não tem conta?</small>
-                                    <a href="usuario-form.php" class="small fw-bold text-decoration-none text-warning">Cadastre-se</a>
+                                    <a href="usuario-form.php" class="small fw-bold text-orange text-orange">Cadastre-se</a>
                                 </div>
                             </div>
                         </div>
