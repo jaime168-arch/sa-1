@@ -8,10 +8,10 @@
 </head>
 <body>
    
-        <div class="main-container">
-        <nav class="navbar navbar-orange navbar-ismaga">
+         <div class="main-container">
+        <nav class="navbar navbar-orange navbar-ismaga py-3">
             <div class="container justify-content-center">
-                <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
+                <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
             </div>
         </nav>
     

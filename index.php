@@ -9,7 +9,7 @@
 <body>
 
      <div class="main-container">
-        <nav class="navbar navbar-dark navbar-ismaga">
+        <nav class="navbar navbar-orange navbar-ismaga">
             <div class="container justify-content-center">
             <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
         </nav>
