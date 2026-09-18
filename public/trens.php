@@ -1,9 +1,7 @@
 <?php
-// Configurações e definições da página
+
 $pageTitle = "Gestão de Trens - Já Ismaga";
 
-// Mock temporário de dados para renderização do layout (Frontend)
-// Futuramente, estes dados serão recuperados do banco de dados MySQL via PHP
 $trens = [
     [
         'id' => 1,
@@ -37,14 +35,11 @@ $trens = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light">
 
-    <!-- Primary Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
@@ -62,10 +57,8 @@ $trens = [
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <main class="container my-4">
         
-        <!-- Header Section -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h3 class="fw-bold text-dark m-0">Gestão de Trens</h3>
@@ -74,7 +67,6 @@ $trens = [
             <a href="trem-form.php" class="btn btn-warning text-white fw-bold">Novo Trem</a>
         </div>
 
-        <!-- Data Table Card -->
         <div class="card border-0 shadow-sm">
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -127,7 +119,6 @@ $trens = [
 
     </main>
 
-    <!-- Scripts Section -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         function confirmarExclusao(id) {

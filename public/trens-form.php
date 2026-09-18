@@ -1,9 +1,6 @@
 <?php
-// Configurações e definições da página
-$pageTitle = "Já Ismaga - Cadastro de Trem";
 
-// Mock temporário para popular a seleção de rotas no formulário
-// Futuramente, estes dados virão do banco de dados MySQL via PHP
+$pageTitle = "Já Ismaga - Cadastro de Trem";
 $rotas = [
     ['id' => 1, 'nome' => 'ROT-01 - Linha 1 (Norte/Sul)'],
     ['id' => 2, 'nome' => 'ROT-02 - Linha 2 (Leste/Oeste)']
@@ -15,14 +12,11 @@ $rotas = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Dependencies -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light">
 
-    <!-- Primary Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
@@ -40,7 +34,6 @@ $rotas = [
         </div>
     </nav>
 
-    <!-- Main Content Container -->
     <main class="container mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -50,10 +43,8 @@ $rotas = [
                     </div>
                     <div class="card-body p-4">
                         
-                        <!-- Form Handler -->
                         <form id="tremForm" action="trem-salvar.php" method="POST">
                             
-                            <!-- Campo oculto para ID (Edição) -->
                             <input type="hidden" name="id" value="">
 
                             <div class="row mb-3">
@@ -105,7 +96,6 @@ $rotas = [
 
                             <hr class="my-4">
 
-                            <!-- Form Controls -->
                             <div class="d-flex justify-content-between">
                                 <a href="trens.php" class="btn btn-secondary px-4 fw-bold">Cancelar</a>
                                 <button type="submit" class="btn btn-warning text-white px-4 fw-bold">Salvar Trem</button>
@@ -117,8 +107,7 @@ $rotas = [
             </div>
         </div>
     </main>
-
-    <!-- Scripts -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
