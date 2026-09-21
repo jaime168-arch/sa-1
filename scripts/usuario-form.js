@@ -1,13 +1,8 @@
-/**
- * Validação do Formulário de Utilizadores (Projeto Ferrorama - Já.Ismaga)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const formUsuario = document.querySelector('#form-usuario');
 
     if (!formUsuario) return;
 
-    // Seleção dos campos
     const inputNome = document.querySelector('#nome');
     const inputEmail = document.querySelector('#email');
     const inputSenha = document.querySelector('#senha');
@@ -16,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     formUsuario.addEventListener('submit', (event) => {
         let erros = [];
 
-        // Validação do Nome
         if (!inputNome || inputNome.value.trim().length < 3) {
             erros.push('Informe o nome completo (mínimo de 3 caracteres).');
             marcarCampoInvalido(inputNome);
@@ -24,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
             limparStatusCampo(inputNome);
         }
 
-        // Validação do E-mail
         if (!inputEmail || !validarEmail(inputEmail.value.trim())) {
             erros.push('Informe um endereço de e-mail válido.');
             marcarCampoInvalido(inputEmail);
@@ -32,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
             limparStatusCampo(inputEmail);
         }
 
-        // Validação da Palavra-passe (se preenchida ou em modo de criação)
         if (inputSenha && (inputSenha.value.length > 0 || !formUsuario.dataset.edicao)) {
             if (inputSenha.value.length < 6) {
                 erros.push('A palavra-passe deve conter pelo menos 6 caracteres.');
@@ -41,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 limparStatusCampo(inputSenha);
             }
 
-            // Validação de Confirmação da Palavra-passe
             if (inputConfirmarSenha && inputSenha.value !== inputConfirmarSenha.value) {
                 erros.push('As palavras-passe introduzidas não coincidem.');
                 marcarCampoInvalido(inputConfirmarSenha);
@@ -50,14 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Interrompe o envio em caso de inconsistência
         if (erros.length > 0) {
             event.preventDefault();
             exibirAlertaErro(erros.join('\n'));
         }
     });
 
-    // Função para validar formato sintático de e-mail
     function validarEmail(email) {
         const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return regex.test(email);
