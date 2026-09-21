@@ -2,7 +2,6 @@
 session_start();
 require_once __DIR__ . '/../config/conexao.php';
 
-// Remove espaços em branco antes e depois dos inputs
 $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
 $senha = trim($_POST['senha'] ?? '');
 
@@ -13,18 +12,15 @@ if (!$email || empty($senha)) {
 }
 
 try {
-    // Procura o utilizador pelo e-mail
     $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = :email");
     $stmt->bindValue(':email', $email);
     $stmt->execute();
     $usuario = $stmt->fetch();
 
-    // Se o utilizador existir e a senha for compatível com o hash
     if ($usuario && password_verify($senha, $usuario['senha'])) {
         $_SESSION['usuario_id'] = $usuario['id'];
         $_SESSION['usuario_nome'] = $usuario['nome'];
         
-        // Redireciona para o painel principal
         header("Location: home.php");
         exit;
     } else {
