@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pageTitle = "Já Ismaga - Login";
 ?>
 <!DOCTYPE html>
@@ -31,7 +32,25 @@ $pageTitle = "Já Ismaga - Login";
                                     <p class="text-muted small">Acesse o sistema ferroviário</p>
                                 </div>
 
-                                <form id="loginForm" action="usuarios.php" method="POST">
+                                <!-- Exibe mensagens de erro vindas de autenticar.php ou logout.php -->
+                                <?php if (isset($_SESSION['mensagem_erro'])): ?>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <?= htmlspecialchars($_SESSION['mensagem_erro']); ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <?php unset($_SESSION['mensagem_erro']); ?>
+                                <?php endif; ?>
+
+                                <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        <?= htmlspecialchars($_SESSION['mensagem_sucesso']); ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                    <?php unset($_SESSION['mensagem_sucesso']); ?>
+                                <?php endif; ?>
+
+                                <!-- Envia os dados para o autenticar.php (que faz a verificação e redireciona para home.php) -->
+                                <form id="loginForm" action="autenticar.php" method="POST">
                                     <div class="mb-3">
                                         <label for="email" class="form-label fw-semibold">E-mail</label>
                                         <input type="email" class="form-control" id="email" name="email" placeholder="exemplo@gmail.com" required>
@@ -49,7 +68,7 @@ $pageTitle = "Já Ismaga - Login";
 
                                 <div class="text-center mt-3">
                                     <small class="text-muted">Não tem conta?</small>
-                                    <a href="usuario-form.php" class="small fw-bold text-orange text-orange">Cadastre-se</a>
+                                    <a href="usuario-form.php" class="small fw-bold text-orange">Cadastre-se</a>
                                 </div>
                             </div>
                         </div>
@@ -61,6 +80,6 @@ $pageTitle = "Já Ismaga - Login";
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/script.js"></script> 
+    <script src="../scripts/usuario-form.js"></script> 
 </body>
 </html>
