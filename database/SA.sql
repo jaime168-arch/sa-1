@@ -1,113 +1,89 @@
--- MySQL Workbench Synchronization
--- Generated: 2026-06-19 09:26
--- Model: New Model
--- Version: 1.0
--- Project: Name of the project
--- Author: gabriela_h_dias
+-- Remove o banco antigo se existir e cria o banco correto
+DROP DATABASE IF EXISTS `ja_ismaga`;
+CREATE DATABASE `ja_ismaga` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `ja_ismaga`;
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+SET FOREIGN_KEY_CHECKS = 0;
 
-CREATE SCHEMA IF NOT EXISTS `SA_Diagrama` DEFAULT CHARACTER SET utf8 ;
+-- 1. Tabela de Trens
+CREATE TABLE IF NOT EXISTS `trens` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `linha` VARCHAR(100) NOT NULL,
+  `placa` VARCHAR(45) NOT NULL,
+  `status` ENUM('ativo', 'manutencao', 'inativo') NOT NULL DEFAULT 'ativo',
+  PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`table1` 
+-- 2. Tabela de Usuários (Integrada com o seu login.php e autenticar.php)
+CREATE TABLE IF NOT EXISTS `usuarios` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `email` VARCHAR(100) NOT NULL UNIQUE,
+  `senha` VARCHAR(255) NOT NULL, -- Suporta hash do password_hash()
+  `trem_id` INT(11) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_usuarios_trens`
+    FOREIGN KEY (`trem_id`)
+    REFERENCES `trens` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- 3. Tabela de Sensores IoT
+CREATE TABLE IF NOT EXISTS `sensores` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `codigo_identificador` VARCHAR(45) NOT NULL,
+  `tipo_dado` VARCHAR(50) NOT NULL, -- Ex: Temperatura, Velocidade, Vibração
+  `trem_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_sensores_trens`
+    FOREIGN KEY (`trem_id`)
+    REFERENCES `trens` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`Sensores IoT` (
-  `idSensores_IoT` INT(11) NOT NULL,
-  `Sensorescol` VARCHAR(45) NOT NULL,
-  ` nome` VARCHAR(45) NOT NULL,
-  `ID` VARCHAR(45) NOT NULL,
-  `tipo_dado` VARCHAR(45) NOT NULL,
-  `trem_id` VARCHAR(45) NOT NULL,
-  `dados_sensores_idDados_sensores` INT(11) NOT NULL,
-  PRIMARY KEY (`idSensores_IoT`),
-  INDEX `fk_Sensores IoT_dados_sensores1_idx` (`dados_sensores_idDados_sensores` ASC) VISIBLE,
-  CONSTRAINT `fk_Sensores IoT_dados_sensores1`
-    FOREIGN KEY (`dados_sensores_idDados_sensores`)
-    REFERENCES `SA_Diagrama`.`dados_sensores` (`idDados_sensores`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- 4. Tabela de Relatórios
+CREATE TABLE IF NOT EXISTS `relatorios` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `titulo` VARCHAR(150) NOT NULL,
+  `tipo_de_falha` VARCHAR(100) NOT NULL,
+  `data_inicio` DATE NOT NULL,
+  `data_fim` DATE NOT NULL,
+  `data_criacao` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `usuario_id` INT(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_relatorios_usuarios`
+    FOREIGN KEY (`usuario_id`)
+    REFERENCES `usuarios` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`Usuário` (
-  `idUsuário` INT(11) NOT NULL,
-  `Usuáriocol` VARCHAR(45) NOT NULL,
-  `ID` VARCHAR(45) NOT NULL,
-  `nome` VARCHAR(45) NOT NULL,
-  `email` VARCHAR(45) NOT NULL,
-  `senha` VARCHAR(45) NOT NULL,
-  `Trem_idTrem` INT(11) NOT NULL,
-  PRIMARY KEY (`idUsuário`),
-  INDEX `fk_Usuário_Trem_idx` (`Trem_idTrem` ASC) VISIBLE,
-  CONSTRAINT `fk_Usuário_Trem`
-    FOREIGN KEY (`Trem_idTrem`)
-    REFERENCES `SA_Diagrama`.`Trem` (`idTrem`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- 5. Tabela de Dados Coletados pelos Sensores
+CREATE TABLE IF NOT EXISTS `dados_sensores` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `sensor_id` INT(11) NOT NULL,
+  `valor` VARCHAR(100) NOT NULL,
+  `data_horario` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `relatorio_id` INT(11) NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_dados_sensores`
+    FOREIGN KEY (`sensor_id`)
+    REFERENCES `sensores` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_dados_relatorios`
+    FOREIGN KEY (`relatorio_id`)
+    REFERENCES `relatorios` (`id`)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`Trem` (
-  `idTrem` INT(11) NOT NULL,
-  `Tremcol` VARCHAR(45) NOT NULL,
-  `Nome` VARCHAR(45) NOT NULL,
-  `Linha` VARCHAR(45) NOT NULL,
-  `Placa` VARCHAR(45) NOT NULL,
-  `Sensores IoT_idSensores_IoT` INT(11) NOT NULL,
-  PRIMARY KEY (`idTrem`),
-  INDEX `fk_Trem_Sensores IoT1_idx` (`Sensores IoT_idSensores_IoT` ASC) VISIBLE,
-  CONSTRAINT `fk_Trem_Sensores IoT1`
-    FOREIGN KEY (`Sensores IoT_idSensores_IoT`)
-    REFERENCES `SA_Diagrama`.`Sensores IoT` (`idSensores_IoT`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+SET FOREIGN_KEY_CHECKS = 1;
 
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`dados_sensores` (
-  `idDados_sensores` INT(11) NOT NULL,
-  `dados_sensorescol` VARCHAR(45) NOT NULL,
-  `sensor_id` VARCHAR(45) NOT NULL,
-  `Data_Horario` VARCHAR(45) NOT NULL,
-  `Relatorios_idRelatorios` INT(11) NOT NULL,
-  PRIMARY KEY (`idDados_sensores`),
-  INDEX `fk_dados_sensores_Relatorios1_idx` (`Relatorios_idRelatorios` ASC) VISIBLE,
-  CONSTRAINT `fk_dados_sensores_Relatorios1`
-    FOREIGN KEY (`Relatorios_idRelatorios`)
-    REFERENCES `SA_Diagrama`.`Relatorios` (`idRelatorios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-CREATE TABLE IF NOT EXISTS `SA_Diagrama`.`Relatorios` (
-  `idRelatorios` INT(11) NOT NULL,
-  `Relatorioscol` VARCHAR(45) NOT NULL,
-  `usuario_id` VARCHAR(45) NOT NULL,
-  `titulo` VARCHAR(45) NOT NULL,
-  `tipo_de_falha` VARCHAR(45) NOT NULL,
-  `data_inicio` VARCHAR(45) NOT NULL,
-  `data_fim` VARCHAR(45) NOT NULL,
-  `data_criação` VARCHAR(45) NOT NULL,
-  `Usuário_idUsuário` INT(11) NOT NULL,
-  PRIMARY KEY (`idRelatorios`),
-  INDEX `fk_Relatorios_Usuário1_idx` (`Usuário_idUsuário` ASC) VISIBLE,
-  CONSTRAINT `fk_Relatorios_Usuário1`
-    FOREIGN KEY (`Usuário_idUsuário`)
-    REFERENCES `SA_Diagrama`.`Usuário` (`idUsuário`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
+-- Inserção de um Usuário Padrão de Teste (Senha: 123456)
+INSERT INTO `usuarios` (`nome`, `email`, `senha`) VALUES
+('Administrador', 'admin@ismaga.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/k6B18D/o2/a3jO0y9k2.4d9uCe');
