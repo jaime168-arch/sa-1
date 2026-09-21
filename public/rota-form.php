@@ -12,7 +12,6 @@ $tituloPagina = "Já Ismaga - Cadastro de Rota";
 </head>
 <body class="bg-light">
 
-    <!-- Navbar do Sistema -->
     <nav class="navbar navbar-expand-lg navbar-orange bg-orange mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
@@ -42,7 +41,6 @@ $tituloPagina = "Já Ismaga - Cadastro de Rota";
                         
                         <form id="rotaForm" action="rota-salvar.php" method="POST">
                             
-                            <!-- Campo oculto para ID (necessário no UPDATE/Edição) -->
                             <input type="hidden" name="id" value="">
 
                             <div class="row mb-3">
