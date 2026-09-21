@@ -1,14 +1,9 @@
-/**
- * Processamento e Envio de Dados do Utilizador (Projeto Ferrorama - Já.Ismaga)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const formUsuario = document.querySelector('#form-usuario');
 
     if (!formUsuario) return;
 
     formUsuario.addEventListener('submit', async (event) => {
-        // Interrompe se a validação básica do HTML5/Bootstrap falhar
         if (!formUsuario.checkValidity()) {
             return;
         }
@@ -18,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnSalvar = formUsuario.querySelector('button[type="submit"]');
         const textoOriginalBtn = btnSalvar ? btnSalvar.innerHTML : 'Guardar';
 
-        // Feedback visual no botão
         if (btnSalvar) {
             btnSalvar.disabled = true;
             btnSalvar.innerHTML = `
@@ -56,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
-            // Em caso de envio tradicional por formulário com redirecionamento padrão do PHP
             window.location.href = 'usuarios.php';
         }
     });
