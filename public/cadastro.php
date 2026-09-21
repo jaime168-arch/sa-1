@@ -1,68 +1,97 @@
-<html lang="en">
+<?php
+session_start();
+$pageTitle = "Já Ismaga - Criar Conta";
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Já Ismaga - Cadastro</title>
+    <title><?= htmlspecialchars($pageTitle); ?></title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body>
-   
-         <div class="main-container">
-        <nav class="navbar navbar-orange navbar-ismaga py-3">
-            <div class="container justify-content-center">
-                <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
-            </div>
-        </nav>
-    
-               <div class="cadastro-wrapper"> <br><br>
-            <div class="container">
-                <div class="row justify-content-center w-100 m-0">
-                    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm py-3">
+        <div class="container justify-content-center">
+            <a class="navbar-brand text-white fw-bold fs-4 m-0" href="../index.php">
+                + Já.Ismaga
+            </a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <main class="container my-auto py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
+                
+                <div class="card shadow-lg border-0 rounded-4">
+                    <div class="card-body p-4 p-sm-5">
                         
+                        <!-- Título e Subtítulo -->
                         <div class="text-center mb-4">
-                            <h2 class="fw-bold text-ismaga">Criar Conta</h2>
-                            <p class="text-muted">Cadastre-se na <strong>Já Ismaga</strong></p>
+                            <h2 class="fw-bold text-dark mb-1">Criar Conta</h2>
+                            <p class="text-muted small">Registe-se na plataforma de gestão ferroviária</p>
                         </div>
 
-                        <form id="formCadastro">
-                            <div class="mb-3">
-                                <label for="nome" class="form-label fw-semibold">Nome Completo</label>
-                                <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
+                        <!-- Feedback de Notificações da Sessão -->
+                        <?php if (isset($_SESSION['mensagem_erro'])): ?>
+                            <div class="alert alert-danger alert-dismissible fade show rounded-3 small mb-3" role="alert">
+                                <?= htmlspecialchars($_SESSION['mensagem_erro']); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                            </div>
+                            <?php unset($_SESSION['mensagem_erro']); ?>
+                        <?php endif; ?>
+
+                        <!-- Formulário de Cadastro -->
+                        <form id="formCadastro" action="usuario-salvar.php" method="POST" novalidate>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control rounded-3" id="nome" name="nome" placeholder="Seu Nome Completo" autocomplete="name" required>
+                                <label for="nome" class="text-secondary">Nome Completo</label>
                             </div>
 
-                            <div class="mb-3">
-                                <label for="email" class="form-label fw-semibold">E-mail</label>
-                                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control rounded-3" id="email" name="email" placeholder="nome@exemplo.com" autocomplete="email" required>
+                                <label for="email" class="text-secondary">Endereço de E-mail</label>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-12 mb-3">
-                                    <label for="telefone" class="form-label fw-semibold">Telefone</label>
-                                    <input type="tel" class="form-control" id="telefone" placeholder="(00) 00000-0000" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-6 mb-3">
-                                    <label for="senha" class="form-label fw-semibold">Senha</label>
-                                    <input type="password" class="form-control" id="senha" placeholder="********" required>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control rounded-3" id="senha" name="senha" placeholder="Palavra-passe" required>
+                                        <label for="senha" class="text-secondary">Palavra-passe</label>
+                                    </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="senhaConfirm" class="form-label fw-semibold">Confirmar</label>
-                                    <input type="password" class="form-control" id="senhaConfirm" placeholder="********" required>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control rounded-3" id="confirmar_senha" name="confirmar_senha" placeholder="Confirmar" required>
+                                        <label for="confirmar_senha" class="text-secondary">Confirmar</label>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-ismaga btn-lg shadow-sm">Cadastrar Agora</button> <a href= "home.php" ></a>
+                            <div class="d-grid gap-2 my-3">
+                                <button type="submit" class="btn btn-warning text-white fw-bold btn-lg rounded-3 shadow-sm py-2">
+                                    Cadastrar Agora
+                                </button>
                             </div>
 
-                            <div class="text-center mt-4">
-                                <span class="text-muted">Já utiliza o serviço?</span> 
-                                <a href="login.php" class="text-decoration-none fw-bold" style="color: var(--laranja-ismaga);">Fazer Login</a>
-                            </div>
                         </form>
+
+                        <hr class="my-4 text-muted">
+
+                        <!-- Redirecionamento para Login -->
+                        <div class="text-center">
+                            <span class="text-muted small">Já utiliza o serviço?</span>
+                            <br>
+                            <a href="login.php" class="fw-bold text-warning text-decoration-none small fs-6">
+                                Fazer Login &rarr;
+                            </a>
+                        </div>
 
                     </div>
                 </div>
@@ -71,6 +100,8 @@
         </div>
     </main>
 
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../scripts/usuario-form.js"></script>
 </body>
 </html>
