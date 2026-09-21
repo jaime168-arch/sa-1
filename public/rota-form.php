@@ -21,6 +21,7 @@ $tituloPagina = "Já Ismaga - Cadastro de Rota";
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="home.php">Início</a></li>
                     <li class="nav-item"><a class="nav-link" href="usuarios.php">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link" href="trens.php">Trens</a></li>
                     <li class="nav-item"><a class="nav-link active" href="rotas.php">Rotas</a></li>
