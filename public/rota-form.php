@@ -13,7 +13,7 @@ $tituloPagina = "Já Ismaga - Cadastro de Rota";
 <body class="bg-light">
 
     <!-- Navbar do Sistema -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-orange bg-orange mb-4 shadow-sm">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
