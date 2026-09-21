@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Proteção da página: verifica se o utilizador está logado
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -17,27 +16,22 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Painel Principal</title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar Laranja idêntica à imagem com os seus módulos -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
-            <!-- Brand / Logo -->
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">
                 + Já.Ismaga
             </a>
 
-            <!-- Botão Mobile -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Alternar navegação">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- Menu de Links conforme imagem -->
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
                     <li class="nav-item">
@@ -67,7 +61,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </li>
                 </ul>
 
-                <!-- Área do Utilizador e Botão Sair -->
                 <div class="d-flex align-items-center gap-3 pt-2 pt-lg-0">
                     <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                     <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3">
@@ -78,7 +71,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </nav>
 
-    <!-- Conteúdo da Home -->
     <main class="container my-5">
         <div class="p-5 mb-4 bg-white rounded-4 shadow-sm border">
             <h1 class="display-6 fw-bold text-dark mb-3">Painel de Controlo</h1>
