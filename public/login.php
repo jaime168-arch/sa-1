@@ -32,7 +32,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <p class="text-muted small">Acesse o sistema ferroviário</p>
                                 </div>
 
-                                <!-- Exibe mensagens de erro vindas de autenticar.php ou logout.php -->
                                 <?php if (isset($_SESSION['mensagem_erro'])): ?>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <?= htmlspecialchars($_SESSION['mensagem_erro']); ?>
@@ -49,7 +48,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <?php unset($_SESSION['mensagem_sucesso']); ?>
                                 <?php endif; ?>
 
-                                <!-- Envia os dados para o autenticar.php (que faz a verificação e redireciona para home.php) -->
                                 <form id="loginForm" action="autenticar.php" method="POST">
                                     <div class="mb-3">
                                         <label for="email" class="form-label fw-semibold">E-mail</label>

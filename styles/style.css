@@ -9,11 +9,35 @@ body{
     background-color: rgb(255, 247, 233);
 }
 
-
 .navbar {
     background-color: rgb(255, 116, 3);
     width: 1920px;
     height: 100px;
+}
+
+.bg-orange,
+.navbar-orange,
+.navbar .bg-orange {
+    background-color: rgb(255, 116, 3) !important;
+}
+
+.btn-orange {
+    background-color: rgb(255, 116, 3);
+    border-color: rgb(255, 116, 3);
+}
+
+.text-orange,
+.text-orange:hover,
+.text-orange:focus,
+.text-orange:active {
+    color: rgb(255, 116, 3) !important;
+}
+
+.btn-orange:hover,
+.btn-orange:focus,
+.btn-orange:active {
+    background-color: rgb(230, 100, 0);
+    border-color: rgb(230, 100, 0);
 }
 
 .botao {
