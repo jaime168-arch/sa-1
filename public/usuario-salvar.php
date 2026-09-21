@@ -1,57 +1,105 @@
-<?php
-session_start();
-require_once __DIR__ . '/../config/conexao.php';
+<body>
+    <div class="">
 
-// Captura e limpa os dados enviados
-$nome  = trim($_POST['nome'] ?? '');
-$email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-$senha = $_POST['senha'] ?? '';
-$confirmar_senha = $_POST['confirmar_senha'] ?? '';
+    <main>
+        <h1>Gerenciador de Sensores</h1>
 
-// Validar se os campos estão preenchidos
-if (empty($nome) || !$email || empty($senha)) {
-    $_SESSION['mensagem_erro'] = "Preencha todos os campos corretamente.";
-    header("Location: cadastro.php");
-    exit;
-}
+                <nav class="menu-lateral">
+            <div class="botoes">
+                <div class="text-icon"> 
+                    <a href="home.php">
+                        <button class="botao">
+                            <span class="icon"><i class="bi bi-house-fill"></i></span>
+                            <span class="text">Home</span>
+                        </button>
+                    </a>
+                </div>
 
-// Validar se as senhas coincidem
-if ($senha !== $confirmar_senha) {
-    $_SESSION['mensagem_erro'] = "As palavras-passes não coincidem.";
-    header("Location: cadastro.php");
-    exit;
-}
+                <div class="text-icon">
+                    <a href="sensores.php">
+                        <button class="botao">
+                            <span class="icon"><i class="bi bi-broadcast-pin"></i></span>
+                            <span class="text">Sensores</span>
+                        </button>
+                    </a>
+                </div>
+            </div>
 
-try {
-    // 1. Verificar se o e-mail já existe na base de dados
-    $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE email = :email");
-    $stmtCheck->bindValue(':email', $email);
-    $stmtCheck->execute();
+            <div class="text-icon">
+                <a href="trem.php">
+                    <button class="botao">
+                        <span class="icon"><i class="bi bi-train-front"></i></span>
+                        <span class="text">Trens</span>
+                    </button>
+                </a>
 
-    if ($stmtCheck->rowCount() > 0) {
-        $_SESSION['mensagem_erro'] = "Este e-mail já está registado.";
-        header("Location: cadastro.php");
-        exit;
-    }
+            </div>
 
-    // 2. Gerar Hash seguro da palavra-passe
-    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+            <div class="text-icon">
+                <a href="relatorios.php">
+                    <button class="botao">
+                        <span class="icon"><i class="bi bi-envelope-paper-fill"></i></span>
+                        <span class="text">Relatórios</span>
+                    </button>
+                </a>
+            </div>
 
-    // 3. Inserir o novo utilizador
-    $stmtInsert = $pdo->prepare("INSERT INTO usuarios (nome, email, senha) VALUES (:nome, :email, :senha)");
-    $stmtInsert->bindValue(':nome', $nome);
-    $stmtInsert->bindValue(':email', $email);
-    $stmtInsert->bindValue(':senha', $senhaHash);
-    $stmtInsert->execute();
+            <div class="text-icon">
+                <a href=""></a>
+                    <button class="botao">
+                        <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
+                        <span class="text">Sair</span>
+                    </button>
 
-    // 4. Redirecionar para o LOGIN com mensagem de sucesso
-    $_SESSION['mensagem_sucesso'] = "Conta criada com sucesso! Faça login para continuar.";
-    header("Location: login.php");
-    exit;
+            </div>
 
-} catch (PDOException $e) {
-    $_SESSION['mensagem_erro'] = "Erro ao guardar no banco de dados: " . $e->getMessage();
-    header("Location: cadastro.php");
-    exit;
-}
-?>
+        <button><a href="public/cadastrar_sensor.php"> Novo Sensor</a></button>
+        <br>
+        <br>
+        <form method="POST">
+                
+            </select>
+           
+        </form>
+        <div class="table_sensores">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>rota</th>
+                    <th>unidade</th>
+                    <th>Valor</th>
+                    <th>Status</th>
+                    <th>ID do Sensor</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    </div>
+                    <?php
+
+                    while ($sensor = mysqli_fetch_assoc($resultado)) {
+                        echo "<tr>";
+                        echo "<td>{$sensor['nome']}</td>";
+                        echo "<td>{$sensor['rota']}</td>";
+                        echo "<td>{$sensor['unidade']}</td>";
+                        echo "<td>{$sensor['valor']}</td>";
+                        echo "<td>{$sensor['status']}</td>";
+                        echo "<td>{$sensor['id_sensor']}</td>";
+                        echo "<td>
+                                <a href='public/editar_sensor.php?id={$sensor['id']}'>Editar</a> |
+                                <a href='public/excluir_sensor.php?id={$sensor['id']}'>Excluir</a>
+                              </td>";
+                        echo "</tr>";
+                    }
+                    ?>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+
+</div>
+</body>
+
+</html>
