@@ -1,7 +1,3 @@
-/**
- * Manipulação e Filtros da Frota de Trens (Projeto Ferrorama - Já.Ismaga)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const inputBusca = document.querySelector('#busca-trem');
     const selectFiltroStatus = document.querySelector('#filtro-status');
@@ -9,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!tabelaTrens) return;
 
-    // Função unificada de filtragem (Busca por texto + Status)
     function aplicarFiltros() {
         const termo = inputBusca ? inputBusca.value.toLowerCase().trim() : '';
         const statusSelecionado = selectFiltroStatus ? selectFiltroStatus.value.toLowerCase() : '';
@@ -32,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Eventos para acionar o filtro
     if (inputBusca) {
         inputBusca.addEventListener('input', aplicarFiltros);
     }
