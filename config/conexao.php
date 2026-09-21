@@ -1,5 +1,6 @@
 <?php
 $host = 'localhost';
+$port = '3308';
 $dbname = 'ja_ismaga';
 $username = 'root';
 $password = '';
