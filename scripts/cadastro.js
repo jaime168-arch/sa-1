@@ -1,44 +1,44 @@
 document.addEventListener('DOMContentLoaded', () => {
     const cadastroForm = document.getElementById('formCadastro');
-    const telefoneInput = document.getElementById('telefone');
 
     if (!cadastroForm) return;
 
-    
-    if (telefoneInput) {
-        telefoneInput.addEventListener('input', (e) => {
-            let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
-        });
-    }
+    const nomeInput = document.getElementById('nome');
+    const emailInput = document.getElementById('email');
+    const senhaInput = document.getElementById('senha');
+    const confirmarSenhaInput = document.getElementById('confirmar_senha');
 
     cadastroForm.addEventListener('submit', (event) => {
-        const s1 = document.getElementById('senha1').value;
-        const s2 = document.getElementById('senha2').value;
-        const telValue = telefoneInput ? telefoneInput.value.replace(/\D/g, '') : '';
+        const nome = nomeInput ? nomeInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const senha = senhaInput ? senhaInput.value : '';
+        const confirmarSenha = confirmarSenhaInput ? confirmarSenhaInput.value : '';
 
-        
-        if (s1 !== s2) {
-            event.preventDefault(); 
-            alert('As senhas não coincidem!');
-            return; 
+        if (!nome || nome.length < 3) {
+            event.preventDefault();
+            alert('Informe seu nome completo com pelo menos 3 caracteres.');
+            return;
         }
 
-        
-        if (s1.length < 6) {
+        const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        if (!emailValido) {
+            event.preventDefault();
+            alert('Informe um e-mail válido.');
+            return;
+        }
+
+        if (senha.length < 6) {
             event.preventDefault();
             alert('A senha deve ter pelo menos 6 caracteres.');
             return;
         }
 
-        
-        if (telValue.length > 0 && telValue.length < 11) {
+        if (senha !== confirmarSenha) {
             event.preventDefault();
-            alert('Por favor, insira um telefone válido com DDD.');
+            alert('As senhas não coincidem!');
             return;
         }
 
-        
         alert('Cadastro realizado com sucesso! Redirecionando...');
     });
 });

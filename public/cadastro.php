@@ -15,7 +15,7 @@ $pageTitle = "Já Ismaga - Criar Conta";
 <body class="bg-light d-flex flex-column min-vh-100">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm py-3">
+    <nav class="navbar navbar-expand-lg navbar-orange bg-orange shadow-sm py-3">
         <div class="container justify-content-center">
             <a class="navbar-brand text-white fw-bold fs-4 m-0" href="../index.php">
                 + Já.Ismaga
@@ -75,7 +75,7 @@ $pageTitle = "Já Ismaga - Criar Conta";
                             </div>
 
                             <div class="d-grid gap-2 my-3">
-                                <button type="submit" class="btn btn-warning text-white fw-bold btn-lg rounded-3 shadow-sm py-2">
+                                <button type="submit" class="btn btn-orange text-white fw-bold btn-lg rounded-3 shadow-sm py-2">
                                     Cadastrar Agora
                                 </button>
                             </div>
@@ -88,7 +88,7 @@ $pageTitle = "Já Ismaga - Criar Conta";
                         <div class="text-center">
                             <span class="text-muted small">Já utiliza o serviço?</span>
                             <br>
-                            <a href="login.php" class="fw-bold text-warning text-decoration-none small fs-6">
+                            <a href="login.php" class="fw-bold text-orange text-decoration-none small fs-6">
                                 Fazer Login &rarr;
                             </a>
                         </div>
@@ -102,6 +102,6 @@ $pageTitle = "Já Ismaga - Criar Conta";
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../scripts/usuario-form.js"></script>
+    <script src="../scripts/cadastro.js"></script>
 </body>
 </html>
