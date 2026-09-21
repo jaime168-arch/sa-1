@@ -1,14 +1,9 @@
-/**
- * Manipulador e Processador de Envio de Rotas (Projeto Ferrorama - Já.Ismaga)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const formRota = document.querySelector('#form-rota');
 
     if (!formRota) return;
 
     formRota.addEventListener('submit', async (event) => {
-        // Se a validação do browser/Bootstrap falhar, interrompe o envio
         if (!formRota.checkValidity()) {
             return;
         }
@@ -18,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const btnSalvar = formRota.querySelector('button[type="submit"]');
         const textoOriginalBtn = btnSalvar ? btnSalvar.innerHTML : 'Salvar';
 
-        // Feedback visual de processamento
         if (btnSalvar) {
             btnSalvar.disabled = true;
             btnSalvar.innerHTML = `
@@ -39,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.redirected) {
-                // Redireciona caso o PHP responda com um header Location
                 window.location.href = response.url;
                 return;
             }
@@ -57,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
-            // Caso o PHP responda com redirecionamento padrão sem JSON
             window.location.href = 'rotas.php';
         }
     });

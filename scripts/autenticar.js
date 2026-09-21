@@ -1,27 +1,21 @@
-/**
- * Autenticação de Login via JavaScript (Projeto Ferrorama - Já.Ismaga)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     const formLogin = document.querySelector('#loginForm');
 
     if (!formLogin) return;
 
     formLogin.addEventListener('submit', async (event) => {
-        event.preventDefault(); // Impede o recarregamento tradicional da página
+        event.preventDefault(); 
 
         const inputEmail = document.querySelector('#email');
         const inputSenha = document.querySelector('#password');
         const btnEntrar = formLogin.querySelector('button[type="submit"]');
         const textoOriginalBtn = btnEntrar ? btnEntrar.innerHTML : 'Entrar';
 
-        // Validação simples do lado do cliente
         if (!inputEmail.value.trim() || !inputSenha.value.trim()) {
             exibirNotificacao('danger', 'Por favor, preencha o e-mail e a senha.');
             return;
         }
 
-        // Desativa o botão e mostra animação de carregamento
         if (btnEntrar) {
             btnEntrar.disabled = true;
             btnEntrar.innerHTML = `
@@ -41,7 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Se o servidor respondeu com redirecionamento (ex: para home.php)
             if (response.redirected) {
                 window.location.href = response.url;
                 return;
@@ -60,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } catch (error) {
-            // Em caso de envio legados ou redirecionamento padrão do PHP
             window.location.href = 'home.php';
         }
     });
