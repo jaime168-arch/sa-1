@@ -1,141 +1,94 @@
 <?php
-// Configurações e definições da página
-$pageTitle = "Gestão de Sensores - Já Ismaga";
+session_start();
 
-// Mock temporário de dados para renderização do layout
-// Futuramente, estes dados serão recuperados do banco de dados MySQL via PHP
-$sensores = [
-    [
-        'id' => 1,
-        'codigo' => 'SNS-RFID-01',
-        'nome' => 'Sensor Presença Curva A',
-        'tipo' => 'RFID / Passagem',
-        'localizacao' => 'Setor Norte - Curva 1',
-        'status' => 'ativo'
-    ],
-    [
-        'id' => 2,
-        'codigo' => 'SNS-VEL-02',
-        'nome' => 'Velocímetro Locomotiva D51',
-        'tipo' => 'Telemetria',
-        'localizacao' => 'Ativo Embarcado',
-        'status' => 'ativo'
-    ],
-    [
-        'id' => 3,
-        'codigo' => 'SNS-FIM-01',
-        'nome' => 'Fim de Curso Desvio Sul',
-        'tipo' => 'Chave de Desvio',
-        'localizacao' => 'Setor Sul - Agulha 3',
-        'status' => 'calibracao'
-    ]
-];
+if (!isset($_SESSION['usuario_id'])) {
+    $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
+    header("Location: login.php");
+    exit;
+}
+
+$nomeUsuario = $_SESSION['usuario_nome'];
+$paginaAtual = basename($_SERVER['PHP_SELF']);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Dependencies -->
+    <title>Já Ismaga - Monitorização de Sensores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Primary Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-orange bg-orange mb-4 shadow-sm">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="../index.php">+ Já.Ismaga</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#primaryNavbar" aria-controls="primaryNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <!-- Navbar Padronizada -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="primaryNavbar">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="home.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="usuarios.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link" href="trens.php">Trens</a></li>
-                    <li class="nav-item"><a class="nav-link" href="rotas.php">Rotas</a></li>
-                    <li class="nav-item"><a class="nav-link active" href="sensores.php">Sensores</a></li>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
                 </ul>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content Container -->
-    <main class="container my-4">
-        
-        <!-- Header Section -->
+    <!-- Conteúdo Específico: Sensores -->
+    <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <div>
-                <h3 class="fw-bold text-dark m-0">Gestão de Sensores IoT</h3>
-                <p class="text-muted small m-0">Listagem de módulos de telemetria e presença em operação</p>
-            </div>
-            <a href="sensor-form.php" class="btn btn-warning text-white fw-bold">Novo Sensor</a>
+            <h2 class="fw-bold text-dark m-0"><i class="bi bi-cpu-fill me-2"></i>Monitorização de Sensores</h2>
+            <button class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
+                <i class="bi bi-plus-lg me-1"></i> Registar Sensor
+            </button>
         </div>
 
-        <!-- Data Table Card -->
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-0">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <p class="text-muted">Sensores IoT de telemetria e vias ferroviárias:</p>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="table-dark">
+                        <thead class="table-light">
                             <tr>
-                                <th scope="col" class="ps-3">#</th>
-                                <th scope="col">Código</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col">Tipo</th>
-                                <th scope="col">Localização</th>
-                                <th scope="col">Status</th>
-                                <th scope="col" class="text-end pe-3">Ações</th>
+                                <th>ID Sensor</th>
+                                <th>Tipo</th>
+                                <th>Localização / Trem</th>
+                                <th>Última Leitura</th>
+                                <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php if (!empty($sensores)): ?>
-                                <?php foreach ($sensores as $sensor): ?>
-                                    <tr>
-                                        <td class="ps-3"><?= htmlspecialchars($sensor['id']); ?></td>
-                                        <td><span class="badge bg-secondary"><?= htmlspecialchars($sensor['codigo']); ?></span></td>
-                                        <td class="fw-semibold"><?= htmlspecialchars($sensor['nome']); ?></td>
-                                        <td><?= htmlspecialchars($sensor['tipo']); ?></td>
-                                        <td><?= htmlspecialchars($sensor['localizacao']); ?></td>
-                                        <td>
-                                            <?php if ($sensor['status'] === 'ativo'): ?>
-                                                <span class="badge bg-success">Ativo</span>
-                                            <?php elseif ($sensor['status'] === 'calibracao'): ?>
-                                                <span class="badge bg-warning text-dark">Calibração</span>
-                                            <?php else: ?>
-                                                <span class="badge bg-danger">Inativo</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td class="text-end pe-3">
-                                            <a href="sensor-form.php?id=<?= $sensor['id']; ?>" class="btn btn-sm btn-outline-primary me-1">Editar</a>
-                                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="confirmarExclusao(<?= $sensor['id']; ?>)">Excluir</button>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php else: ?>
-                                <tr>
-                                    <td colspan="7" class="text-center py-4 text-muted">Nenhum sensor cadastrado no sistema.</td>
-                                </tr>
-                            <?php endif; ?>
+                            <tr>
+                                <td>SN-8821</td>
+                                <td>Sensor de Presença / Carga</td>
+                                <td>Vagão TR-101</td>
+                                <td><span class="badge bg-success">Ativo (Agora)</span></td>
+                                <td>
+                                    <button class="btn btn-sm btn-outline-secondary me-1"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- Scripts Section -->
+    <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
+        <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function confirmarExclusao(id) {
-            if (confirm("Deseja realmente remover o sensor #" + id + "?")) {
-                window.location.href = "sensor-deletar.php?id=" + id;
-            }
-        }
-    </script>
 </body>
 </html>
