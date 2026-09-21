@@ -8,11 +8,12 @@
 </head>
 <body>
 
-    <div class="main-container">
-        <nav class="navbar-ismaga">
+     <div class="main-container">
+        <nav class="navbar navbar-orange navbar-ismaga">
+            <div class="container justify-content-center">
             <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
         </nav>
-        
+        <br><br>
         <div class="login-wrapper text-center px-3">
             <div class="container">
                 <div class="row justify-content-center">

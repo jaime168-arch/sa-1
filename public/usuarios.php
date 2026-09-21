@@ -15,7 +15,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Já Ismaga - Monitorização de Sensores</title>
+    <title>Já Ismaga - Gestão de Usuários</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -45,35 +45,34 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </nav>
 
-    <!-- Conteúdo Específico: Sensores -->
+    <!-- Conteúdo Específico: Usuários -->
     <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold text-dark m-0"><i class="bi bi-cpu-fill me-2"></i>Monitorização de Sensores</h2>
-            <button class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
-                <i class="bi bi-plus-lg me-1"></i> Registar Sensor
-            </button>
+            <h2 class="fw-bold text-dark m-0"><i class="bi bi-people-fill me-2"></i>Gestão de Usuários</h2>
+            <a href="cadastro.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
+                <i class="bi bi-person-plus-fill me-1"></i> Novo Usuário
+            </a>
         </div>
 
         <div class="card border-0 shadow-sm rounded-4">
             <div class="card-body p-4">
-                <p class="text-muted">Sensores IoT de telemetria e vias ferroviárias:</p>
+                <p class="text-muted">Lista de utilizadores registados no sistema:</p>
+                <!-- Tabela Exemplo de Usuários -->
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>ID Sensor</th>
-                                <th>Tipo</th>
-                                <th>Localização / Trem</th>
-                                <th>Última Leitura</th>
+                                <th>#</th>
+                                <th>Nome</th>
+                                <th>E-mail</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td>SN-8821</td>
-                                <td>Sensor de Presença / Carga</td>
-                                <td>Vagão TR-101</td>
-                                <td><span class="badge bg-success">Ativo (Agora)</span></td>
+                                <td>1</td>
+                                <td><?= htmlspecialchars($nomeUsuario); ?></td>
+                                <td>admin@ismaga.com</td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-secondary me-1"><i class="bi bi-pencil"></i></button>
                                     <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
