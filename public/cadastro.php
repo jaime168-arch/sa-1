@@ -70,7 +70,7 @@ $pageTitle = "Já Ismaga - Criar Conta";
                             </div>
 
                             <div class="d-grid gap-2 my-3">
-                                <button type="submit" class="btn btn-orange text-white fw-bold btn-lg rounded-3 shadow-sm py-2">
+                                <button type="submit" class="btn btn-primary text-white fw-bold btn-lg rounded-3 shadow-sm py-2">
                                     Cadastrar Agora
                                 </button>
                             </div>
