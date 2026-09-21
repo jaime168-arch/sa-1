@@ -52,8 +52,8 @@ $atividades = [
             </button>
             <div class="collapse navbar-collapse" id="primaryNavbar">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="home.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="usuarios.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link" href="home.php">Início</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="usuarios.php">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link" href="trens.php">Trens</a></li>
                     <li class="nav-item"><a class="nav-link" href="rotas.php">Rotas</a></li>
                     <li class="nav-item"><a class="nav-link" href="sensores.php">Sensores</a></li>
