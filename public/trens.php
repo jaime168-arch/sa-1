@@ -48,7 +48,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <!-- Conteúdo Específico: Trens -->
     <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="fw-bold text-dark m-0"><i class="bi bi-train-front-fill me-2"></i>Controlo de Trens</h2>
+            <h2 class="fw-bold text-dark m-0"><i class="bi bi-train-front-fill me-2"></i>Controle dos Trens</h2>
             <button class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
                 <i class="bi bi-plus-lg me-1"></i> Adicionar Trem
             </button>
