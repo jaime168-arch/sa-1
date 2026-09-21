@@ -8,13 +8,12 @@ $pageTitle = "Já Ismaga - Criar Conta";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    <!-- Bootstrap 5 CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-orange bg-orange shadow-sm py-3">
         <div class="container justify-content-center">
             <a class="navbar-brand text-white fw-bold fs-4 m-0" href="../index.php">
@@ -23,7 +22,6 @@ $pageTitle = "Já Ismaga - Criar Conta";
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-auto py-5">
         <div class="row justify-content-center">
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-5">
@@ -31,13 +29,11 @@ $pageTitle = "Já Ismaga - Criar Conta";
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-body p-4 p-sm-5">
                         
-                        <!-- Título e Subtítulo -->
                         <div class="text-center mb-4">
                             <h2 class="fw-bold text-dark mb-1">Criar Conta</h2>
                             <p class="text-muted small">Registe-se na plataforma de gestão ferroviária</p>
                         </div>
 
-                        <!-- Feedback de Notificações da Sessão -->
                         <?php if (isset($_SESSION['mensagem_erro'])): ?>
                             <div class="alert alert-danger alert-dismissible fade show rounded-3 small mb-3" role="alert">
                                 <?= htmlspecialchars($_SESSION['mensagem_erro']); ?>
@@ -46,7 +42,6 @@ $pageTitle = "Já Ismaga - Criar Conta";
                             <?php unset($_SESSION['mensagem_erro']); ?>
                         <?php endif; ?>
 
-                        <!-- Formulário de Cadastro -->
                         <form id="formCadastro" action="usuario-salvar.php" method="POST" novalidate>
                             
                             <div class="form-floating mb-3">
@@ -84,7 +79,6 @@ $pageTitle = "Já Ismaga - Criar Conta";
 
                         <hr class="my-4 text-muted">
 
-                        <!-- Redirecionamento para Login -->
                         <div class="text-center">
                             <span class="text-muted small">Já utiliza o serviço?</span>
                             <br>
@@ -100,7 +94,6 @@ $pageTitle = "Já Ismaga - Criar Conta";
         </div>
     </main>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../scripts/cadastro.js"></script>
 </body>
