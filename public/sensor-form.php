@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Proteção da página: verifica se o utilizador está logado
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -12,10 +11,8 @@ $nomeUsuario = $_SESSION['usuario_nome'];
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 $pageTitle   = "Já Ismaga - Cadastro de Sensor";
 
-// Conexão com o banco de dados (se disponível)
 require_once __DIR__ . '/../config/conexao.php';
 
-// Mocks temporários caso a conexão ainda não devolva os dados
 $trens = [
     ['id' => 1, 'nome' => 'Trem 101 - Linha Verde'],
     ['id' => 2, 'nome' => 'Trem 202 - Linha Azul']
@@ -26,7 +23,6 @@ $rotas = [
     ['id' => 2, 'nome' => 'ROT-02 - Linha 2 (Leste/Oeste)']
 ];
 
-// Dados padrões do sensor
 $sensor = [
     'id'            => '',
     'codigo_sensor' => '',
@@ -38,7 +34,6 @@ $sensor = [
     'descricao'     => ''
 ];
 
-// Se receber ID via GET, busca os dados para Edição
 $id = $_GET['id'] ?? null;
 if ($id && isset($pdo)) {
     $stmt = $pdo->prepare("SELECT * FROM sensores WHERE id = :id");
@@ -56,14 +51,13 @@ if ($id && isset($pdo)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    <!-- Bootstrap 5 CSS e Ícones -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar Padronizada -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -98,7 +92,6 @@ if ($id && isset($pdo)) {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -196,12 +189,10 @@ if ($id && isset($pdo)) {
         </div>
     </main>
 
-    <!-- Rodapé Padronizado -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
