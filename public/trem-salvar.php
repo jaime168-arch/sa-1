@@ -19,36 +19,6 @@ if (empty($codigo) || empty($nome) || empty($capacidade) || empty($status)) {
     exit();
 }
 
-/*= $pdo->prepare("UPDATE trens SET 
- *             codigo = :codigo, 
- *             nome = :nome, 
- *             capacidade = :capacidade, 
- *             status = :status, 
- *             modelo = :modelo 
- *             WHERE id = :id");
- *         $sql->bindValue(':id', $id, PDO::PARAM_INT);
- *     } else {
- *         // Cadastra novo trem
- *         $sql = $pdo->prepare("INSERT INTO trens 
- *             (codigo, nome, capacidade, status, modelo) 
- *             VALUES (:codigo, :nome, :capacidade, :status, :modelo)");
- *     }
- * 
- *     $sql->bindValue(':codigo', $codigo);
- *     $sql->bindValue(':nome', $nome);
- *     $sql->bindValue(':capacidade', $capacidade, PDO::PARAM_INT);
- *     $sql->bindValue(':status', $status);
- *     $sql->bindValue(':modelo', $modelo);
- *     $sql->execute();
- * 
- * } catch (PDOException $e) {
- *     $_SESSION['mensagem_erro'] = "Erro ao salvar as informações do trem no banco de dados.";
- *     header('Location: trens.php');
- *     exit();
- * }
- */
-
-// Feedback temporário para testes na interface
 if (!empty($id)) {
     $_SESSION['mensagem_sucesso'] = "Trem #{$id} atualizado com sucesso!";
 } else {
