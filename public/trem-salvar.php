@@ -1,13 +1,11 @@
 <?php
 session_start();
 
-// Aceita apenas envios via formulário (POST)
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: trens.php');
     exit();
 }
 
-// Captura e limpa os dados recebidos do formulário
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
 $codigo = filter_input(INPUT_POST, 'codigo_trem', FILTER_SANITIZE_SPECIAL_CHARS);
 $nome = filter_input(INPUT_POST, 'nome_trem', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -15,23 +13,13 @@ $capacidade = filter_input(INPUT_POST, 'capacidade', FILTER_SANITIZE_NUMBER_INT)
 $status = filter_input(INPUT_POST, 'status_trem', FILTER_SANITIZE_SPECIAL_CHARS);
 $modelo = filter_input(INPUT_POST, 'modelo', FILTER_SANITIZE_SPECIAL_CHARS);
 
-// Validação dos campos obrigatórios
 if (empty($codigo) || empty($nome) || empty($capacidade) || empty($status)) {
     $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios para salvar o trem.";
     header('Location: trem-form.php' . ($id ? "?id={$id}" : ""));
     exit();
 }
 
-/*
- * Integração com o Banco de Dados (MySQL)
- * 
- * try {
- *     $pdo = new PDO("mysql:host=localhost;dbname=ja_ismaga;charset=utf8mb4", "root", "");
- *     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
- * 
- *     if (!empty($id)) {
- *         // Atualiza registro existente
- *         $sql = $pdo->prepare("UPDATE trens SET 
+/*= $pdo->prepare("UPDATE trens SET 
  *             codigo = :codigo, 
  *             nome = :nome, 
  *             capacidade = :capacidade, 
