@@ -73,9 +73,9 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 
     <main class="container my-5">
         <div class="p-5 mb-4 bg-white rounded-4 shadow-sm border">
-            <h1 class="display-6 fw-bold text-dark mb-3">Painel de Controlo</h1>
+            <h1 class="display-6 fw-bold text-dark mb-3">Painel de Controle</h1>
             <p class="col-md-10 fs-5 text-muted mb-4">
-                Selecione uma das opções no menu superior para gerir Usuários, Trens, Rotas ou Sensores.
+                Selecione uma das opções no menu superior para gerenciar Usuários, Trens, Rotas ou Sensores.
             </p>
             
             <div class="row g-4 mt-2">
