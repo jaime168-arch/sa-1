@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Proteção da página: verifica se o utilizador está logado
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -12,10 +11,8 @@ $nomeUsuario = $_SESSION['usuario_nome'];
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 $pageTitle   = "Já Ismaga - Cadastro de Utilizador";
 
-// Conexão com o banco de dados (se disponível)
 require_once __DIR__ . '/../config/conexao.php';
 
-// Dados padrões do utilizador
 $usuario = [
     'id'             => '',
     'nome'           => '',
@@ -24,15 +21,30 @@ $usuario = [
     'status_usuario' => 'ativo'
 ];
 
-// Se receber ID via GET, busca os dados para Edição
 $id = $_GET['id'] ?? null;
 if ($id && isset($pdo)) {
-    $stmt = $pdo->prepare("SELECT id, nome, email, perfil, status_usuario FROM usuarios WHERE id = :id");
-    $stmt->bindValue(':id', $id);
-    $stmt->execute();
-    $usuarioCarregado = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($usuarioCarregado) {
-        $usuario = $usuarioCarregado;
+    try {
+        $columns = $pdo->query("SHOW COLUMNS FROM usuarios")->fetchAll(PDO::FETCH_COLUMN);
+        $selectCols = ["id", "nome", "email"];
+
+        if (in_array('perfil', $columns)) {
+            $selectCols[] = "perfil";
+        }
+        if (in_array('status_usuario', $columns)) {
+            $selectCols[] = "status_usuario";
+        }
+
+        $sql = "SELECT " . implode(", ", $selectCols) . " FROM usuarios WHERE id = :id";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $usuarioCarregado = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($usuarioCarregado) {
+            $usuario = array_merge($usuario, $usuarioCarregado);
+        }
+    } catch (PDOException $e) {
+        error_log("Erro ao carregar utilizador: " . $e->getMessage());
     }
 }
 ?>
@@ -42,7 +54,6 @@ if ($id && isset($pdo)) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -53,32 +64,20 @@ if ($id && isset($pdo)) {
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Alternar navegação">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3">
                     <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3">
-                        <i class="bi bi-box-arrow-right me-1"></i> Sair
-                    </a>
+                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
                 </div>
             </div>
         </div>
@@ -88,6 +87,14 @@ if ($id && isset($pdo)) {
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                
+                <?php if (isset($_SESSION['mensagem_erro'])): ?>
+                    <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
+                        <?= $_SESSION['mensagem_erro']; unset($_SESSION['mensagem_erro']); ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                <?php endif; ?>
+
                 <div class="card border-0 shadow-sm rounded-4">
                     <div class="card-body p-4 p-md-5">
                         
@@ -160,12 +167,10 @@ if ($id && isset($pdo)) {
         </div>
     </main>
 
-    <!-- Rodapé Padronizado -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

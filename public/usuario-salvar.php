@@ -1,105 +1,121 @@
-<body>
-    <div class="">
+<?php
+session_start();
 
-    <main>
-        <h1>Gerenciador de Sensores</h1>
+// Proteção de acesso: verifica se o utilizador está autenticado
+if (!isset($_SESSION['usuario_id'])) {
+    $_SESSION['mensagem_erro'] = "Acesso não autorizado.";
+    header("Location: login.php");
+    exit;
+}
 
-                <nav class="menu-lateral">
-            <div class="botoes">
-                <div class="text-icon"> 
-                    <a href="home.php">
-                        <button class="botao">
-                            <span class="icon"><i class="bi bi-house-fill"></i></span>
-                            <span class="text">Home</span>
-                        </button>
-                    </a>
-                </div>
+// Conexão com o banco de dados via PDO
+require_once __DIR__ . '/../config/conexao.php';
 
-                <div class="text-icon">
-                    <a href="sensores.php">
-                        <button class="botao">
-                            <span class="icon"><i class="bi bi-broadcast-pin"></i></span>
-                            <span class="text">Sensores</span>
-                        </button>
-                    </a>
-                </div>
-            </div>
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+    // Captura e sanitiza os dados do formulário
+    $id             = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
+    $nome           = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
+    $email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $senha          = $_POST['senha'] ?? '';
+    $perfil         = trim($_POST['perfil'] ?? 'operador');
+    $status_usuario = trim($_POST['status_usuario'] ?? 'ativo');
 
-            <div class="text-icon">
-                <a href="trem.php">
-                    <button class="botao">
-                        <span class="icon"><i class="bi bi-train-front"></i></span>
-                        <span class="text">Trens</span>
-                    </button>
-                </a>
+    // Validação de campos obrigatórios mínimos
+    if (!$nome || !$email) {
+        $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios (*).";
+        header("Location: " . ($id ? "usuario-form.php?id=$id" : "usuario-form.php"));
+        exit;
+    }
 
-            </div>
+    try {
+        // Verifica se as colunas 'perfil' e 'status_usuario' existem na tabela
+        $columns = $pdo->query("SHOW COLUMNS FROM usuarios")->fetchAll(PDO::FETCH_COLUMN);
+        $hasPerfil = in_array('perfil', $columns);
+        $hasStatus = in_array('status_usuario', $columns);
 
-            <div class="text-icon">
-                <a href="relatorios.php">
-                    <button class="botao">
-                        <span class="icon"><i class="bi bi-envelope-paper-fill"></i></span>
-                        <span class="text">Relatórios</span>
-                    </button>
-                </a>
-            </div>
+        if (!empty($id)) {
+            // --- EDIÇÃO DE UTILIZADOR ---
+            $fields = ["nome = :nome", "email = :email"];
+            
+            if (!empty($senha)) {
+                $fields[] = "senha = :senha";
+            }
+            if ($hasPerfil) {
+                $fields[] = "perfil = :perfil";
+            }
+            if ($hasStatus) {
+                $fields[] = "status_usuario = :status_usuario";
+            }
 
-            <div class="text-icon">
-                <a href=""></a>
-                    <button class="botao">
-                        <span class="icon"><i class="bi bi-box-arrow-left"></i></span>
-                        <span class="text">Sair</span>
-                    </button>
+            $sql = "UPDATE usuarios SET " . implode(", ", $fields) . " WHERE id = :id";
+            $stmt = $pdo->prepare($sql);
 
-            </div>
+            $stmt->bindValue(':nome', $nome);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-        <button><a href="public/cadastrar_sensor.php"> Novo Sensor</a></button>
-        <br>
-        <br>
-        <form method="POST">
-                
-            </select>
-           
-        </form>
-        <div class="table_sensores">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>rota</th>
-                    <th>unidade</th>
-                    <th>Valor</th>
-                    <th>Status</th>
-                    <th>ID do Sensor</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    </div>
-                    <?php
+            if (!empty($senha)) {
+                $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT));
+            }
+            if ($hasPerfil) {
+                $stmt->bindValue(':perfil', $perfil);
+            }
+            if ($hasStatus) {
+                $stmt->bindValue(':status_usuario', $status_usuario);
+            }
 
-                    while ($sensor = mysqli_fetch_assoc($resultado)) {
-                        echo "<tr>";
-                        echo "<td>{$sensor['nome']}</td>";
-                        echo "<td>{$sensor['rota']}</td>";
-                        echo "<td>{$sensor['unidade']}</td>";
-                        echo "<td>{$sensor['valor']}</td>";
-                        echo "<td>{$sensor['status']}</td>";
-                        echo "<td>{$sensor['id_sensor']}</td>";
-                        echo "<td>
-                                <a href='public/editar_sensor.php?id={$sensor['id']}'>Editar</a> |
-                                <a href='public/excluir_sensor.php?id={$sensor['id']}'>Excluir</a>
-                              </td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </tr>
-            </tbody>
-        </table>
-    </main>
+            $stmt->execute();
+            $_SESSION['mensagem_sucesso'] = "Utilizador atualizado com sucesso!";
 
-</div>
-</body>
+        } else {
+            // --- CRIAÇÃO DE NOVO UTILIZADOR ---
+            if (empty($senha)) {
+                $_SESSION['mensagem_erro'] = "A senha é obrigatória para novos utilizadores.";
+                header("Location: usuario-form.php");
+                exit;
+            }
 
-</html>
+            $cols = ["nome", "email", "senha"];
+            $params = [":nome", ":email", ":senha"];
+
+            if ($hasPerfil) {
+                $cols[] = "perfil";
+                $params[] = ":perfil";
+            }
+            if ($hasStatus) {
+                $cols[] = "status_usuario";
+                $params[] = ":status_usuario";
+            }
+
+            $sql = "INSERT INTO usuarios (" . implode(", ", $cols) . ") VALUES (" . implode(", ", $params) . ")";
+            $stmt = $pdo->prepare($sql);
+
+            $stmt->bindValue(':nome', $nome);
+            $stmt->bindValue(':email', $email);
+            $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT));
+
+            if ($hasPerfil) {
+                $stmt->bindValue(':perfil', $perfil);
+            }
+            if ($hasStatus) {
+                $stmt->bindValue(':status_usuario', $status_usuario);
+            }
+
+            $stmt->execute();
+            $_SESSION['mensagem_sucesso'] = "Utilizador cadastrado com sucesso!";
+        }
+
+        header("Location: usuarios.php");
+        exit;
+
+    } catch (PDOException $e) {
+        error_log("Erro no MySQL: " . $e->getMessage());
+        $_SESSION['mensagem_erro'] = "Erro ao guardar no banco de dados: " . htmlspecialchars($e->getMessage());
+        header("Location: " . ($id ? "usuario-form.php?id=$id" : "usuario-form.php"));
+        exit;
+    }
+} else {
+    header("Location: usuarios.php");
+    exit;
+}
