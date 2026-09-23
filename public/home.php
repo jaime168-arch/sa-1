@@ -83,28 +83,28 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Usuários</h5>
                         <p class="small text-muted">Gestão de contas e permissões</p>
-                        <a href="usuarios.php" class="btn btn-warning btn-sm text-white fw-bold">Aceder</a>
+                        <a href="usuarios.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Trens</h5>
                         <p class="small text-muted">Controlo da frota ferroviária</p>
-                        <a href="trens.php" class="btn btn-warning btn-sm text-white fw-bold">Aceder</a>
+                        <a href="trens.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Rotas</h5>
                         <p class="small text-muted">Mapeamento e trajetos</p>
-                        <a href="rotas.php" class="btn btn-warning btn-sm text-white fw-bold">Aceder</a>
+                        <a href="rotas.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Sensores</h5>
                         <p class="small text-muted">Monitorização em tempo real</p>
-                        <a href="sensores.php" class="btn btn-warning btn-sm text-white fw-bold">Aceder</a>
+                        <a href="sensores.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
                     </div>
                 </div>
             </div>
