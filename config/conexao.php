@@ -1,6 +1,6 @@
 <?php
 $host = '127.0.0.1';
-$port = '3308'; // Porta configurada no seu XAMPP
+$port = '3308'; 
 $dbname = 'ja_ismaga';
 $username = 'root';
 $password = '';
