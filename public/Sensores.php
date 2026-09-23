@@ -22,7 +22,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar Padronizada -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -45,7 +44,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </nav>
 
-    <!-- Conteúdo Específico: Sensores -->
     <main class="container my-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="fw-bold text-dark m-0"><i class="bi bi-cpu-fill me-2"></i>Monitorização de Sensores</h2>
