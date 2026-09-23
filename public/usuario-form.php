@@ -60,7 +60,6 @@ if ($id && isset($pdo)) {
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar Padronizada -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -83,7 +82,6 @@ if ($id && isset($pdo)) {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
