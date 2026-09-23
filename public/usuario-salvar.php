@@ -1,19 +1,16 @@
 <?php
 session_start();
 
-// Proteção de acesso: verifica se o utilizador está autenticado
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Acesso não autorizado.";
     header("Location: login.php");
     exit;
 }
 
-// Conexão com o banco de dados via PDO
 require_once __DIR__ . '/../config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    // Captura e sanitiza os dados do formulário
     $id             = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
     $nome           = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
     $email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -21,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $perfil         = trim($_POST['perfil'] ?? 'operador');
     $status_usuario = trim($_POST['status_usuario'] ?? 'ativo');
 
-    // Validação de campos obrigatórios mínimos
     if (!$nome || !$email) {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios (*).";
         header("Location: " . ($id ? "usuario-form.php?id=$id" : "usuario-form.php"));
@@ -29,13 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Verifica se as colunas 'perfil' e 'status_usuario' existem na tabela
         $columns = $pdo->query("SHOW COLUMNS FROM usuarios")->fetchAll(PDO::FETCH_COLUMN);
         $hasPerfil = in_array('perfil', $columns);
         $hasStatus = in_array('status_usuario', $columns);
 
         if (!empty($id)) {
-            // --- EDIÇÃO DE UTILIZADOR ---
             $fields = ["nome = :nome", "email = :email"];
             
             if (!empty($senha)) {
@@ -69,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mensagem_sucesso'] = "Utilizador atualizado com sucesso!";
 
         } else {
-            // --- CRIAÇÃO DE NOVO UTILIZADOR ---
             if (empty($senha)) {
                 $_SESSION['mensagem_erro'] = "A senha é obrigatória para novos utilizadores.";
                 header("Location: usuario-form.php");

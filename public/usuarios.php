@@ -1,20 +1,17 @@
 <?php
 session_start();
 
-// Proteção da página: exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
 
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Busca dinâmica de todos os usuários cadastrados
 $listaUsuarios = [];
 try {
     $stmt = $pdo->query("SELECT id, nome, email FROM usuarios ORDER BY id DESC");
@@ -30,14 +27,13 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Gestão de Usuários</title>
-    <!-- Bootstrap 5 CSS e Ícones -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar Padronizada -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -60,10 +56,8 @@ try {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal: Gestão de Usuários -->
     <main class="container my-5">
         
-        <!-- Alertas de Sucesso e Erro -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
                 <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
@@ -106,11 +100,11 @@ try {
                                         <td><?= htmlspecialchars($u['nome']); ?></td>
                                         <td><?= htmlspecialchars($u['email']); ?></td>
                                         <td class="text-center">
-                                            <!-- Botão Editar -->
+                                            
                                             <a href="usuario-form.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
-                                            <!-- Botão Excluir -->
+                                            
                                             <a href="usuario-deletar.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir o utilizador <?= htmlspecialchars($u['nome']); ?>?');">
                                                 <i class="bi bi-trash"></i>
                                             </a>
@@ -129,7 +123,6 @@ try {
         </div>
     </main>
 
-    <!-- Rodapé -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
