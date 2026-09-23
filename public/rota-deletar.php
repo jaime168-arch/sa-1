@@ -1,15 +1,27 @@
 <?php
 session_start();
 
-$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
-if (!$id || $id <= 0) {
-    $_SESSION['mensagem_erro'] = "Selecione uma rota válida para excluir.";
-    header('Location: rotas.php');
-    exit();
+if (!isset($_SESSION['usuario_id'])) {
+    $_SESSION['mensagem_erro'] = "Acesso negado.";
+    header("Location: login.php");
+    exit;
 }
 
-$_SESSION['mensagem_sucesso'] = "Rota #{$id} removida com sucesso!";
+require_once __DIR__ . '/../config/conexao.php';
 
-header('Location: rotas.php');
-exit();
+$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+if ($id) {
+    try {
+        $stmt = $pdo->prepare("DELETE FROM rotas WHERE id = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $_SESSION['mensagem_sucesso'] = "Rota removida com sucesso!";
+    } catch (PDOException $e) {
+        error_log("Erro ao deletar rota: " . $e->getMessage());
+        $_SESSION['mensagem_erro'] = "Não foi possível remover a rota.";
+    }
+}
+
+header("Location: rotas.php");
+exit;
