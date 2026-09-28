@@ -81,7 +81,6 @@ try {
     </nav>
     <main class="container my-5">
         
-        <!-- Mensagens de Alerta -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
                 <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
