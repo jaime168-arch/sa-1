@@ -15,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo   = $_POST['tipo'] ?? 'operador';
     $ativo  = isset($_POST['ativo']) ? (int)$_POST['ativo'] : 1;
     $senha  = $_POST['senha'] ?? '';
-
-    // Validação básica
     if (empty($nome) || empty($email)) {
         $_SESSION['mensagem_erro'] = "Preencha o Nome e o E-mail.";
         header("Location: usuario-form.php" . ($id ? "?id=$id" : ""));
