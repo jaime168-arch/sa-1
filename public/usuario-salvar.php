@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mensagem_sucesso'] = "Usuário atualizado com sucesso!";
 
         } else {
-            // NOVO CADASTRO PELO ADMIN
             if (empty($senha)) {
                 $_SESSION['mensagem_erro'] = "A senha é obrigatória para cadastrar um novo usuário.";
                 header("Location: usuario-form.php");
