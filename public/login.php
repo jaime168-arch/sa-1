@@ -64,12 +64,7 @@ $pageTitle = "Já Ismaga - Login";
                                     </div>
                                 </form>
 
-                                <div class="text-center mt-3">
-                                    <small class="text-muted">Não tem conta?</small>
-                                    <a href="cadastro.php" class="small fw-bold text-orange">Cadastre-se</a>
-                                </div>
-                            </div>
-                        </div>
+                               
 
                     </div>
                 </div>
