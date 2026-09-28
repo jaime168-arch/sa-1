@@ -49,7 +49,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <?php unset($_SESSION['mensagem_sucesso']); ?>
                                 <?php endif; ?>
 
-                                <!-- Formulário de Login -->
                                 <form id="loginForm" action="autenticar.php" method="POST">
                                     <div class="mb-3">
                                         <label for="email" class="form-label fw-semibold">E-mail</label>
