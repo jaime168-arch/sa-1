@@ -37,7 +37,6 @@ try {
     error_log("Erro ao ajustar tabela trens: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de trens cadastrados
 $listaTrens = [];
 try {
     $stmt = $pdo->query("SELECT id, codigo, modelo, capacidade, status FROM trens ORDER BY id DESC");
