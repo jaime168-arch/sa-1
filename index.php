@@ -11,7 +11,7 @@
      <div class="main-container" style="background-color: rgb(255, 246, 230);">
         <nav class="navbar navbar-orange navbar-ismaga">
             <div class="container justify-content-center">
-            <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
+            <h2 style="color: white;"><strong>+ Já</strong>.Ismaga</h2>
         </nav>
         <br><br>
         <div class="login-wrapper text-center px-3" >
@@ -27,7 +27,7 @@
                             Acompanhe seu metrô
                         </h1>
                         <h1 class="display-5 fw-bold text-ismaga mb-4">
-                            em <span style="color: var(--laranja-ismaga);">tempo real</span>
+                            em <span style="color: rgb(255, 116, 3);">tempo real</span>
                         </h1>
                         
                         <div class="mt-4">
