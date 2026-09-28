@@ -35,7 +35,6 @@ if ($id) {
     }
 }
 
-// Busca a lista de trens cadastrados para resolver a FK (Foreign Key)
 $trens = [];
 try {
     $stmtTrens = $pdo->query("SELECT id, nome FROM trens ORDER BY nome ASC");
