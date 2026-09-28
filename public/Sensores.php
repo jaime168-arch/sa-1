@@ -63,7 +63,7 @@ try {
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
+            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -98,14 +98,14 @@ try {
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4" style="background-color: rgb(255, 249, 240);">
             <h2 class="fw-bold text-dark m-0"><i class="bi bi-cpu-fill me-2"></i>Monitorização de Sensores</h2>
             <a href="sensor-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
                 <i class="bi bi-plus-lg me-1"></i> Registar Sensor
             </a>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4">
+        <div class="card border-0 shadow-sm rounded-4" style="background-color: rgb(255, 249, 240);">
             <div class="card-body p-4">
                 <p class="text-muted">Sensores IoT de telemetria e vias ferroviárias:</p>
                 <div class="table-responsive">

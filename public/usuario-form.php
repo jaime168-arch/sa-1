@@ -72,7 +72,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
     </nav>
 
-    <main class="container my-5" style="background-color: rgb(255, 249, 240);">
+    <main class="container my-5">
         
         <?php if (isset($_SESSION['mensagem_erro'])): ?>
             <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
