@@ -22,9 +22,7 @@ $pageTitle = "Já Ismaga - Login";
                 <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
             </div>
         </nav>
-    
-        <!-- Conteúdo do Login -->
-        <div class="login-wrapper my-5">
+            <div class="login-wrapper my-5">
             <div class="container">
                 <div class="row justify-content-center w-100 m-0">
                     <div class="col-12 col-sm-8 col-md-6 col-lg-4">
