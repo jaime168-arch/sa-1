@@ -11,7 +11,6 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
 try {
-    // 1. Cria a tabela se não existir
     $pdo->exec("CREATE TABLE IF NOT EXISTS trens (
         id INT AUTO_INCREMENT PRIMARY KEY,
         codigo VARCHAR(20) NOT NULL,
