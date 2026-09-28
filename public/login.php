@@ -33,8 +33,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <h2 class="fw-bold text-dark">Login</h2>
                                     <p class="text-muted small">Acesse o sistema ferroviário</p>
                                 </div>
-
-                                <!-- Mensagem de Erro -->
                                 <?php if (isset($_SESSION['mensagem_erro'])): ?>
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                         <?= htmlspecialchars($_SESSION['mensagem_erro']); ?>
