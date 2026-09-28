@@ -52,7 +52,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
+            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,7 +72,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
     </nav>
 
-    <main class="container my-5">
+    <main class="container my-5" style="background-color: rgb(255, 249, 240);">
         
         <?php if (isset($_SESSION['mensagem_erro'])): ?>
             <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
