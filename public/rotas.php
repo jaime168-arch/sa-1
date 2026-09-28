@@ -39,7 +39,6 @@ try {
     error_log("Erro ao ajustar tabela rotas: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de rotas cadastradas
 $listaRotas = [];
 try {
     $stmt = $pdo->query("SELECT id, origem, destino, distancia, tempo_estimado FROM rotas ORDER BY id DESC");
