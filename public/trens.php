@@ -109,7 +109,7 @@ try {
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Código</th>
+                                <th>ID</th>
                                 <th>Modelo</th>
                                 <th>Capacidade</th>
                                 <th>Status</th>

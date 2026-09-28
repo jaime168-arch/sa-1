@@ -86,7 +86,7 @@ try {
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th style="width: 80px;">#</th>
+                                <th style="width: 80px;">ID</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th style="width: 120px;" class="text-center">Ações</th>
