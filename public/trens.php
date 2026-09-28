@@ -19,8 +19,6 @@ try {
         status VARCHAR(50) NOT NULL DEFAULT 'Em Operação',
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-
-    // 2. Garante que as colunas 'codigo', 'modelo', 'capacidade' e 'status' existem
     $columns = $pdo->query("SHOW COLUMNS FROM trens")->fetchAll(PDO::FETCH_COLUMN);
 
     if (!in_array('codigo', $columns)) {
