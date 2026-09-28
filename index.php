@@ -8,7 +8,7 @@
 </head>
 <body>
 
-     <div class="main-container" style="background-color: rgb(255, 248, 230);">
+     <div class="main-container" style="background-color: rgb(255, 246, 230);">
         <nav class="navbar navbar-orange navbar-ismaga">
             <div class="container justify-content-center">
             <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
