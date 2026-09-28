@@ -11,7 +11,6 @@ require_once __DIR__ . '/../config/conexao.php';
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Estrutura padrão para o formulário
 $sensor = [
     'id'             => '',
     'codigo_sensor'  => '',
