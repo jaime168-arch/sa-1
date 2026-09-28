@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Caminho para a conexão (subindo um nível se o conexao.php estiver em ../config/)
 require_once __DIR__ . '/../config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
