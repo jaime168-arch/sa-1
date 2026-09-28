@@ -1,14 +1,10 @@
 <?php
 session_start();
-
-// Proteção da página: exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
-
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
