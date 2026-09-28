@@ -8,13 +8,13 @@
 </head>
 <body>
 
-     <div class="main-container">
+     <div class="main-container" style="background-color: rgb(255, 248, 230);">
         <nav class="navbar navbar-orange navbar-ismaga">
             <div class="container justify-content-center">
             <h2 class="m-0"><strong>+ Já</strong>.Ismaga</h2>
         </nav>
         <br><br>
-        <div class="login-wrapper text-center px-3">
+        <div class="login-wrapper text-center px-3" >
             <div class="container">
                 <div class="row justify-content-center">
                     
