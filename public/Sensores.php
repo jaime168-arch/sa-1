@@ -66,7 +66,6 @@ try {
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
