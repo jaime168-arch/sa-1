@@ -23,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         if ($id) {
-            // EDITAR USUÁRIO
             if (!empty($senha)) {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                 $stmt = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo, senha = :senha WHERE id = :id");
