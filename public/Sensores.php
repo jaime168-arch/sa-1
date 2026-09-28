@@ -40,7 +40,6 @@ try {
     error_log("Erro ao ajustar tabela sensores: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de sensores cadastrados
 $listaSensores = [];
 try {
     $stmt = $pdo->query("SELECT id, codigo_sensor, tipo, localizacao, status_leitura FROM sensores ORDER BY id DESC");
