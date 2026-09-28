@@ -33,7 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_tipo'] = $usuario['tipo'] ?? 'operador';
 
-                // Redireciona para o painel principal
                 header("Location: home.php");
                 exit;
             } else {
