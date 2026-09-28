@@ -22,9 +22,9 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
+    <nav class="navbar navbar-expand-lg navbar-white bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">
+            <a class="navbar-brand fw-bold me-7 text-white" href="home.php">
                 + Já.Ismaga
             </a>
 
@@ -32,46 +32,46 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarMain">
+            <div class="collapse navbar-collapse" id="navbarMain ">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">
+                        <a class="nav-link text-black <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">
                             Início
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">
+                        <a class="nav-link text-black <?= ($paginaAtual == 'usuarios.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">
                             Usuários
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">
+                        <a class="nav-link text-black <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">
                             Trens
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">
+                        <a class="nav-link text-black <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">
                             Rotas
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">
+                        <a class="nav-link text-black <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">
                             Sensores
                         </a>
                     </li>
                 </ul>
 
                 <div class="d-flex align-items-center gap-3 pt-2 pt-lg-0">
-                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3">
-                        <i class="bi bi-box-arrow-right me-1"></i> Sair
+                    <span class="text-black">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                    <a href="logout.php" class="btn btn-outline-black btn-sm rounded-3 px-3" >
+                        <i class="bi bi-box-arrow-right me-1" ></i> Sair
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container my-5">
+    <main class="container my-5" >
         <div class="p-5 mb-4 bg-white rounded-4 shadow-sm border">
             <h1 class="display-6 fw-bold text-dark mb-3">Painel de Controle</h1>
             <p class="col-md-10 fs-5 text-muted mb-4">
@@ -83,28 +83,28 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Usuários</h5>
                         <p class="small text-muted">Gestão de contas e permissões</p>
-                        <a href="usuarios.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
+                        <a href="usuarios.php" class="btn btn-warning btn-sm text-white fw-bold" style=" background-color: rgb(255, 116, 3); border-color:  rgb(255, 116, 3);">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Trens</h5>
                         <p class="small text-muted">Controlo da frota ferroviária</p>
-                        <a href="trens.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
+                        <a href="trens.php" class="btn btn-warning btn-sm text-white fw-bold" style=" background-color: rgb(255, 116, 3); border-color:  rgb(255, 116, 3);">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Rotas</h5>
                         <p class="small text-muted">Mapeamento e trajetos</p>
-                        <a href="rotas.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
+                        <a href="rotas.php" class="btn btn-warning btn-sm text-white fw-bold" style=" background-color: rgb(255, 116, 3); border-color:  rgb(255, 116, 3);">Acessar</a>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card h-100 border-0 shadow-sm bg-light text-center p-3">
                         <h5 class="fw-bold">Sensores</h5>
                         <p class="small text-muted">Monitorização em tempo real</p>
-                        <a href="sensores.php" class="btn btn-warning btn-sm text-white fw-bold">Acessar</a>
+                        <a href="sensores.php" class="btn btn-warning btn-sm text-white fw-bold" style=" background-color: rgb(255, 116, 3); border-color:  rgb(255, 116, 3);">Acessar</a>
                     </div>
                 </div>
             </div>
