@@ -10,7 +10,6 @@ require_once __DIR__ . '/../config/conexao.php';
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Ajusta/Cria a estrutura da tabela 'trens' automaticamente no MySQL
 try {
     // 1. Cria a tabela se não existir
     $pdo->exec("CREATE TABLE IF NOT EXISTS trens (
