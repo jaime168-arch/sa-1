@@ -11,7 +11,6 @@ require_once __DIR__ . '/../config/conexao.php';
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Ajusta/Cria a estrutura da tabela 'rotas' automaticamente no MySQL
 try {
     $pdo->exec("CREATE TABLE IF NOT EXISTS rotas (
         id INT AUTO_INCREMENT PRIMARY KEY,
