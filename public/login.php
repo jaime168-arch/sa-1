@@ -16,7 +16,6 @@ $pageTitle = "Já Ismaga - Login";
 <body class="bg-light">
 
     <div class="main-container">
-        <!-- Header / Navbar -->
         <nav class="navbar navbar-orange navbar-ismaga py-3">
             <div class="container justify-content-center">
                 <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
