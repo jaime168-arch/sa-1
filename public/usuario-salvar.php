@@ -1,113 +1,121 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/conexao.php'; // Ajuste o caminho para conexao.php se necessário
 
 if (!isset($_SESSION['usuario_id'])) {
-    $_SESSION['mensagem_erro'] = "Acesso não autorizado.";
     header("Location: login.php");
     exit;
 }
 
-require_once __DIR__ . '/../config/conexao.php';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
-    $id             = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-    $nome           = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS));
-    $email          = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $senha          = $_POST['senha'] ?? '';
-    $perfil         = trim($_POST['perfil'] ?? 'operador');
-    $status_usuario = trim($_POST['status_usuario'] ?? 'ativo');
+    // Captura os dados do formulário
+    $id              = !empty($_POST['id']) ? (int)$_POST['id'] : null;
+    $nome            = trim($_POST['nome'] ?? '');
+    $email           = trim($_POST['email'] ?? '');
+    $tipo            = $_POST['tipo'] ?? 'operador';
+    $ativo           = isset($_POST['ativo']) ? (int)$_POST['ativo'] : 1;
+    $senha           = $_POST['senha'] ?? '';
+    $confirmar_senha = $_POST['confirmar_senha'] ?? '';
 
-    if (!$nome || !$email) {
-        $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios (*).";
-        header("Location: " . ($id ? "usuario-form.php?id=$id" : "usuario-form.php"));
+    // Validar campos obrigatórios (Nome e E-mail)
+    if (empty($nome) || empty($email)) {
+        $_SESSION['mensagem_erro'] = "Preencha o Nome e o E-mail.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $_SESSION['mensagem_erro'] = "O e-mail digitado não é válido.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
+    // Se for CADASTRO NOVO ($id está vazio), a senha é obrigatória
+    if (!$id && empty($senha)) {
+        $_SESSION['mensagem_erro'] = "A senha é obrigatória para novos usuários.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit;
+    }
+
+    // Se digitou algo no campo de senha, as senhas precisam coincidir
+    if (!empty($senha) && $senha !== $confirmar_senha) {
+        $_SESSION['mensagem_erro'] = "As senhas não coincidem.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
         exit;
     }
 
     try {
-        $columns = $pdo->query("SHOW COLUMNS FROM usuarios")->fetchAll(PDO::FETCH_COLUMN);
-        $hasPerfil = in_array('perfil', $columns);
-        $hasStatus = in_array('status_usuario', $columns);
-
-        if (!empty($id)) {
-            $fields = ["nome = :nome", "email = :email"];
-            
-            if (!empty($senha)) {
-                $fields[] = "senha = :senha";
-            }
-            if ($hasPerfil) {
-                $fields[] = "perfil = :perfil";
-            }
-            if ($hasStatus) {
-                $fields[] = "status_usuario = :status_usuario";
-            }
-
-            $sql = "UPDATE usuarios SET " . implode(", ", $fields) . " WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-
-            $stmt->bindValue(':nome', $nome);
-            $stmt->bindValue(':email', $email);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
-            if (!empty($senha)) {
-                $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT));
-            }
-            if ($hasPerfil) {
-                $stmt->bindValue(':perfil', $perfil);
-            }
-            if ($hasStatus) {
-                $stmt->bindValue(':status_usuario', $status_usuario);
-            }
-
-            $stmt->execute();
-            $_SESSION['mensagem_sucesso'] = "Utilizador atualizado com sucesso!";
-
+        // Verificar se o e-mail já pertence a OUTRO usuário
+        if ($id) {
+            $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE LOWER(email) = LOWER(:email) AND id != :id");
+            $stmtCheck->execute([':email' => $email, ':id' => $id]);
         } else {
-            if (empty($senha)) {
-                $_SESSION['mensagem_erro'] = "A senha é obrigatória para novos utilizadores.";
-                header("Location: usuario-form.php");
-                exit;
-            }
-
-            $cols = ["nome", "email", "senha"];
-            $params = [":nome", ":email", ":senha"];
-
-            if ($hasPerfil) {
-                $cols[] = "perfil";
-                $params[] = ":perfil";
-            }
-            if ($hasStatus) {
-                $cols[] = "status_usuario";
-                $params[] = ":status_usuario";
-            }
-
-            $sql = "INSERT INTO usuarios (" . implode(", ", $cols) . ") VALUES (" . implode(", ", $params) . ")";
-            $stmt = $pdo->prepare($sql);
-
-            $stmt->bindValue(':nome', $nome);
-            $stmt->bindValue(':email', $email);
-            $stmt->bindValue(':senha', password_hash($senha, PASSWORD_BCRYPT));
-
-            if ($hasPerfil) {
-                $stmt->bindValue(':perfil', $perfil);
-            }
-            if ($hasStatus) {
-                $stmt->bindValue(':status_usuario', $status_usuario);
-            }
-
-            $stmt->execute();
-            $_SESSION['mensagem_sucesso'] = "Utilizador cadastrado com sucesso!";
+            $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE LOWER(email) = LOWER(:email)");
+            $stmtCheck->execute([':email' => $email]);
         }
 
-        header("Location: usuarios.php");
-        exit;
+        if ($stmtCheck->fetch()) {
+            $_SESSION['mensagem_erro'] = "Este e-mail já está sendo utilizado por outro usuário.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit;
+        }
+
+        // --- MODO 1: EDIÇÃO (UPDATE) ---
+        if ($id) {
+            // Se preencheu a nova senha, atualizamos com a nova senha criptografada
+            if (!empty($senha)) {
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+                $stmt = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo, senha = :senha WHERE id = :id");
+                $stmt->execute([
+                    ':nome'  => $nome,
+                    ':email' => $email,
+                    ':tipo'  => $tipo,
+                    ':ativo' => $ativo,
+                    ':senha' => $senhaHash,
+                    ':id'    => $id
+                ]);
+            } else {
+                // Se deixou a senha em branco, atualiza os dados sem alterar a senha
+                $stmt = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo WHERE id = :id");
+                $stmt->execute([
+                    ':nome'  => $nome,
+                    ':email' => $email,
+                    ':tipo'  => $tipo,
+                    ':ativo' => $ativo,
+                    ':id'    => $id
+                ]);
+            }
+
+            $_SESSION['mensagem_sucesso'] = "Usuário atualizado com sucesso!";
+            header("Location: usuarios.php");
+            exit;
+
+        } 
+        // --- MODO 2: NOVO CADASTRO (INSERT) ---
+        else {
+            $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+            $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, tipo, ativo, senha) VALUES (:nome, :email, :tipo, :ativo, :senha)");
+            $stmt->execute([
+                ':nome'  => $nome,
+                ':email' => $email,
+                ':tipo'  => $tipo,
+                ':ativo' => $ativo,
+                ':senha' => $senhaHash
+            ]);
+
+            $_SESSION['mensagem_sucesso'] = "Novo usuário criado com sucesso!";
+            header("Location: usuarios.php");
+            exit;
+        }
 
     } catch (PDOException $e) {
-        error_log("Erro no MySQL: " . $e->getMessage());
-        $_SESSION['mensagem_erro'] = "Erro ao guardar no banco de dados: " . htmlspecialchars($e->getMessage());
-        header("Location: " . ($id ? "usuario-form.php?id=$id" : "usuario-form.php"));
+        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . $e->getMessage();
+        header("Location: " . $_SERVER['HTTP_REFERER']);
         exit;
     }
+
 } else {
     header("Location: usuarios.php");
     exit;
