@@ -28,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
 
-            // Verifica a senha (compatível com password_hash e texto simples)
             if (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
                 $_SESSION['usuario_id']   = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
