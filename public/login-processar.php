@@ -19,14 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario) {
-            // Verifica se a conta está ativa
             if (isset($usuario['ativo']) && $usuario['ativo'] == 0) {
                 $_SESSION['mensagem_erro'] = "Esta conta está inativa. Contacte o administrador.";
                 header("Location: login.php");
                 exit;
             }
 
-            // Verifica a senha criptografada
             if (password_verify($senha, $usuario['senha'])) {
                 // Guarda dados na sessão
                 $_SESSION['usuario_id']   = $usuario['id'];
