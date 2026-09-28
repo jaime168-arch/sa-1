@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Busca o usuário ignorando diferença entre maiúsculas e minúsculas no e-mail
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
         $stmt->execute([':email' => $email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
