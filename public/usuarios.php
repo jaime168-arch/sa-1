@@ -34,9 +34,9 @@ try {
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
+    <nav class="navbar navbar-expand-lg navbar-white bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
+            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,21 +72,21 @@ try {
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-4"style="background-color: rgb(255, 249, 240);">
             <h2 class="fw-bold text-dark m-0"><i class="bi bi-people-fill me-2"></i>Gestão de Usuários</h2>
             <a href="usuario-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
                 <i class="bi bi-person-plus-fill me-1"></i> Novo Usuário
             </a>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4">
+        <div class="card border-0 shadow-sm rounded-4." style="background-color: rgb(255, 249, 240);">
             <div class="card-body p-4">
                 <p class="text-muted">Lista de utilizadores registados no sistema:</p>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light">
+                        <thead class="table-light" >
                             <tr>
-                                <th style="width: 80px;">ID</th>
+                                <th style="width: 80px;" >ID</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
                                 <th style="width: 120px;" class="text-center">Ações</th>
@@ -113,7 +113,7 @@ try {
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4">Nenhum utilizador registado.</td>
+                                    <td colspan="4" class="text-center text-muted py-4" >Nenhum utilizador registado.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
