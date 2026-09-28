@@ -1,20 +1,16 @@
 <?php
 session_start();
-
-// Proteção da página: exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Acesso não autorizado.";
     header("Location: login.php");
     exit;
 }
 
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Estrutura padrão para o formulário
 $sensor = [
     'id'             => '',
     'codigo_sensor'  => '',
@@ -24,7 +20,6 @@ $sensor = [
     'trem_id'        => ''
 ];
 
-// Se for edição, busca os dados do sensor existente
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
     try {
@@ -40,7 +35,6 @@ if ($id) {
     }
 }
 
-// Busca a lista de trens cadastrados para resolver a FK (Foreign Key)
 $trens = [];
 try {
     $stmtTrens = $pdo->query("SELECT id, nome FROM trens ORDER BY nome ASC");
@@ -55,14 +49,12 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - <?= $sensor['id'] ? 'Editar Sensor' : 'Registar Sensor'; ?></title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -85,13 +77,10 @@ try {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                
-                <!-- Exibição de Mensagens de Erro -->
-                <?php if (isset($_SESSION['mensagem_erro'])): ?>
+                                <?php if (isset($_SESSION['mensagem_erro'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
                         <?= $_SESSION['mensagem_erro']; unset($_SESSION['mensagem_erro']); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -130,7 +119,6 @@ try {
                                 </div>
                             </div>
 
-                            <!-- Seleção de Trem (Resolve a FK Constraint) -->
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Trem Vinculado <span class="text-danger">*</span></label>
                                 <select name="trem_id" class="form-select rounded-3" required>
@@ -157,8 +145,6 @@ try {
             </div>
         </div>
     </main>
-
-    <!-- Rodapé -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>

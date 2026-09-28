@@ -1,22 +1,16 @@
 <?php
 session_start();
-
-// Proteção da página: exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
-
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Ajusta/Cria a estrutura da tabela 'trens' automaticamente no MySQL
 try {
-    // 1. Cria a tabela se não existir
     $pdo->exec("CREATE TABLE IF NOT EXISTS trens (
         id INT AUTO_INCREMENT PRIMARY KEY,
         codigo VARCHAR(20) NOT NULL,
@@ -25,8 +19,6 @@ try {
         status VARCHAR(50) NOT NULL DEFAULT 'Em Operação',
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
-
-    // 2. Garante que as colunas 'codigo', 'modelo', 'capacidade' e 'status' existem
     $columns = $pdo->query("SHOW COLUMNS FROM trens")->fetchAll(PDO::FETCH_COLUMN);
 
     if (!in_array('codigo', $columns)) {
@@ -45,7 +37,6 @@ try {
     error_log("Erro ao ajustar tabela trens: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de trens cadastrados
 $listaTrens = [];
 try {
     $stmt = $pdo->query("SELECT id, codigo, modelo, capacidade, status FROM trens ORDER BY id DESC");
@@ -61,7 +52,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Gestão de Trens</title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -89,11 +79,8 @@ try {
             </div>
         </div>
     </nav>
-
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
         
-        <!-- Mensagens de Alerta -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
                 <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
@@ -166,8 +153,6 @@ try {
             </div>
         </div>
     </main>
-
-    <!-- Rodapé -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>

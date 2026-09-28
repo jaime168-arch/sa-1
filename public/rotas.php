@@ -1,20 +1,16 @@
 <?php
 session_start();
 
-// Proteção da página: exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
-
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Ajusta/Cria a estrutura da tabela 'rotas' automaticamente no MySQL
 try {
     $pdo->exec("CREATE TABLE IF NOT EXISTS rotas (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,7 +39,6 @@ try {
     error_log("Erro ao ajustar tabela rotas: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de rotas cadastradas
 $listaRotas = [];
 try {
     $stmt = $pdo->query("SELECT id, origem, destino, distancia, tempo_estimado FROM rotas ORDER BY id DESC");
@@ -59,14 +54,11 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Gestão de Rotas</title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
-
-    <!-- Navbar Padronizada -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container">
             <a class="navbar-brand fw-bold fs-4 me-4 text-dark" href="home.php">+ Já.Ismaga</a>
@@ -89,10 +81,8 @@ try {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal: Rotas -->
     <main class="container my-5">
         
-        <!-- Mensagens de Alerta (Sucesso/Erro) -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
                 <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
@@ -158,7 +148,6 @@ try {
         </div>
     </main>
 
-    <!-- Rodapé -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>

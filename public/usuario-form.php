@@ -115,8 +115,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             <input type="email" class="form-control rounded-3" id="email" name="email" value="<?= htmlspecialchars($usuarioEdit['email']); ?>" required placeholder="nome@exemplo.com">
                         </div>
                     </div>
-
-                    <!-- Tipo de Conta e Status (Ativo/Inativo) -->
                     <div class="row g-3">
                         <div class="col-md-6 mb-3">
                             <label for="tipo" class="form-label fw-semibold text-dark">Tipo de Conta</label>

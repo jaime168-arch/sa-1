@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Caminho para a conexão (subindo um nível se o conexao.php estiver em ../config/)
 require_once __DIR__ . '/../config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -16,22 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Busca o usuário ignorando diferença entre maiúsculas e minúsculas no e-mail
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
         $stmt->execute([':email' => $email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario) {
-            // Verifica se a conta está ativa
             if (isset($usuario['ativo']) && $usuario['ativo'] == 0) {
                 $_SESSION['mensagem_erro'] = "Esta conta está inativa. Contacte o administrador.";
                 header("Location: login.php");
                 exit;
             }
 
-            // Verifica a senha criptografada
             if (password_verify($senha, $usuario['senha'])) {
-                // Guarda dados na sessão
                 $_SESSION['usuario_id']   = $usuario['id'];
                 $_SESSION['usuario_nome'] = $usuario['nome'];
                 $_SESSION['usuario_tipo'] = $usuario['tipo'] ?? 'operador';

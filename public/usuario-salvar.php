@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/../config/conexao.php';
-
-// Trava de segurança: garante que existe sessão e que o usuário é admin
 if (!isset($_SESSION['usuario_id']) || ($_SESSION['usuario_tipo'] ?? '') !== 'admin') {
     $_SESSION['mensagem_erro'] = "Acesso negado. Apenas administradores podem cadastrar usuários.";
     header("Location: index.php");
@@ -17,8 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $tipo   = $_POST['tipo'] ?? 'operador';
     $ativo  = isset($_POST['ativo']) ? (int)$_POST['ativo'] : 1;
     $senha  = $_POST['senha'] ?? '';
-
-    // Validação básica
     if (empty($nome) || empty($email)) {
         $_SESSION['mensagem_erro'] = "Preencha o Nome e o E-mail.";
         header("Location: usuario-form.php" . ($id ? "?id=$id" : ""));
@@ -27,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         if ($id) {
-            // EDITAR USUÁRIO
             if (!empty($senha)) {
                 $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
                 $stmt = $pdo->prepare("UPDATE usuarios SET nome = :nome, email = :email, tipo = :tipo, ativo = :ativo, senha = :senha WHERE id = :id");
@@ -52,14 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mensagem_sucesso'] = "Usuário atualizado com sucesso!";
 
         } else {
-            // NOVO CADASTRO PELO ADMIN
             if (empty($senha)) {
                 $_SESSION['mensagem_erro'] = "A senha é obrigatória para cadastrar um novo usuário.";
                 header("Location: usuario-form.php");
                 exit;
             }
 
-            // Verifica se o e-mail já existe
             $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
             $stmtCheck->execute([':email' => $email]);
 

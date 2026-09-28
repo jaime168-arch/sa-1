@@ -1,20 +1,17 @@
 <?php
 session_start();
 
-// Proteção da página: exige login
+
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
-
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Ajusta/Cria a estrutura da tabela 'sensores' automaticamente no MySQL
 try {
     $pdo->exec("CREATE TABLE IF NOT EXISTS sensores (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,7 +40,6 @@ try {
     error_log("Erro ao ajustar tabela sensores: " . $e->getMessage());
 }
 
-// Busca a lista dinâmica de sensores cadastrados
 $listaSensores = [];
 try {
     $stmt = $pdo->query("SELECT id, codigo_sensor, tipo, localizacao, status_leitura FROM sensores ORDER BY id DESC");
@@ -59,7 +55,6 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Monitorização de Sensores</title>
-    <!-- Bootstrap 5 CSS e Ícones -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -88,11 +83,8 @@ try {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
-        
-        <!-- Mensagens de Alerta (Sucesso/Erro) -->
-        <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+                <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
                 <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -167,8 +159,6 @@ try {
             </div>
         </div>
     </main>
-
-    <!-- Rodapé -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
