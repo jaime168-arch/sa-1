@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function carregarSensores() {
     try {
-        const response = await fetch('/api/sensores'); // Ajuste a Rota da sua API se necessário
+        const response = await fetch('/api/sensores'); 
         const sensores = await response.json();
 
         const tabela = document.querySelector("tbody");
