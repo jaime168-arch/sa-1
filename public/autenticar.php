@@ -1,10 +1,7 @@
 <?php
 session_start();
-
-// Carrega a conexão com a base de dados
 require_once __DIR__ . '/../config/conexao.php';
 
-// Define a página de login para retorno em caso de erro (ajuste se for login.php ou index.php)
 $paginaLogin = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'index.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,14 +16,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     try {
-        // Pesquisa o utilizador ignorando maiúsculas e minúsculas
         $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
         $stmt->execute([':email' => $email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($usuario) {
             
-            // Verifica se o utilizador está inativo
             if (isset($usuario['ativo']) && (int)$usuario['ativo'] === 0) {
                 $_SESSION['mensagem_erro'] = "A sua conta está inativa. Contacte o administrador.";
                 header("Location: " . $paginaLogin);
