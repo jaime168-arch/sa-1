@@ -6,8 +6,6 @@ if (!isset($_SESSION['usuario_id'])) {
     header("Location: login.php");
     exit;
 }
-
-// Conexão com o Banco de Dados
 require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
