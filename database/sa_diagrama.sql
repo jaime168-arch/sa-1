@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nome` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL UNIQUE,
   `senha` VARCHAR(255) NOT NULL,
-  `tipo` VARCHAR(20) NOT NULL DEFAULT 'operador', -- 'admin', 'operador', 'usuario'
-  `ativo` TINYINT(1) NOT NULL DEFAULT 1,         -- 1 = Ativo, 0 = Inativo
+  `tipo` VARCHAR(20) NOT NULL DEFAULT 'operador',
+  `ativo` TINYINT(1) NOT NULL DEFAULT 1,         
   `trem_id` INT(11) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
