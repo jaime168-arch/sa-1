@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/../config/conexao.php';
-
-// Trava de segurança: garante que existe sessão e que o usuário é admin
 if (!isset($_SESSION['usuario_id']) || ($_SESSION['usuario_tipo'] ?? '') !== 'admin') {
     $_SESSION['mensagem_erro'] = "Acesso negado. Apenas administradores podem cadastrar usuários.";
     header("Location: index.php");
