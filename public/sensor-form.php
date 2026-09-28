@@ -78,13 +78,10 @@ try {
         </div>
     </nav>
 
-    <!-- Conteúdo Principal -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
-                
-                <!-- Exibição de Mensagens de Erro -->
-                <?php if (isset($_SESSION['mensagem_erro'])): ?>
+                                <?php if (isset($_SESSION['mensagem_erro'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
                         <?= $_SESSION['mensagem_erro']; unset($_SESSION['mensagem_erro']); ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
