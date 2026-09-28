@@ -13,9 +13,9 @@ $pageTitle = "Já Ismaga - Login";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
-<body class="bg-light">
+<body class="bg-light" >
 
-    <div class="main-container">
+    <div class="main-container" style="background-color: rgb(255, 248, 230);">
         <nav class="navbar navbar-orange navbar-ismaga py-3">
             <div class="container justify-content-center">
                 <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
