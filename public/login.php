@@ -41,7 +41,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <?php unset($_SESSION['mensagem_erro']); ?>
                                 <?php endif; ?>
 
-                                <!-- Mensagem de Sucesso -->
                                 <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
                                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                                         <?= htmlspecialchars($_SESSION['mensagem_sucesso']); ?>
