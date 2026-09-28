@@ -1,6 +1,64 @@
 <?php
 session_start();
+require_once __DIR__ . '/../config/conexao.php';
+
 $pageTitle = "Já Ismaga - Criar Conta";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    $nome            = trim($_POST['nome'] ?? '');
+    $email           = strtolower(trim($_POST['email'] ?? ''));
+    $senha           = $_POST['senha'] ?? '';
+    $confirmar_senha = $_POST['confirmar_senha'] ?? '';
+
+    // 1. Validações de campos obrigatórios
+    if (empty($nome) || empty($email) || empty($senha)) {
+        $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios.";
+        header("Location: cadastro.php");
+        exit;
+    }
+
+    if ($senha !== $confirmar_senha) {
+        $_SESSION['mensagem_erro'] = "As senhas não coincidem.";
+        header("Location: cadastro.php");
+        exit;
+    }
+
+    try {
+        // 2. Verifica se o e-mail já existe no phpMyAdmin
+        $stmtCheck = $pdo->prepare("SELECT id FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
+        $stmtCheck->execute([':email' => $email]);
+
+        if ($stmtCheck->fetch()) {
+            $_SESSION['mensagem_erro'] = "O e-mail '$email' já está cadastrado na base de dados.";
+            header("Location: cadastro.php");
+            exit;
+        }
+
+        // 3. Criptografa a senha e salva no banco de dados
+        $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+        // Define 'operador', ativo = 1 e trem_id = NULL explicitamente
+        $stmt = $pdo->prepare("INSERT INTO usuarios (nome, email, senha, tipo, ativo, trem_id) VALUES (:nome, :email, :senha, 'operador', 1, NULL)");
+        $executou = $stmt->execute([
+            ':nome'  => $nome,
+            ':email' => $email,
+            ':senha' => $senhaHash
+        ]);
+
+        if ($executou) {
+            $_SESSION['mensagem_sucesso'] = "Conta criada com sucesso! Faça o seu login.";
+            header("Location: login.php"); // Redireciona para a tela de login
+            exit;
+        }
+
+    } catch (PDOException $e) {
+        // Se o MySQL rejeitar por qualquer erro estrutural, exibe na tela
+        $_SESSION['mensagem_erro'] = "Erro de MySQL no Banco de Dados: " . $e->getMessage();
+        header("Location: cadastro.php");
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,7 +100,16 @@ $pageTitle = "Já Ismaga - Criar Conta";
                             <?php unset($_SESSION['mensagem_erro']); ?>
                         <?php endif; ?>
 
-                        <form id="formCadastro" action="usuario-salvar.php" method="POST" novalidate>
+                        <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
+                            <div class="alert alert-success alert-dismissible fade show rounded-3 small mb-3" role="alert">
+                                <?= htmlspecialchars($_SESSION['mensagem_sucesso']); ?>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                            </div>
+                            <?php unset($_SESSION['mensagem_sucesso']); ?>
+                        <?php endif; ?>
+
+                        <!-- ALTERADO O action PARA "cadastro.php" PARA PROCESSAR O PHP DO TOPO -->
+                        <form id="formCadastro" action="cadastro.php" method="POST" novalidate>
                             
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control rounded-3" id="nome" name="nome" placeholder="Seu Nome Completo" autocomplete="name" required>
