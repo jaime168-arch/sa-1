@@ -61,7 +61,7 @@ $pageTitle = "Já Ismaga - Login";
                                     </div>
                                     
                                     <div class="d-grid gap-2 mb-3">
-                                        <button type="submit" class="btn btn-warning text-white fw-bold">Entrar</button>
+                                        <button type="submit" style=" background-color: rgb(255, 116, 3); border-color:  rgb(255, 116, 3);" class="btn btn-warning text-white fw-bold">Entrar</button>
                                     </div>
                                 </form>
 
