@@ -11,10 +11,12 @@ require_once __DIR__ . '/../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
+$isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaUsuarios = [];
 try {
-    $stmt = $pdo->query("SELECT id, nome, email FROM usuarios ORDER BY id DESC");
+    // Consulta aprimorada: traz tipo e ativo mantendo a ordem dos mais recentes
+    $stmt = $pdo->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
     $listaUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     error_log("Erro ao carregar utilizadores: " . $e->getMessage());
@@ -60,60 +62,92 @@ try {
         
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
-                <?= $_SESSION['mensagem_sucesso']; unset($_SESSION['mensagem_sucesso']); ?>
+                <?= htmlspecialchars($_SESSION['mensagem_sucesso']); unset($_SESSION['mensagem_sucesso']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['mensagem_erro'])): ?>
             <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
-                <?= $_SESSION['mensagem_erro']; unset($_SESSION['mensagem_erro']); ?>
+                <?= htmlspecialchars($_SESSION['mensagem_erro']); unset($_SESSION['mensagem_erro']); ?>
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-between align-items-center mb-4"style="background-color: rgb(255, 249, 240);">
+        <div class="d-flex justify-content-between align-items-center mb-4 p-3 rounded-3" style="background-color: rgb(255, 249, 240);">
             <h2 class="fw-bold text-dark m-0"><i class="bi bi-people-fill me-2"></i>Gestão de Usuários</h2>
-            <a href="usuario-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
-                <i class="bi bi-person-plus-fill me-1"></i> Novo Usuário
-            </a>
+            <?php if ($isAdmin): ?>
+                <a href="usuario-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
+                    <i class="bi bi-person-plus-fill me-1"></i> Novo Usuário
+                </a>
+            <?php endif; ?>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4." style="background-color: rgb(255, 249, 240);">
+        <div class="card border-0 shadow-sm rounded-4" style="background-color: rgb(255, 249, 240);">
             <div class="card-body p-4">
                 <p class="text-muted">Lista de utilizadores registados no sistema:</p>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
-                        <thead class="table-light" >
+                        <thead class="table-light">
                             <tr>
-                                <th style="width: 80px;" >ID</th>
+                                <th style="width: 80px;">ID</th>
                                 <th>Nome</th>
                                 <th>E-mail</th>
-                                <th style="width: 120px;" class="text-center">Ações</th>
+                                <th>Perfil</th>
+                                <th>Estado</th>
+                                <?php if ($isAdmin): ?>
+                                    <th style="width: 140px;" class="text-center">Ações</th>
+                                <?php endif; ?>
                             </tr>
                         </thead>
                         <tbody>
                             <?php if (!empty($listaUsuarios)): ?>
                                 <?php foreach ($listaUsuarios as $u): ?>
                                     <tr>
-                                        <td class="fw-bold text-secondary"><?= $u['id']; ?></td>
+                                        <td class="fw-bold text-secondary">#<?= $u['id']; ?></td>
                                         <td><?= htmlspecialchars($u['nome']); ?></td>
                                         <td><?= htmlspecialchars($u['email']); ?></td>
-                                        <td class="text-center">
-                                            
-                                            <a href="usuario-form.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            
-                                            <a href="usuario-deletar.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-danger" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir o utilizador <?= htmlspecialchars($u['nome']); ?>?');">
-                                                <i class="bi bi-trash"></i>
-                                            </a>
+                                        <td>
+                                            <span class="badge bg-<?= ($u['tipo'] ?? '') === 'admin' ? 'danger' : 'info'; ?> text-capitalize">
+                                                <?= htmlspecialchars($u['tipo'] ?? 'operador'); ?>
+                                            </span>
                                         </td>
+                                        <td>
+                                            <?php if ((int)($u['ativo'] ?? 1) === 1): ?>
+                                                <span class="badge bg-success">Ativo</span>
+                                            <?php else: ?>
+                                                <span class="badge bg-secondary">Inativo</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        
+                                        <?php if ($isAdmin): ?>
+                                            <td class="text-center">
+                                                <a href="usuario-form.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                
+                                                <?php if ((int)$u['id'] !== (int)$_SESSION['usuario_id'] && (int)$u['id'] !== 1): ?>
+                                                    <button type="button" 
+                                                            class="btn btn-sm btn-outline-danger" 
+                                                            title="Excluir"
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#modalExcluir" 
+                                                            data-id="<?= $u['id']; ?>" 
+                                                            data-nome="<?= htmlspecialchars($u['nome']); ?>">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button class="btn btn-sm btn-outline-secondary" disabled title="Protegido">
+                                                        <i class="bi bi-shield-lock"></i>
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
+                                        <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
-                                    <td colspan="4" class="text-center text-muted py-4" >Nenhum utilizador registado.</td>
+                                    <td colspan="<?= $isAdmin ? '6' : '5'; ?>" class="text-center text-muted py-4">Nenhum utilizador registado.</td>
                                 </tr>
                             <?php endif; ?>
                         </tbody>
@@ -123,10 +157,43 @@ try {
         </div>
     </main>
 
+    <!-- Modal de Confirmação de Exclusão -->
+    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow rounded-4">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title fw-bold" id="modalExcluirLabel"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Exclusão</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body p-4 text-center">
+                    <p class="fs-5 mb-1">Tem certeza que deseja excluir o utilizador <strong id="nomeUsuarioModal"></strong>?</p>
+                    <small class="text-muted">Esta ação é permanente e removerá o registo da base de dados.</small>
+                </div>
+                <div class="modal-footer justify-content-center border-0 pt-0 pb-4">
+                    <button type="button" class="btn btn-secondary px-4 rounded-3" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-4 rounded-3 fw-bold">Excluir Registos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const modalExcluir = document.getElementById('modalExcluir');
+        if (modalExcluir) {
+            modalExcluir.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+                const userId = button.getAttribute('data-id');
+                const userName = button.getAttribute('data-nome');
+
+                document.getElementById('nomeUsuarioModal').textContent = userName;
+                document.getElementById('btnConfirmarExclusao').href = 'usuario-deletar.php?id=' + userId;
+            });
+        }
+    </script>
 </body>
 </html>
