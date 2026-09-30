@@ -23,7 +23,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 <body class="bg-light d-flex flex-column min-vh-100">
 
     <nav class="navbar navbar-expand-lg navbar-white bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
-        <div class="container">
+         <div class="container.fluid px-4">
             <a class="navbar-brand fw-bold me-7 text-white" href="home.php">
                 + Já.Ismaga
             </a>
@@ -61,7 +61,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </li>
                 </ul>
 
-                <div class="d-flex align-items-center gap-3 pt-2 pt-lg-0">
+                 <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
                     <span class="text-black">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                     <a href="logout.php" class="btn btn-outline-black btn-sm rounded-3 px-3" >
                         <i class="bi bi-box-arrow-right me-1" ></i> Sair
