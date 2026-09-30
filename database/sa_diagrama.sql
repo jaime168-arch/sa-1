@@ -31,9 +31,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` VARCHAR(100) NOT NULL UNIQUE,
   `senha` VARCHAR(255) NOT NULL,
   `tipo` VARCHAR(20) NOT NULL DEFAULT 'operador',
-  `ativo` TINYINT(1) NOT NULL DEFAULT 1,         
-  `tipo` VARCHAR(20) NOT NULL DEFAULT 'operador', 
-  `ativo` TINYINT(1) NOT NULL DEFAULT 1,        
+  `ativo` TINYINT(1) NOT NULL DEFAULT 1,              
   `trem_id` INT(11) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -82,4 +80,4 @@ INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_r
 
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `trem_id`) VALUES
 ('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, NULL),
-('Jailson', 'Jailsonaiprr@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 1);
+('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 1);
