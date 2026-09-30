@@ -21,51 +21,23 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
-
-    <nav class="navbar navbar-expand-lg navbar-white bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
-        <div class="container">
-            <a class="navbar-brand fw-bold me-7 text-white" href="home.php">
-                + Já.Ismaga
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Alternar navegação">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
+        <div class="container.fluid px-4">
+            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarMain ">
+            <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item">
-                        <a class="nav-link text-black <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">
-                            Início
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black <?= ($paginaAtual == 'usuarios.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">
-                            Usuários
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black <?= ($paginaAtual == 'trens.php') ? 'fw-bold active' : ''; ?>" href="trens.php">
-                            Trens
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black <?= ($paginaAtual == 'rotas.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">
-                            Rotas
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-black <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">
-                            Sensores
-                        </a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
                 </ul>
-
-                <div class="d-flex align-items-center gap-3 pt-2 pt-lg-0">
-                    <span class="text-black">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-black btn-sm rounded-3 px-3" >
-                        <i class="bi bi-box-arrow-right me-1" ></i> Sair
-                    </a>
+                <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
+                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
                 </div>
             </div>
         </div>
