@@ -15,7 +15,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaUsuarios = [];
 try {
-    // Consulta aprimorada: traz tipo e ativo mantendo a ordem dos mais recentes
     $stmt = $pdo->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
     $listaUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
