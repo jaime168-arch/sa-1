@@ -43,7 +43,6 @@ try {
     error_log("Erro ao buscar trens: " . $e->getMessage());
 }
 ?>
-<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
