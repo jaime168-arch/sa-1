@@ -17,7 +17,7 @@ $usuarioEdit = [
     'nome'   => '',
     'email'  => '',
     'tipo'   => 'operador', 
-    'ativo'  => 1          // padrão: 1 (Ativo)
+    'ativo'  => 1        
 ];
 $modoEdicao = false;
 
