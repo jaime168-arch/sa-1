@@ -158,7 +158,6 @@ try {
         </div>
     </main>
 
-    <!-- Modal de Confirmação de Exclusão -->
     <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4">
