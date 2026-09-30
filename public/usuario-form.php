@@ -12,7 +12,6 @@ require_once __DIR__ . '/../config/conexao.php';
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Estrutura inicial do usuário (incluindo tipo e status)
 $usuarioEdit = [
     'id'     => '',
     'nome'   => '',
