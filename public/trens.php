@@ -46,7 +46,6 @@ try {
     $_SESSION['mensagem_erro'] = "Erro MySQL: " . htmlspecialchars($e->getMessage());
 }
 ?>
-<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
