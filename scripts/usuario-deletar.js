@@ -8,8 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const usuarioId = button.getAttribute('data-id');
             const usuarioNome = button.getAttribute('data-nome') || `Utilizador #${usuarioId}`;
-
-            // Exibe a caixa de confirmação nativa do navegador
             const confirmacao = confirm(`Tem a certeza que deseja eliminar o utilizador "${usuarioNome}"?\nEsta ação não poderá ser desfeita.`);
 
             if (confirmacao) {
