@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Seleciona todos os botões que possuem a classe "btn-deletar-usuario"
     const deleteButtons = document.querySelectorAll('.btn-deletar-usuario');
 
     deleteButtons.forEach(button => {
