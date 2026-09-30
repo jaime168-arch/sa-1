@@ -15,7 +15,7 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaUsuarios = [];
 try {
-    // Consulta aprimorada: traz tipo e ativo mantendo a ordem dos mais recentes
+    // Busca id, nome, email, tipo e ativo da tabela usuarios
     $stmt = $pdo->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
     $listaUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -36,7 +36,6 @@ try {
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
 
-   <body class="bg-light d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container.fluid px-4">
             <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
@@ -49,11 +48,12 @@ try {
                     <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
                     <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
                     <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
-                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
+                     <span class="text-dark">  Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong> </span>
+                     <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3">
+                  <i class="bi bi-box-arrow-right me-1"></i> Sair</a>
                 </div>
             </div>
         </div>
@@ -123,16 +123,16 @@ try {
                                         
                                         <?php if ($isAdmin): ?>
                                             <td class="text-center">
+                                                <!-- Botão Editar -->
                                                 <a href="usuario-form.php?id=<?= $u['id']; ?>" class="btn btn-sm btn-outline-secondary me-1" title="Editar">
                                                     <i class="bi bi-pencil"></i>
                                                 </a>
                                                 
+                                                <!-- Botão Excluir com a classe "btn-deletar-usuario" para o JS capturar -->
                                                 <?php if ((int)$u['id'] !== (int)$_SESSION['usuario_id'] && (int)$u['id'] !== 1): ?>
                                                     <button type="button" 
-                                                            class="btn btn-sm btn-outline-danger" 
+                                                            class="btn btn-sm btn-outline-danger btn-deletar-usuario" 
                                                             title="Excluir"
-                                                            data-bs-toggle="modal" 
-                                                            data-bs-target="#modalExcluir" 
                                                             data-id="<?= $u['id']; ?>" 
                                                             data-nome="<?= htmlspecialchars($u['nome']); ?>">
                                                         <i class="bi bi-trash"></i>
@@ -158,43 +158,14 @@ try {
         </div>
     </main>
 
-    <!-- Modal de Confirmação de Exclusão -->
-    <div class="modal fade" id="modalExcluir" tabindex="-1" aria-labelledby="modalExcluirLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content border-0 shadow rounded-4">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title fw-bold" id="modalExcluirLabel"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
-                </div>
-                <div class="modal-body p-4 text-center">
-                    <p class="fs-5 mb-1">Tem certeza que deseja excluir o utilizador <strong id="nomeUsuarioModal"></strong>?</p>
-                    <small class="text-muted">Esta ação é permanente e removerá o registo da base de dados.</small>
-                </div>
-                <div class="modal-footer justify-content-center border-0 pt-0 pb-4">
-                    <button type="button" class="btn btn-secondary px-4 rounded-3" data-bs-dismiss="modal">Cancelar</button>
-                    <a id="btnConfirmarExclusao" href="#" class="btn btn-danger px-4 rounded-3 fw-bold">Excluir Registos</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
     </footer>
 
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const modalExcluir = document.getElementById('modalExcluir');
-        if (modalExcluir) {
-            modalExcluir.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-                const userId = button.getAttribute('data-id');
-                const userName = button.getAttribute('data-nome');
-
-                document.getElementById('nomeUsuarioModal').textContent = userName;
-                document.getElementById('btnConfirmarExclusao').href = 'usuario-deletar.php?id=' + userId;
-            });
-        }
-    </script>
+    
+    <!-- Importação do arquivo JS corrigido -->
+    <script src="../scripts/usuario-excluir.js"></script>
 </body>
 </html>
