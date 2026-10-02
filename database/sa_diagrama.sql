@@ -78,6 +78,6 @@ INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_rota`) VALUES
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
-INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `trem_id`) VALUES
+INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`,'protegido', `trem_id`) VALUES
 ('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, NULL),
 ('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 1);
