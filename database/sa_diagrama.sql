@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `trens` (
   `status` ENUM('ativo', 'manutencao', 'inativo') NOT NULL DEFAULT 'ativo',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_uni;
 
 CREATE TABLE IF NOT EXISTS `rotas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
