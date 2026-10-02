@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `email` VARCHAR(100) NOT NULL UNIQUE,
   `senha` VARCHAR(255) NOT NULL,
   `tipo` ENUM('admin', 'operador', 'supervisor') NOT NULL DEFAULT,
-  `ativo` TINYINT(0) NOT NULL DEFAULT 1,              
+  `ativo` TINYINT(1) NOT NULL DEFAULT 1,              
   `trem_id` INT(11) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
