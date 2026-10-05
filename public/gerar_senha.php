@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../config/conexao.php';
 
-// Define a nova palavra-passe para o Administrador e para o Operador
 $novaSenha = password_hash('123456', PASSWORD_DEFAULT);
 
 try {
