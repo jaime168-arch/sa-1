@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS `trens` (
   `status` ENUM('ativo', 'manutencao', 'inativo') NOT NULL DEFAULT 'ativo',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET =  COLLATE = utf8mb4_uni;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `rotas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `rotas` (
   `status_rota` ENUM('ativa', 'inativa', 'manutencao') NOT NULL DEFAULT 'ativa',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_uni;
+)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
     REFERENCES `trens` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE =utf8mb4_uni;
+)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensores` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `sensores` (
     REFERENCES `trens` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET =  COLLATE = utf8mb4_uni;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `dados_sensores` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
     REFERENCES `sensores` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET =  COLLATE = utf8mb4_uni;
+)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -78,6 +78,6 @@ INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_rota`) VALUES
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
-INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `trem_id`) VALUES
+INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`,'protegido', `trem_id`) VALUES
 ('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, NULL),
 ('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 1);
