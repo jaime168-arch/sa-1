@@ -82,5 +82,6 @@ INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_r
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
-('Administrador', 'admin@ismaga.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'admin', 1, 1, NULL),
-('Jailson', 'jailson@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1);
+('Administrador', 'admin@ismaga.com', '123456', 'admin', 1, 1, NULL),
+('Ícaro', 'icaro@gmail.com', '123456', 'usuario comum', 1, 0, 1),
+('Jailson', 'jailson@gmail.com', '123456', 'operador', 1, 0, 1);
