@@ -107,7 +107,7 @@ try {
 
         <div class="card border-0 shadow-sm rounded-4" style="background-color: rgb(255, 249, 240);">
             <div class="card-body p-4">
-                <p class="text-muted">Sensores IoT de telemetria e vias ferroviárias:</p>
+                <p class="text-muted">Sensores IoT:</p>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
