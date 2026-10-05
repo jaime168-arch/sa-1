@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- INSERÇÃO DE DADOS INICIAIS
+-- INSERÇÃO DE DADOS INICIAIS (COM HASH REAL PARA A PALAVRA-PASSE: 123456)
 
 INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 ('Expressa Ferrorama', 'EF-2000', 350, 'ativo');
@@ -82,5 +82,5 @@ INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_r
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
-('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, 1, NULL),
-('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 0, 1);
+('Administrador', 'admin@ismaga.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'admin', 1, 1, NULL),
+('Jailson', 'jailson@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1);
