@@ -12,7 +12,7 @@ try {
        
         $info = password_get_info($u['senha']);
         
-        if ($info['algo'] === 0) { // Algo 0 significa texto puro (não criptografado)
+        if ($info['algo'] === 0) {
             $novoHash = password_hash($u['senha'], PASSWORD_DEFAULT);
             $update = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
             $update->execute([':senha' => $novoHash, ':id' => $u['id']]);
