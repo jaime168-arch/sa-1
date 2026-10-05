@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/../config/conexao.php';
-
 $novaSenha = password_hash('123456', PASSWORD_DEFAULT);
 
 try {
