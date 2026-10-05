@@ -5,8 +5,6 @@ $novaSenha = password_hash('123456', PASSWORD_DEFAULT);
 try {
     $stmt = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE email = 'admin@ismaga.com'");
     $stmt->execute([':senha' => $novaSenha]);
-
-    // Atualiza a senha do Jailson
     $stmt2 = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE email = 'jailson@gmail.com'");
     $stmt2->execute([':senha' => $novaSenha]);
 
