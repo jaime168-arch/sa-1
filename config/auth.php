@@ -12,11 +12,11 @@ function verificarAutenticacao() {
 }
 
 function verificarPermissaoAdmin() {
-    verificarAutenticacao(); // Primeiro confirma se está logado
+    verificarAutenticacao(); 
 
     if (($_SESSION['usuario_tipo'] ?? '') !== 'admin') {
         $_SESSION['mensagem_erro'] = "Acesso negado: Você não possui permissão de Administrador para acessar esta área.";
-        header("Location: home.php"); // Redireciona o usuário comum de volta para a Home
+        header("Location: home.php"); 
         exit;
     }
 }
