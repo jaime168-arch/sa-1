@@ -17,7 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([':email' => $email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Aceita a senha tanto por hash (BCRYPT) quanto em texto limpo caso ainda esteja em transicao
         if ($usuario && (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha'])) {
             
             session_regenerate_id(true);
