@@ -25,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario_tipo'] = strtolower($usuario['tipo']);
             $_SESSION['logged_in']    = true;
 
-            // Se a senha no banco ainda estava em texto puro, converte para BCRYPT automaticamente
             if ($senha === $usuario['senha']) {
                 $novoHash = password_hash($senha, PASSWORD_DEFAULT);
                 $up = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
