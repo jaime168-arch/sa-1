@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS `ja_ismaga`;
-CREATE DATABASE `ja_ismaga` DEFAULT CHARACTER SET  COLLATE = utf8mb4_uni;
+CREATE DATABASE `ja_ismaga` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `ja_ismaga`;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -23,15 +23,16 @@ CREATE TABLE IF NOT EXISTS `rotas` (
   `status_rota` ENUM('ativa', 'inativa', 'manutencao') NOT NULL DEFAULT 'ativa',
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   `email` VARCHAR(100) NOT NULL UNIQUE,
   `senha` VARCHAR(255) NOT NULL,
-  `tipo` ENUM('admin', 'operador', 'supervisor') NOT NULL DEFAULT,
-  `ativo` TINYINT(1) NOT NULL DEFAULT 0,              
+  `tipo` ENUM('admin', 'operador', 'supervisor') NOT NULL DEFAULT 'operador',
+  `ativo` TINYINT(1) NOT NULL DEFAULT 1,
+  `protegido` TINYINT(1) DEFAULT 0,
   `trem_id` INT(11) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -40,7 +41,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
     REFERENCES `trens` (`id`)
     ON DELETE SET NULL
     ON UPDATE CASCADE
-)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `sensores` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -68,9 +69,11 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
     REFERENCES `sensores` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE
-)  ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- INSERÇÃO DE DADOS INICIAIS
 
 INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 ('Expressa Ferrorama', 'EF-2000', 350, 'ativo');
@@ -78,6 +81,6 @@ INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_rota`) VALUES
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
-INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`,'protegido', `trem_id`) VALUES
-('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, NULL),
-('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 1);
+INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
+('Administrador', 'admin@ismaga.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'admin', 1, 1, NULL),
+('Jailson', 'Jailson@gmail.com', '$2y$10$4B9a8fEshS6S3WcK6/b5E.wAmeQx8w7K0A3R2R5jU5s5bA5K6eE6u', 'operador', 1, 0, 1);
