@@ -49,7 +49,6 @@ const app = {
         event.preventDefault();
         const nomeInput = document.getElementById('nome') || document.getElementById('nomeSensor');
         const emailInput = document.getElementById('email_cadastro') || document.getElementById('idSensor');
-
         if (!nomeInput || !emailInput) return;
 
         const nome = nomeInput.value.trim();
