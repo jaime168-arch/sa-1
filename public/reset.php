@@ -1,7 +1,5 @@
 <?php
 require_once __DIR__ . '/../config/conexao.php';
-
-// Gera o hash real para 123456 no teu ambiente
 $hashReal = password_hash('123456', PASSWORD_BCRYPT);
 
 $stmt = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE email = 'admin@ismaga.com'");
