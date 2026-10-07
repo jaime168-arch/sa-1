@@ -45,25 +45,6 @@ const app = {
     },
 
 
-    validarCadastro: (event) => {
-        event.preventDefault();
-        const nomeInput = document.getElementById('nome') || document.getElementById('nomeSensor');
-        const emailInput = document.getElementById('email_cadastro') || document.getElementById('idSensor');
-        if (!nomeInput || !emailInput) return;
-
-        const nome = nomeInput.value.trim();
-        const emailOrId = emailInput.value.trim();
-
-        if (nome && emailOrId) {
-            alert(`Ativo/Usuário "${nome}" preparado para integração com CRUD PHP!`);
-   
-            const tabela = document.getElementById('painel-logs');
-            if (tabela) app.atualizarLogs('SISTEMA', `Novo dispositivo cadastrado: ${nome}`);
-        } else {
-            alert("Por favor, preencha todos os campos obrigatórios.");
-        }
-    },
-
 
     inicializarGrafico: () => {
         const ctx = document.getElementById('graficoTelemetria');
