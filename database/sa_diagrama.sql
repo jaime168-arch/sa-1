@@ -73,7 +73,6 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- INSERÇÃO DE DADOS INICIAIS (COM HASH REAL PARA A PALAVRA-PASSE: 123456)
 
 INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
 ('Expressa Ferrorama', 'EF-2000', 350, 'ativo');
@@ -84,4 +83,7 @@ INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_r
 INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
 ('Administrador', 'admin@ismaga.com', '123456', 'admin', 1, 1, NULL),
 ('Ícaro', 'icaro@gmail.com', '123456', 'usuario comum', 1, 0, 1),
-('Jailson', 'jailson@gmail.com', '123456', 'operador', 1, 0, 1);
+('Isabela', 'isabela@gmail.com', '123456', 'operador', 1, 0, 1),
+('Gabriela', 'gabriela@gmail.com', '123456', 'operador', 1, 0, 1),
+('Maria', 'maria@gmail.com', '123456', 'operador', 1, 0, 1),
+('Jaime', 'jaime@gmail.com', '123456', 'operador', 1, 0, 1);
