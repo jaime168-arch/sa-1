@@ -68,8 +68,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
-    <!-- NAVBAR DA APLICAÇÃO -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold fs-4 me-4 text-white d-flex align-items-center gap-2" href="home.php">
@@ -78,14 +76,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
-                </ul>
                 <div class="d-flex align-items-center gap-3">
                     <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                     <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
@@ -93,12 +83,9 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
-            <!-- CABEÇALHO PERSONALIZADO DE BOAS-VINDAS -->
             <div class="border-bottom pb-4 mb-4">
                 <h1 class="display-6 fw-bold text-dark m-0">
                     Bem-vindo(a), <span style="color: #ff6600;"><?= htmlspecialchars($nomeUsuario); ?></span>! 
@@ -109,9 +96,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
             
             <div class="row g-4 mt-1">
-                
-                <!-- USUÁRIOS -->
-                <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-people-fill fs-4"></i>
@@ -124,7 +109,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- TRENS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -138,7 +122,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- ROTAS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -152,7 +135,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- SENSORES -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -171,7 +153,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">
             &copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.

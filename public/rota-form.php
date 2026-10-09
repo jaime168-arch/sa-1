@@ -128,11 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto fw-semibold">
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
+                     <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Voltar ao início <img src="https://images.icon-icons.com/3162/PNG/512/left_return_arrow_icon_193335.png" alt="Início" width="20" height="20"></a></li>
                 </ul>
                 <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
                     <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
@@ -166,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </div>
 
-                    <div class="card-body p-4 p-md-5 pt-3">
+                    <div class="card-body p-md-10">
                         <form action="" method="POST">
                             
                             <div class="mb-3">
@@ -205,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <div class="col-md-6">
                                     <label for="trem_id" class="form-label fw-semibold">Trem Vinculado</label>
                                     <select id="trem_id" name="trem_id" class="form-select rounded-3">
-                                        <option value="">-- Nenhum trem vinculado --</option>
+                                        <option value="">Nenhum trem vinculado</option>
                                         <?php foreach ($listaTrens as $t): ?>
                                             <option value="<?= $t['id']; ?>" <?= ((int)$rota['trem_id'] === (int)$t['id']) ? 'selected' : ''; ?>>
                                                 <?= htmlspecialchars($t['nome']); ?> (<?= htmlspecialchars($t['modelo']); ?>)
@@ -222,8 +218,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </div>
                             </div>
-
-                            <hr class="my-4">
 
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="rotas.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
