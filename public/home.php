@@ -122,7 +122,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- ROTAS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -136,7 +135,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- SENSORES -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -155,7 +153,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">
             &copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.
