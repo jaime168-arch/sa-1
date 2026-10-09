@@ -83,8 +83,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
