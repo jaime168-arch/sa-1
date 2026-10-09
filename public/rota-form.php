@@ -48,7 +48,6 @@ if ($id) {
     }
 }
 
-// Carrega lista de Trens para a seleção do Trem Vinculado
 $listaTrens = [];
 try {
     $stmtT = $pdo->query("SELECT id, nome, modelo FROM trens WHERE status = 'ativo' ORDER BY nome ASC");
