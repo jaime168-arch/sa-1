@@ -159,7 +159,7 @@ try {
                                 <div class="input-group">
                                     <span class="input-group-text bg-white text-muted border-end-0 rounded-start-3"><i class="bi bi-person-badge"></i></span>
                                     <select id="usuario_id" name="usuario_id" class="form-select border-start-0 rounded-end-3">
-                                        <option value="">-- Sem responsável atribuído --</option>
+                                        <option value="">Sem responsável atribuído</option>
                                         <?php foreach ($listaUsuarios as $u): ?>
                                             <option value="<?= $u['id']; ?>" <?= ((int)$trem['usuario_id'] === (int)$u['id']) ? 'selected' : ''; ?>>
                                                 <?= htmlspecialchars($u['nome']); ?> (<?= ucfirst($u['tipo']); ?>)
