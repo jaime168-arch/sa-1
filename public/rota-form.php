@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// 1. PROTEÇÃO DE BACKEND (RBAC): Apens Administradores podem cadastrar/editar
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -50,7 +48,6 @@ if ($id) {
     }
 }
 
-// Carrega lista de Trens para a seleção do Trem Vinculado
 $listaTrens = [];
 try {
     $stmtT = $pdo->query("SELECT id, nome, modelo FROM trens WHERE status = 'ativo' ORDER BY nome ASC");
@@ -58,8 +55,6 @@ try {
 } catch (PDOException $e) {
     error_log("Erro ao carregar trens: " . $e->getMessage());
 }
-
-// PROCESSAMENTO DO FORMULÁRIO (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_rota      = trim($_POST['nome_rota'] ?? '');
     $descricao      = trim($_POST['descricao'] ?? '');
@@ -70,13 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trem_id        = filter_input(INPUT_POST, 'trem_id', FILTER_VALIDATE_INT) ?: null;
     $status_rota    = trim($_POST['status_rota'] ?? 'ativa');
 
-    // Validações no Backend
     if (empty($nome_rota) || empty($origem) || empty($destino) || $distancia_km === false || $distancia_km <= 0 || empty($tempo_previsto)) {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios corretamente (Distância deve ser um número positivo).";
     } else {
         try {
             if ($id) {
-                // UPDATE
                 $sql = "UPDATE rotas SET nome_rota = :nome_rota, descricao = :descricao, origem = :origem, destino = :destino, distancia_km = :distancia_km, tempo_previsto = :tempo_previsto, trem_id = :trem_id, status_rota = :status_rota WHERE id = :id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
@@ -209,7 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
 
-                            <!-- SELEÇÃO DO TREM VINCULADO (Requisito Etapa 8) -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="trem_id" class="form-label fw-semibold">Trem Vinculado</label>
