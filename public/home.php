@@ -86,7 +86,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <main class="container my-5">
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
-            <!-- CABEÇALHO PERSONALIZADO DE BOAS-VINDAS -->
             <div class="border-bottom pb-4 mb-4">
                 <h1 class="display-6 fw-bold text-dark m-0">
                     Bem-vindo(a), <span style="color: #ff6600;"><?= htmlspecialchars($nomeUsuario); ?></span>! 
