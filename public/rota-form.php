@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// 1. PROTEÇÃO DE BACKEND (RBAC): Apens Administradores podem cadastrar/editar
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
