@@ -16,7 +16,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaRotas = [];
 try {
-    // Consulta buscando a rota e as informações do trem vinculado (LEFT JOIN)
     $sql = "SELECT r.*, t.nome AS nome_trem, t.modelo AS modelo_trem 
             FROM rotas r 
             LEFT JOIN trens t ON r.trem_id = t.id 
