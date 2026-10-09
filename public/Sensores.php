@@ -96,7 +96,7 @@ try {
         <div class="d-flex justify-content-between align-items-center mb-4" style="background-color: rgb(255, 249, 240);">
             <h2 class="fw-bold text-dark m-0"><i class="bi bi-cpu-fill me-2"></i>Monitorização de Sensores</h2>
             <a href="sensor-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
-                <i class="bi bi-plus-lg me-1"></i> Registar Sensor
+                <i class="bi bi-plus-lg me-1"></i> Novo Sensor
             </a>
         </div>
 
