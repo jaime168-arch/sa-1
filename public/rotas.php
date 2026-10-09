@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Controle de Autenticação: Exige login
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -16,7 +14,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaRotas = [];
 try {
-    // Consulta buscando a rota e as informações do trem vinculado (LEFT JOIN)
     $sql = "SELECT r.*, t.nome AS nome_trem, t.modelo AS modelo_trem 
             FROM rotas r 
             LEFT JOIN trens t ON r.trem_id = t.id 

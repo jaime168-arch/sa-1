@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// 1. PROTEÇÃO DE BACKEND (RBAC): Valida Autenticação e Perfil de Administrador
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Acesso não autorizado. Faça login para continuar.";
     header("Location: login.php");
@@ -19,7 +17,6 @@ require_once __DIR__ . '/../config/conexao.php';
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 
-// Estrutura padrão do trem
 $trem = [
     'id'         => '',
     'nome'       => '',
@@ -28,8 +25,6 @@ $trem = [
     'status'     => 'ativo',
     'usuario_id' => ''
 ];
-
-// Se for Edição, carrega os dados do trem pelo ID
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
     try {
@@ -50,8 +45,6 @@ if ($id) {
         $_SESSION['mensagem_erro'] = "Erro ao carregar dados do trem.";
     }
 }
-
-// Carrega a lista de utilizadores cadastrados para a seleção do Responsável
 $listaUsuarios = [];
 try {
     $stmtU = $pdo->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");

@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// Controle de Acesso: Exige autenticação
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -16,7 +14,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaTrens = [];
 try {
-    // Consulta buscando os trens e o NOME do usuário responsável
     $sql = "SELECT t.*, u.nome AS nome_responsavel 
             FROM trens t 
             LEFT JOIN usuarios u ON t.usuario_id = u.id 
