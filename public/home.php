@@ -68,8 +68,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
-    <!-- NAVBAR DA APLICAÇÃO -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold fs-4 me-4 text-white d-flex align-items-center gap-2" href="home.php">
