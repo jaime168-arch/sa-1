@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-// 1. PROTEÇÃO DE BACKEND (RBAC): Valida Autenticação e Perfil de Administrador
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Acesso não autorizado. Faça login para continuar.";
     header("Location: login.php");
