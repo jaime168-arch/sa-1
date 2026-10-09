@@ -96,9 +96,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
             
             <div class="row g-4 mt-1">
-                
-                <!-- USUÁRIOS -->
-                <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-people-fill fs-4"></i>
