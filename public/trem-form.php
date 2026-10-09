@@ -45,8 +45,6 @@ if ($id) {
         $_SESSION['mensagem_erro'] = "Erro ao carregar dados do trem.";
     }
 }
-
-// Carrega a lista de utilizadores cadastrados para a seleção do Responsável
 $listaUsuarios = [];
 try {
     $stmtU = $pdo->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");
