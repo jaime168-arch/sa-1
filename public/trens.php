@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -31,57 +32,98 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Gestão de Trens</title>
+    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        :root {
+            --brand-color: #ff6600;
+            --brand-hover: #e05500;
+            --bg-page: #f8fafc;
+        }
+        body {
+            background-color: var(--bg-page);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #334155;
+        }
+        .btn-brand {
+            background-color: var(--brand-color);
+            border-color: var(--brand-color);
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .btn-brand:hover {
+            background-color: var(--brand-hover);
+            border-color: var(--brand-hover);
+            color: #ffffff;
+        }
+    </style>
 </head>
-<body class="bg-light d-flex flex-column min-vh-100">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
-        <div class="container.fluid px-4">
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- NAVBAR DA APLICAÇÃO -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #ff6600 !important;">
+        <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarMain">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Voltar ao início <img src="https://images.icon-icons.com/3162/PNG/512/left_return_arrow_icon_193335.png" alt="Início" width="20" height="20"></a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
                 </ul>
-                <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
+                <div class="d-flex align-items-center gap-3">
                     <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
+                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
                 </div>
             </div>
         </div>
     </nav>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         
+        <!-- MENSAGENS DE ALERTA -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
-            <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4" role="alert">
+            <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
                 <?= htmlspecialchars($_SESSION['mensagem_sucesso']); unset($_SESSION['mensagem_sucesso']); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
             </div>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['mensagem_erro'])): ?>
-            <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4" role="alert">
+            <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
                 <?= htmlspecialchars($_SESSION['mensagem_erro']); unset($_SESSION['mensagem_erro']); ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
             </div>
         <?php endif; ?>
 
-        <div class="d-flex justify-content-between align-items-center mb-4 p-3 rounded-3" style="background-color: rgb(255, 249, 240);">
-            <h2 class="fw-bold text-dark m-0"><i class="bi bi-train-front-fill me-2"></i>Gestão de Trens</h2>
+        <!-- CABEÇALHO DO MÓDULO -->
+        <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 bg-white shadow-sm border border-light-subtle">
+            <div>
+                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
+                    <i class="bi bi-train-front-fill" style="color: #ff6600;"></i> Gestão de Trens
+                </h2>
+                <small class="text-muted">Consulte e gerencie as locomotivas e seus respectivos responsáveis.</small>
+            </div>
             <?php if ($isAdmin): ?>
-                <a href="trem-form.php" class="btn btn-warning text-white fw-bold shadow-sm" style="background-color: #ff6600 !important; border: none;">
+                <a href="trem-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">
                     <i class="bi bi-plus-lg me-1"></i> Novo Trem
                 </a>
             <?php endif; ?>
         </div>
 
-        <div class="card border-0 shadow-sm rounded-4" style="background-color: rgb(255, 249, 240);">
+        <!-- TABELA DE TRENS -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white">
             <div class="card-body p-4">
-                <p class="text-muted">Lista de trens registados na frota:</p>
                 <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
@@ -102,23 +144,23 @@ try {
                                 <?php foreach ($listaTrens as $t): ?>
                                     <tr>
                                         <td class="fw-bold text-secondary">#<?= $t['id']; ?></td>
-                                        <td class="fw-bold"><?= htmlspecialchars($t['nome']); ?></td>
+                                        <td class="fw-semibold text-dark"><?= htmlspecialchars($t['nome']); ?></td>
                                         <td><?= htmlspecialchars($t['modelo']); ?></td>
-                                        <td><?= (int)$t['capacidade']; ?> passageiros</td>
+                                        <td><span class="badge bg-light text-dark border"><?= (int)$t['capacidade']; ?> passageiros</span></td>
                                         <td>
                                             <?php if ($t['nome_responsavel']): ?>
                                                 <span class="badge bg-light text-dark border"><i class="bi bi-person-badge me-1"></i><?= htmlspecialchars($t['nome_responsavel']); ?></span>
                                             <?php else: ?>
-                                                <span class="text-muted fst-italic">Sem responsável</span>
+                                                <span class="text-muted fst-italic small">Sem responsável</span>
                                             <?php endif; ?>
                                         </td>
                                         <td>
                                             <?php if ($t['status'] === 'ativo'): ?>
-                                                <span class="badge bg-success">Ativo</span>
+                                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">Ativo</span>
                                             <?php elseif ($t['status'] === 'manutencao'): ?>
-                                                <span class="badge bg-warning text-dark">Manutenção</span>
+                                                <span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-2 py-1">Manutenção</span>
                                             <?php else: ?>
-                                                <span class="badge bg-secondary">Inativo</span>
+                                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle px-2 py-1">Inativo</span>
                                             <?php endif; ?>
                                         </td>
                                         
@@ -152,13 +194,13 @@ try {
         </div>
     </main>
 
-    <!-- Modal de Exclusão -->
+    <!-- MODAL DE EXCLUSÃO -->
     <div class="modal fade" id="modalExcluirTrem" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4">
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title fw-bold"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Exclusão</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body p-4 text-center">
                     <p class="fs-5 mb-1">Tem certeza que deseja excluir o trem <strong id="nomeTremModal"></strong>?</p>
@@ -172,8 +214,9 @@ try {
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
-        <div class="container">&copy; <?= date('Y'); ?> Já Ismaga.</div>
+        <div class="container">&copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
