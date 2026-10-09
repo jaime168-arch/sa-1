@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             if ($id) {
-                // UPDATE
                 $sql = "UPDATE rotas SET nome_rota = :nome_rota, descricao = :descricao, origem = :origem, destino = :destino, distancia_km = :distancia_km, tempo_previsto = :tempo_previsto, trem_id = :trem_id, status_rota = :status_rota WHERE id = :id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
