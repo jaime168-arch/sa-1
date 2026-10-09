@@ -169,9 +169,6 @@ try {
                                 </div>
                                 <small class="form-text text-muted">Selecione o funcionário ou supervisor que ficará encarregado deste trem.</small>
                             </div>
-
-                            <hr class="my-4">
-
                             
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="trens.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
