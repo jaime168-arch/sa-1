@@ -124,9 +124,7 @@ try {
                                     <?php endforeach; ?>
                                 </select>
                             </div>
-
-                            <hr class="my-4">
-
+                            
                             <div class="d-flex justify-content-between align-items-center">
                                 <a href="sensores.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
                                 <button type="submit" class="btn btn-warning text-white px-4 fw-bold rounded-3 shadow-sm" style="background-color: #ff6600 !important; border: none;">
