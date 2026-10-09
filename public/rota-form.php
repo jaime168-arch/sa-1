@@ -202,7 +202,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
 
-                            <!-- SELEÇÃO DO TREM VINCULADO (Requisito Etapa 8) -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
                                     <label for="trem_id" class="form-label fw-semibold">Trem Vinculado</label>
