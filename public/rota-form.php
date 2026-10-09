@@ -55,8 +55,6 @@ try {
 } catch (PDOException $e) {
     error_log("Erro ao carregar trens: " . $e->getMessage());
 }
-
-// PROCESSAMENTO DO FORMULÁRIO (POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_rota      = trim($_POST['nome_rota'] ?? '');
     $descricao      = trim($_POST['descricao'] ?? '');
