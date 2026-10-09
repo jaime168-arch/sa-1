@@ -99,9 +99,14 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (7, 'Lucas', 'lucas@gmail.com', '123456', 'usuario comum', 1, 0, NULL);
 
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
-(1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2);
+(1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2),
+(2, 'Trem do 67', 'TEE-670', 67, 'em manutenção', 5),
+(3, 'Expresso polar', 'TT-2500', 222, 'inativo', 3);
+
 
 UPDATE `usuarios` SET `trem_id` = 1 WHERE `id` = 2;
 
 INSERT INTO `rotas` (`nome_rota`, `descricao`, `origem`, `destino`, `distancia_km`, `tempo_previsto`, `trem_id`, `status_rota`) VALUES
-('Linha Central', 'Rota principal para transporte urbano de passageiros.', 'Estação Central', 'Terminal Norte', 45.50, '01h 15m', 1, 'ativa');
+('Linha Central', 'Rota principal para transporte urbano de passageiros.', 'Estação Central', 'Terminal Norte', 45.50, '01h 15m', 1, 'ativa'),
+('Linha do morro', 'Rota principal para o lado mais humilde da cidade', 'Estação Central', 'Terminal do morro', 67.00, '01h ', 2, 'em manutenção'),
+('Linha do luxo', 'Rota principal para o lado mais luxuoso da cidade', 'Estação Central', 'Terminal do luxo', 16.08, '50min ', 3, 'inativa');
