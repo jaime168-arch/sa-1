@@ -25,8 +25,6 @@ $trem = [
     'status'     => 'ativo',
     'usuario_id' => ''
 ];
-
-// Se for Edição, carrega os dados do trem pelo ID
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
     try {
