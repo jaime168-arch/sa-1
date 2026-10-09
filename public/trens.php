@@ -14,7 +14,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaTrens = [];
 try {
-    // Consulta buscando os trens e o NOME do usuário responsável
     $sql = "SELECT t.*, u.nome AS nome_responsavel 
             FROM trens t 
             LEFT JOIN usuarios u ON t.usuario_id = u.id 
