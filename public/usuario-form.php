@@ -141,8 +141,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         </div>
                     </div>
 
-                    <hr class="my-4 text-muted">
-
                     <div class="d-flex justify-content-end gap-2">
                         <a href="usuarios.php" class="btn btn-light border px-4 rounded-3">Cancelar</a>
                         <button type="submit" class="btn text-white fw-bold px-4 rounded-3" style="background-color: #ff6600 !important;">
