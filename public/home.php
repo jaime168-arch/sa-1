@@ -68,8 +68,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
-    <!-- NAVBAR DA APLICAÇÃO -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #ff6600 !important;">
         <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold fs-4 me-4 text-white d-flex align-items-center gap-2" href="home.php">
@@ -85,12 +83,9 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
         </div>
     </nav>
-
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
-            <!-- CABEÇALHO PERSONALIZADO DE BOAS-VINDAS -->
             <div class="border-bottom pb-4 mb-4">
                 <h1 class="display-6 fw-bold text-dark m-0">
                     Bem-vindo(a), <span style="color: #ff6600;"><?= htmlspecialchars($nomeUsuario); ?></span>! 
@@ -101,9 +96,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
             
             <div class="row g-4 mt-1">
-                
-                <!-- USUÁRIOS -->
-                <div class="col-12 col-sm-6 col-lg-3">
+                        <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-people-fill fs-4"></i>
@@ -116,7 +109,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
-                <!-- TRENS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
