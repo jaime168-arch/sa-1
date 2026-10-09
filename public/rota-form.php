@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </div>
 
-                    <div class="card-body p-4 p-md-5 pt-3">
+                    <div class="card-body p-md-10">
                         <form action="" method="POST">
                             
                             <div class="mb-3">
