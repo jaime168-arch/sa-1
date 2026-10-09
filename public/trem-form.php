@@ -108,7 +108,7 @@ try {
                     </div>
 
                     <div class="card-body p-4 p-md-5 pt-3">
-                        <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $trem['id'] ? 'atualizar os dados do' : 'cadastrar um novo'; ?> trem na frota do sistema Ferroramas.</p>
+                        <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $trem['id'] ? 'atualizar os dados do' : 'cadastrar um novo'; ?> trem na frota do sistema.</p>
 
                         <form action="trem-salvar.php" method="POST">
                             <input type="hidden" name="id" value="<?= htmlspecialchars($trem['id']); ?>">
