@@ -153,7 +153,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">
             &copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.
