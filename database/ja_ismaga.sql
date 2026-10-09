@@ -4,15 +4,18 @@ USE `ja_ismaga`;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
+
 CREATE TABLE IF NOT EXISTS `trens` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
   `modelo` VARCHAR(100) NOT NULL,
   `capacidade` INT(11) NOT NULL DEFAULT 0,
   `status` ENUM('ativo', 'manutencao', 'inativo') NOT NULL DEFAULT 'ativo',
+  `usuario_id` INT(11) NULL,
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
 
 CREATE TABLE IF NOT EXISTS `rotas` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -24,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `rotas` (
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -43,6 +47,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
     ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 
+
+ALTER TABLE `trens`
+  ADD CONSTRAINT `fk_trens_usuarios`
+  FOREIGN KEY (`usuario_id`)
+  REFERENCES `usuarios` (`id`)
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
+
+
 CREATE TABLE IF NOT EXISTS `sensores` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(100) NOT NULL,
@@ -56,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `sensores` (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+
 
 CREATE TABLE IF NOT EXISTS `dados_sensores` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
@@ -74,16 +88,22 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
 SET FOREIGN_KEY_CHECKS = 1;
 
 
-INSERT INTO `trens` (`nome`, `modelo`, `capacidade`, `status`) VALUES
-('Expressa Ferrorama', 'EF-2000', 350, 'ativo');
+
+INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
+(1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', NULL);
+
 
 INSERT INTO `rotas` (`nome_rota`, `origem`, `destino`, `distancia_km`, `status_rota`) VALUES
 ('Linha Central', 'Estação Central', 'Terminal Norte', 45.50, 'ativa');
 
-INSERT INTO `usuarios` (`nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
-('Administrador', 'admin@ismaga.com', '123456', 'admin', 1, 1, NULL),
-('Ícaro', 'icaro@gmail.com', '123456', 'usuario comum', 1, 0, 1),
-('Isabela', 'isabela@gmail.com', '123456', 'operador', 1, 0, 1),
-('Gabriela', 'gabriela@gmail.com', '123456', 'operador', 1, 0, 1),
-('Maria', 'maria@gmail.com', '123456', 'operador', 1, 0, 1),
-('Jaime', 'jaime@gmail.com', '123456', 'operador', 1, 0, 1);
+
+INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
+(1, 'Administrador', 'admin@ismaga.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'admin', 1, 1, NULL),
+(2, 'Ícaro', 'icaro@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1),
+(3, 'Isabela', 'isabela@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1),
+(4, 'Gabriela', 'gabriela@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1),
+(5, 'Maria', 'maria@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1),
+(6, 'Jaime', 'jaime@gmail.com', '$2y$10$xG.x60mBf8.vWJshU7S28uX/5g3oE22bU6l.W.bK.D.Jj.D0vS/4a', 'operador', 1, 0, 1);
+
+
+UPDATE `trens` SET `usuario_id` = 2 WHERE `id` = 1;
