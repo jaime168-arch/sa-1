@@ -65,7 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $trem_id        = filter_input(INPUT_POST, 'trem_id', FILTER_VALIDATE_INT) ?: null;
     $status_rota    = trim($_POST['status_rota'] ?? 'ativa');
 
-    // Validações no Backend
     if (empty($nome_rota) || empty($origem) || empty($destino) || $distancia_km === false || $distancia_km <= 0 || empty($tempo_previsto)) {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios corretamente (Distância deve ser um número positivo).";
     } else {
