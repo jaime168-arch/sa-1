@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (!isset($_SESSION['usuario_id'])) {
     $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
@@ -55,6 +56,7 @@ try {
 } catch (PDOException $e) {
     error_log("Erro ao carregar trens: " . $e->getMessage());
 }
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome_rota      = trim($_POST['nome_rota'] ?? '');
     $descricao      = trim($_POST['descricao'] ?? '');
@@ -85,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]);
                 $_SESSION['mensagem_sucesso'] = "Rota '{$nome_rota}' atualizada com sucesso!";
             } else {
-                // INSERT
                 $sql = "INSERT INTO rotas (nome_rota, descricao, origem, destino, distancia_km, tempo_previsto, trem_id, status_rota) VALUES (:nome_rota, :descricao, :origem, :destino, :distancia_km, :tempo_previsto, :trem_id, :status_rota)";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute([
@@ -117,100 +118,160 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - <?= $rota['id'] ? 'Editar Rota #' . $rota['id'] : 'Nova Rota'; ?></title>
-    
+    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
+    <style>
+        :root {
+            --brand-color: #ff6600;
+            --brand-hover: #e05500;
+            --bg-page: #f8fafc;
+        }
+        body {
+            background-color: var(--bg-page);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            color: #334155;
+        }
+        .btn-brand {
+            background-color: var(--brand-color);
+            border-color: var(--brand-color);
+            color: #ffffff;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .btn-brand:hover {
+            background-color: var(--brand-hover);
+            border-color: var(--brand-hover);
+            color: #ffffff;
+        }
+    </style>
 </head>
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-warning shadow-sm sticky-top" style="background-color: #ff6600 !important;">
-        <div class="container.fluid px-4">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav me-auto fw-semibold">
-                     <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Voltar ao início <img src="https://images.icon-icons.com/3162/PNG/512/left_return_arrow_icon_193335.png" alt="Início" width="20" height="20"></a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3" style="position: absolute; right: 50px; top: 50%; transform: translateY(-50%);">
-                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
-                </div>
+<!-- NAVBAR CORPORATIVA COM ALTURA EXPANDIDA -->
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
+    <div class="container-fluid px-4">
+        <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
+            </ul>
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
-
+    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 
+                <!-- MENSAGENS DE ALERTA -->
                 <?php if (isset($_SESSION['mensagem_erro'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
                         <?= htmlspecialchars($_SESSION['mensagem_erro']); unset($_SESSION['mensagem_erro']); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
                     </div>
                 <?php endif; ?>
 
-                <div class="card border-0 shadow rounded-4" style="background-color: rgb(255, 249, 240);">
-                    <div class="card-header bg-transparent border-0 pt-4 px-4 px-md-5 d-flex justify-content-between align-items-center">
-                        <h3 class="fw-bold text-dark m-0">
-                            <i class="bi bi-map me-2" style="color: #ff6600;"></i>
+                <!-- CARD FORMULÁRIO -->
+                <div class="card border-0 shadow-sm rounded-4 bg-white">
+                    <div class="card-header bg-transparent border-bottom p-4 d-flex justify-content-between align-items-center">
+                        <h3 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
+                            <i class="bi bi-map-fill" style="color: #ff6600;"></i>
                             <?= $rota['id'] ? 'Editar Rota' : 'Cadastrar Nova Rota'; ?>
                         </h3>
                         <a href="rotas.php" class="btn btn-sm btn-outline-secondary rounded-3">
-                            <i class="bi bi-arrow-left me-1"></i> Voltar
+                            <i class="bi bi-arrow-left me-1"></i> Voltar à Lista
                         </a>
                     </div>
 
-                    <div class="card-body p-md-10">
+                    <div class="card-body p-4 p-md-5">
+                        <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $rota['id'] ? 'atualizar os dados da' : 'cadastrar uma nova'; ?> rota no sistema.</p>
+
                         <form action="" method="POST">
                             
+                            <!-- NOME DA ROTA -->
                             <div class="mb-3">
-                                <label for="nome_rota" class="form-label fw-semibold">Nome da Rota <span class="text-danger">*</span></label>
-                                <input type="text" id="nome_rota" name="nome_rota" class="form-control rounded-3" value="<?= htmlspecialchars($rota['nome_rota']); ?>" required placeholder="Ex: Linha Central Expressa">
+                                <label for="nome_rota" class="form-label fw-semibold text-dark">Nome da Rota <span class="text-danger">*</span></label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-signpost-split"></i></span>
+                                    <input type="text" id="nome_rota" name="nome_rota" class="form-control border-start-0 rounded-end-3" value="<?= htmlspecialchars($rota['nome_rota']); ?>" required placeholder="Ex: Linha Central Expressa">
+                                </div>
                             </div>
 
+                            <!-- DESCRIÇÃO -->
                             <div class="mb-3">
-                                <label for="descricao" class="form-label fw-semibold">Descrição</label>
+                                <label for="descricao" class="form-label fw-semibold text-dark">Descrição</label>
                                 <textarea id="descricao" name="descricao" class="form-control rounded-3" rows="2" placeholder="Informações detalhadas sobre o percurso e paradas..."><?= htmlspecialchars($rota['descricao']); ?></textarea>
                             </div>
 
+                            <!-- ORIGEM E DESTINO -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
-                                    <label for="origem" class="form-label fw-semibold">Estação de Origem <span class="text-danger">*</span></label>
-                                    <input type="text" id="origem" name="origem" class="form-control rounded-3" value="<?= htmlspecialchars($rota['origem']); ?>" required placeholder="Ex: Estação Central">
+                                    <label for="origem" class="form-label fw-semibold text-dark">Estação de Origem <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-geo-alt"></i></span>
+                                        <input type="text" id="origem" name="origem" class="form-control border-start-0 rounded-end-3" value="<?= htmlspecialchars($rota['origem']); ?>" required placeholder="Ex: Estação Central">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="destino" class="form-label fw-semibold">Estação de Destino <span class="text-danger">*</span></label>
-                                    <input type="text" id="destino" name="destino" class="form-control rounded-3" value="<?= htmlspecialchars($rota['destino']); ?>" required placeholder="Ex: Terminal Norte">
+                                    <label for="destino" class="form-label fw-semibold text-dark">Estação de Destino <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-geo-fill"></i></span>
+                                        <input type="text" id="destino" name="destino" class="form-control border-start-0 rounded-end-3" value="<?= htmlspecialchars($rota['destino']); ?>" required placeholder="Ex: Terminal Norte">
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- DISTÂNCIA E TEMPO PREVISTO -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
-                                    <label for="distancia_km" class="form-label fw-semibold">Distância (KM) <span class="text-danger">*</span></label>
-                                    <input type="number" step="0.01" id="distancia_km" name="distancia_km" class="form-control rounded-3" value="<?= htmlspecialchars($rota['distancia_km']); ?>" required min="0.1" placeholder="Ex: 45.50">
+                                    <label for="distancia_km" class="form-label fw-semibold text-dark">Distância (KM) <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-speedometer"></i></span>
+                                        <input type="number" step="0.01" id="distancia_km" name="distancia_km" class="form-control border-start-0 rounded-end-3" value="<?= htmlspecialchars($rota['distancia_km']); ?>" required min="0.1" placeholder="Ex: 45.50">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="tempo_previsto" class="form-label fw-semibold">Tempo Previsto / Duração <span class="text-danger">*</span></label>
-                                    <input type="text" id="tempo_previsto" name="tempo_previsto" class="form-control rounded-3" value="<?= htmlspecialchars($rota['tempo_previsto']); ?>" required placeholder="Ex: 01h 15m">
+                                    <label for="tempo_previsto" class="form-label fw-semibold text-dark">Tempo Previsto / Duração <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-clock"></i></span>
+                                        <input type="text" id="tempo_previsto" name="tempo_previsto" class="form-control border-start-0 rounded-end-3" value="<?= htmlspecialchars($rota['tempo_previsto']); ?>" required placeholder="Ex: 01h 15m">
+                                    </div>
                                 </div>
                             </div>
 
+                            <!-- TREM VINCULADO E ESTADO -->
                             <div class="row g-3 mb-4">
                                 <div class="col-md-6">
-                                    <label for="trem_id" class="form-label fw-semibold">Trem Vinculado</label>
-                                    <select id="trem_id" name="trem_id" class="form-select rounded-3">
-                                        <option value="">Nenhum trem vinculado</option>
-                                        <?php foreach ($listaTrens as $t): ?>
-                                            <option value="<?= $t['id']; ?>" <?= ((int)$rota['trem_id'] === (int)$t['id']) ? 'selected' : ''; ?>>
-                                                <?= htmlspecialchars($t['nome']); ?> (<?= htmlspecialchars($t['modelo']); ?>)
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <label for="trem_id" class="form-label fw-semibold text-dark">Trem Vinculado</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted border-end-0 rounded-start-3"><i class="bi bi-train-front"></i></span>
+                                        <select id="trem_id" name="trem_id" class="form-select border-start-0 rounded-end-3">
+                                            <option value="">Nenhum trem vinculado</option>
+                                            <?php foreach ($listaTrens as $t): ?>
+                                                <option value="<?= $t['id']; ?>" <?= ((int)$rota['trem_id'] === (int)$t['id']) ? 'selected' : ''; ?>>
+                                                    <?= htmlspecialchars($t['nome']); ?> (<?= htmlspecialchars($t['modelo']); ?>)
+                                                </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="status_rota" class="form-label fw-semibold">Estado da Rota</label>
+                                    <label for="status_rota" class="form-label fw-semibold text-dark">Estado da Rota</label>
                                     <select id="status_rota" name="status_rota" class="form-select rounded-3">
                                         <option value="ativa" <?= ($rota['status_rota'] === 'ativa') ? 'selected' : ''; ?>>Ativa</option>
                                         <option value="inativa" <?= ($rota['status_rota'] === 'inativa') ? 'selected' : ''; ?>>Inativa</option>
@@ -219,9 +280,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                             </div>
 
+                            <hr class="my-4">
+
+                            <!-- BOTÕES DE AÇÃO -->
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="rotas.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
-                                <button type="submit" class="btn text-white px-4 fw-bold rounded-3 shadow-sm" style="background-color: #ff6600 !important; border: none;">
+                                <button type="submit" class="btn btn-brand px-4 rounded-3 shadow-sm">
                                     <i class="bi bi-check-circle-fill me-1"></i> Salvar Rota
                                 </button>
                             </div>
@@ -234,8 +298,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
-        <div class="container">&copy; <?= date('Y'); ?> Já Ismaga. Todos os direitos reservados.</div>
+        <div class="container">&copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
