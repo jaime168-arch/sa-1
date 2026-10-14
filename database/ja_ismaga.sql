@@ -114,7 +114,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (22, 'Lara', 'lara@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (23, 'Venso', 'venso@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (24, 'Vinicius', 'vinicius@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
-(25, 'Backhause', 'backhause@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(25, 'Beckhauser', 'backhauser@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (26, 'Mateus', 'mateus@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (27, 'Samuel', 'samuel@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (28, 'Toniote', 'toniote@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
