@@ -106,8 +106,10 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (14, 'Tomczak', 'Tomczak@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (15, 'Felipe', 'Felipe@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (16, 'Ignacio', 'Ignacio@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
-
-
+(17, 'Daniel,' 'Daniel@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(18, 'Rafael', 'Rafael@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(19, 'Gustavo', 'Gustavo@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(20, 'Roeder', 'Roeder@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
 (1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2),
