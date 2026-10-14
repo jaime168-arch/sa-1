@@ -8,19 +8,20 @@
 </head>
 <body>
 
-     <div class="main-container" style="background-color: rgb(255, 246, 230);">
-        <nav class="navbar navbar-orange navbar-ismaga">
-            <div class="container justify-content-center">
-            <h2 style="color: white;"><strong>+ Já</strong>.Ismaga</h2>
+     <div class="main-container" style="background-color: rgb(255, 246, 230); min-height: 100vh;">
+        <!-- Barra do topo laranja estruturada com preenchimento elegante (py-2) -->
+        <nav class="navbar navbar-orange navbar-ismaga py-2" style="background-color: #ff6600;">
+            <div class="container d-flex justify-content-center align-items-center">
+                <!-- A imagem entra aqui substituindo o texto antigo de forma sólida, centralizada e com bordas arredondadas -->
+                <img src="assets/imagem_1.png" alt="Logo Já Ismaga" class="img-fluid bg-white px-3 py-1 rounded-pill" 
+                     style="max-height: 70px; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.08);">
+            </div>
         </nav>
+        
         <br><br>
         <div class="login-wrapper text-center px-3" >
             <div class="container">
                 <div class="row justify-content-center">
-                    
-                    <div class="col-12 mb-4 topo">
-                        <img src="assets/imagem_1.png" alt="Trem" class="img-fluid style-img" style="max-width: 400px; width: 100%;">
-                    </div>
                     
                     <div class="col-12">
                         <h1 class="display-5 fw-normal text-dark">

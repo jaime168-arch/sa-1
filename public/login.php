@@ -15,12 +15,19 @@ $pageTitle = "Já Ismaga - Login";
 </head>
 <body class="bg-light" >
 
-    <div class="main-container" style="background-color: rgb(255, 246, 230);">
-        <nav class="navbar navbar-orange navbar-ismaga py-3">
-            <div class="container justify-content-center">
-                <a class="navbar-brand text-white fw-bold m-0" href="../index.php">+ Já.Ismaga</a>
-            </div>
-        </nav>
+<div class="main-container" style="background-color: rgb(255, 246, 230);">
+    <nav class="navbar navbar-orange navbar-ismaga py-2">
+        <div class="container d-flex justify-content-center align-items-center">
+            <!-- Link mantido para o index.php -->
+            <a class="navbar-brand m-0 d-flex align-items-center" href="../index.php">
+                <!-- Imagem sólida (bg-white cria o fundo branco, p-2 dá o respiro e rounded-3 arredonda os cantos) -->
+                <img src="../assets/imagem_1.png" alt="Logo Já Ismaga" class="img-fluid bg-white p-2 rounded-3" 
+                     style="max-height: 80px; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            </a>
+        </div>
+    </nav>
+
+
             <div class="login-wrapper my-5">
             <div class="container">
                 <div class="row justify-content-center w-100 m-0">
