@@ -97,8 +97,19 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (5, 'Maria', 'maria@gmail.com', '123456', 'operador', 1, 0, NULL),
 (6, 'Jaime', 'jaime@gmail.com', '123456', 'operador', 1, 0, NULL),
 (7, 'Lucas', 'lucas@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
-(8, 'Tomazia', 'tomazia@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
-(9, 'Natan', 'natan@gmail.com', '123456', 'usuario comum', 1, 0, NULL);
+(8, 'Tomazia', 'tomazia@gmail.com', '123456', 'operador', 1, 0, NULL),
+(9, 'Natan', 'natan@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(10, 'Gabriel', 'Gabriel@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(11, 'Caio', 'caio@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(12, 'Lombardi', 'Lombardi@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(13, 'Bruno', 'Bruno@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(14, 'Tomczak', 'Tomczak@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(15, 'Felipe', 'Felipe@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(16, 'Ignacio', 'Ignacio@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(17, 'Daniel,' 'Daniel@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(18, 'Rafael', 'Rafael@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(19, 'Gustavo', 'Gustavo@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
+(20, 'Roeder', 'Roeder@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
 (1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2),
