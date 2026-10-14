@@ -97,7 +97,7 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (5, 'Maria', 'maria@gmail.com', '123456', 'operador', 1, 0, NULL),
 (6, 'Jaime', 'jaime@gmail.com', '123456', 'operador', 1, 0, NULL),
 (7, 'Lucas', 'lucas@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
-(8, 'Tomazia', 'tomazia@gmail.com', '123456', 'operador', 1, 0, NULL),
+(8, 'Tomazia', 'tomazia@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 (9, 'Natan', 'natan@gmail.com', '123456', 'usuario comum', 1, 0, NULL);
 
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
