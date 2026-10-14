@@ -58,29 +58,36 @@ try {
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
+<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
+    <div class="container-fluid px-4">
+        <!-- Logo com link -->
+      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
+    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+</a>
 
-    <!-- NAVBAR DA APLICAÇÃO -->
-    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top" style="background-color: #ff6600 !important;">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold fs-4 me-4 text-white" href="home.php">+ Já.Ismaga</a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarMain">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold">
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
-                    <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-3">
-                    <span class="text-dark">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
-                </div>
+        <!-- Botão sanduíche para celular -->
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <!-- Itens do Menu -->
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
+                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
+            </ul>
+            
+            <!-- Lado Direito: Usuário e Botão Sair -->
+            <div class="d-flex align-items-center gap-3">
+                <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
     <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
