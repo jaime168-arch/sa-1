@@ -16,7 +16,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Início</title>
-    <!-- Bootstrap 5 & Icons -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -70,14 +70,24 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
+<<<<<<< HEAD
+        
+      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
+    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+=======
       <a class="navbar-brand d-flex align-items-center" href="home.php">
     <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
+>>>>>>> 5f9c751c5b791b5327bc3f37c6b22e6edd2007ff
 </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
+<<<<<<< HEAD
+        
+=======
     
+>>>>>>> 5f9c751c5b791b5327bc3f37c6b22e6edd2007ff
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
@@ -86,7 +96,11 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
             </ul>
+<<<<<<< HEAD
+            
+=======
       
+>>>>>>> 5f9c751c5b791b5327bc3f37c6b22e6edd2007ff
             <div class="d-flex align-items-center gap-3">
                 <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                 <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
