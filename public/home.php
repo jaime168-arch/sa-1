@@ -111,7 +111,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     Bem-vindo(a), <span style="color: #ff6600;"><?= htmlspecialchars($nomeUsuario); ?></span>! 
                 </h1>
                 <p class="fs-6 text-muted m-0 mt-2">
-                    Selecione um dos módulos abaixo ou utilize o menu superior para gerenciar os recursos da plataforma.
+                    Selecione um dos módulos abaixo para gerenciar e acessar os recursos da plataforma.
                 </p>
             </div>
             
