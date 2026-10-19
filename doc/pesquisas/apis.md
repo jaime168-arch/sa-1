@@ -2,6 +2,7 @@
 
 ## 1. O que é uma API e qual é sua finalidadeO que é uma API e qual é sua finalidade;
 R: É um conjunto de regras, protocolos e ferramentas que permite que diferentes sistemas de software se comuniquem e troquem dados entre si de forma segura 
+
 ## 2. Como funciona a comunicação entre sistemas por meio de APIs
 R: Funciona como uma ponte regulamentada que permite que dois softwares "conversem" e troquem dados de forma automática, segura e padronizada, sem que um precise conhecer o código interno do outro.
 ## 3. O que são APIs REST
