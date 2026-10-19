@@ -31,7 +31,7 @@ R: A autenticação, a autorização e a segurança no consumo de APIs são fund
 ## 12. Exemplos de utilização de APIs em sistemas empresariais.
 R: as APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
 
-Fontes: 
+## Fontes: 
 https://www.alura.com.br/artigos/api
 https://aws.amazon.com/pt/what-is/restful-api/
 https://www.cloudflare.com/pt-br/learning/ddos/glossary/hypertext-transfer-protocol-http/
