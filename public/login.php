@@ -25,19 +25,16 @@ $pageTitle = "Já Ismaga - Login";
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
-        /* Navbar elegante */
         .navbar-ismaga-login {
             background-color: var(--brand-orange) !important;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        /* Card refinado mantendo a estrutura original */
         .card-login-custom {
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.06) !important;
         }
 
-        /* Botão estilizado */
         .btn-login-custom {
             background-color: var(--brand-orange) !important;
             border-color: var(--brand-orange) !important;
@@ -53,19 +50,22 @@ $pageTitle = "Já Ismaga - Login";
             border-color: var(--brand-orange-hover) !important;
             transform: translateY(-1px);
         }
+         .logo-nav-central {
+            max-height: 70px;
+            width: auto;
+            mix-blend-mode: multiply;
+        }
+
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
     <div class="main-container flex-grow-1">
-        
-        <!-- NAVBAR ORIGINAL MANTIDA COM AJUSTE DE SOMBRA E PROPORÇÃO -->
+    
         <nav class="navbar navbar-ismaga-login py-2">
             <div class="container d-flex justify-content-center align-items-center">
                 <a class="navbar-brand m-0 d-flex align-items-center" href="../index.php">
-                    <img src="../assets/img_2.png" 
-                         alt="Logo Já Ismaga" 
-                         style="max-height: 75px; width: auto; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));"
+                    <img src="../assets/img_2.png" alt="Logo Já Ismaga" class="logo-nav-central"
                          onerror="this.style.display='none'; document.getElementById('nav-fallback-text').style.display='inline-block';">
                     
                     <span id="nav-fallback-text" class="fw-bold fs-4 text-white" style="display: none;">

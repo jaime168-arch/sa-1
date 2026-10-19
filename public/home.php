@@ -66,7 +66,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             color: var(--brand-color);
         }
 
-        /* Ajuste do Efeito Multiply na Imagem da Logo da Navbar */
         .logo-nav-central {
             max-height: 70px;
             width: auto;
