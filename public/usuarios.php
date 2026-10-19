@@ -108,7 +108,7 @@ try {
                 <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
                     <i class="bi bi-people-fill" style="color: #ff6600;"></i> Gestão de Usuários
                 </h2>
-                <small class="text-muted">Gerencie contas, perfis de acesso e estados das contas de utilizadores.</small>
+                <small class="text-muted">Gerencie contas de utilizadores</small>
             </div>
             <?php if ($isAdmin): ?>
                 <a href="usuario-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">

@@ -109,7 +109,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     </div>
 </nav>
 
-    <main class="container my-5">
+    <main class="container my-5"> <br>
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 
@@ -140,7 +140,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                         </a>
                     </div>
 
-                    <div class="card-body p-4 p-md-5">
+                    <div class="card-body p-4 p-md-4">
                         <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $modoEdicao ? 'atualizar a conta do' : 'cadastrar um novo'; ?> utilizador no sistema.</p>
 
                         <form action="usuario-salvar.php" method="POST">
@@ -207,8 +207,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                     </div>
                                 </div>
                             </div>
-
-                            <hr class="my-4">
 
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="usuarios.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>

@@ -95,7 +95,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     </div>
 </nav>
 
-    <main class="container my-5">
+    <main class="container my-5">    
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
             <div class="border-bottom pb-4 mb-4">
@@ -107,7 +107,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                 </p>
             </div>
             
-            <div class="row g-4 mt-1">
+            <div class="row g-4 m-1">
                         <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
