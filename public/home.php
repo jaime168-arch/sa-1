@@ -70,17 +70,14 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
-        <!-- Logo com link -->
-      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
 
-        <!-- Botão sanduíche para celular -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
-        
-        <!-- Itens do Menu -->
+    
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
@@ -89,8 +86,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
             </ul>
-            
-            <!-- Lado Direito: Usuário e Botão Sair -->
+      
             <div class="d-flex align-items-center gap-3">
                 <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                 <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
