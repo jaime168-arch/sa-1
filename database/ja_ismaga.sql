@@ -99,12 +99,6 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `proteg
 (7, 'Lucas', 'lucas@gmail.com', '123456', 'usuario comum', 1, 0, NULL),
 
 
-
-
-
-
-
-
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
 (1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2),
 (2, 'Trem do 67', 'TEE-670', 67, 'em manutenção', 5),
