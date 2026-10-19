@@ -66,7 +66,7 @@ try {
     <div class="container-fluid px-4">
         
       <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
