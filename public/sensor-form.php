@@ -93,7 +93,7 @@ try {
             width: auto;
             mix-blend-mode: multiply;
         }
-        
+
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -147,7 +147,7 @@ try {
                         </a>
                     </div>
 
-                    <div class="card-body p-4 p-md-5">
+                    <div class="card-body p-4 p-md-4">
                         <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $sensor['id'] ? 'atualizar os dados do' : 'cadastrar um novo'; ?> dispositivo IoT no sistema.</p>
 
                         <form action="sensor-salvar.php" method="POST">
@@ -209,8 +209,6 @@ try {
                                     </select>
                                 </div>
                             </div>
-
-                            <hr class="my-4">
 
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="sensores.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
