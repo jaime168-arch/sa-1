@@ -64,9 +64,8 @@ try {
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
-        
-      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
@@ -110,10 +109,8 @@ try {
 
         <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 bg-white shadow-sm border border-light-subtle">
             <div>
-                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
-                    <i class="bi bi-map-fill" style="color: #ff6600;"></i> Gestão de Rotas
-                </h2>
-                <small class="text-muted">Consulte e acompanhe as rotas cadastradas e os trens vinculados aos percursos.</small>
+                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2"> Gestão de Rotas </h2>
+                <small class="text-muted">Consulte e acompanhe as rotas cadastradas e os trens vinculados aos percursos</small>
             </div>
             <?php if ($isAdmin): ?>
                 <a href="rota-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">
