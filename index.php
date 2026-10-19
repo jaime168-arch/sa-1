@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,19 @@
 </head>
 <body>
 
-    
-     <div class="main-container" style="background-color: rgb(255, 246, 230);">
-        <nav class="navbar navbar-orange navbar-ismaga">
+    <div class="main-container" style="background-color: rgb(255, 246, 230);">
+        
+        <!-- NAVBAR ORIGINAL COM O TEXTO "+ JÁ.ISMAGA" EM LETRAS PRETAS -->
+        <nav class="navbar navbar-orange navbar-ismaga" style="background-color: #ff6600 !important;">
             <div class="container justify-content-center">
-            <h2 style="color: white;"><strong>+ Já</strong>.Ismaga</h2>
+                <h2 style="color: #000000 !important; margin: 0; padding: 10px 0;">
+                    <strong>Já</strong>.Ismaga
+                </h2>
+            </div>
         </nav>
+
         <br><br>
-        <div class="login-wrapper text-center px-3" >
+        <div class="login-wrapper text-center px-3">
             <div class="container">
                 <div class="row justify-content-center">
                     
@@ -41,5 +46,6 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
