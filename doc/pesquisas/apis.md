@@ -7,11 +7,11 @@ R: Funciona como uma ponte regulamentada que permite que dois softwares "convers
 ## 3. O que são APIs REST
 R: É uma interface de programação de aplicações que segue os princípios de design da arquitetura REST
 ### Princípios Fundamentais do REST:
- - **GET: É utilizado para recuperar dados 
- - **POST: É utilizado para criar um novo recurso no servidor 
- - **PUT: É utilizado para atualizar ou substituir um recurso existente por completo 
- - **PATCH: É utilizado para realizar uma atualização parcial em um recurso
- - **DELETE: É utilizado para remover um recurso específico do servidor 
+ - GET: É utilizado para recuperar dados 
+ - POST: É utilizado para criar um novo recurso no servidor 
+ - PUT: É utilizado para atualizar ou substituir um recurso existente por completo 
+ - PATCH: É utilizado para realizar uma atualização parcial em um recurso
+ - DELETE: É utilizado para remover um recurso específico do servidor 
 ## 4. O papel dos métodos HTTP, como GET, POST, PUT, PATCH e DELETE;
 R: Funcionam como a "ação" ou o "comando" que uma aplicação cliente deseja realizar sobre um recurso no servidor em uma arquitetura de API RESTful. 
 ## 5. O que são requisições e respostas HTTP;
