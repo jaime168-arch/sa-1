@@ -110,10 +110,8 @@ try {
 
         <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 bg-white shadow-sm border border-light-subtle">
             <div>
-                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
-                    <i class="bi bi-map-fill" style="color: #ff6600;"></i> Gestão de Rotas
-                </h2>
-                <small class="text-muted">Consulte e acompanhe as rotas cadastradas e os trens vinculados aos percursos.</small>
+                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2"> Gestão de Rotas </h2>
+                <small class="text-muted">Consulte e acompanhe as rotas cadastradas e os trens vinculados aos percursos</small>
             </div>
             <?php if ($isAdmin): ?>
                 <a href="rota-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">
