@@ -1,4 +1,4 @@
-# 🚂 Já Ismaga — Ferrorama IoT e Indústria 4.0
+# Já Ismaga — Ferrorama IoT e Indústria 4.0
 
 <p align="center">
   <img src="https://img.shields.io/static/v1?label=STATUS&message=EM%20DESENVOLVIMENTO&color=orange&style=for-the-badge" alt="Status: Em Desenvolvimento"/>
@@ -11,20 +11,20 @@
 
 ---
 
-## 📌 Índice
+## Índice
 - [Descrição do Projeto](#descrição-do-projeto)
+- [Novidades e Atualizações da Interface](#novidades-e-atualizações-da-interface)
 - [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
 - [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
 - [Metodologia de Desenvolvimento e Kanban](#metodologia-de-desenvolvimento-e-kanban)
 - [Padrões de Código (Style Guide)](#padrões-de-código-style-guide)
 - [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Como Executar o Projeto](#como-executar-o-projeto)
 - [Desenvolvedores](#desenvolvedores)
 
 ---
 
-## 📖 Descrição do Projeto
+## Descrição do Projeto
 
 O projeto de **Ferrorama IoT da Já Ismaga** une a nostalgia do clássico brinquedo à vanguarda da **Indústria 4.0**, transformando linhas férreas e trilhos tradicionais num ecossistema conectado, automatizado e inteligente.
 
@@ -38,30 +38,43 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 ---
 
-## ⚙️ Funcionalidades e Requisitos Funcionais (RFs)
+## Novidades e Atualizações da Interface
+
+A plataforma passou por uma reformulação visual completa com o objetivo de entregar uma experiência de uso profissional, executiva e alinhada às plataformas industriais de telemetria:
+
+- **Interface Corporativa e Sábria:** Substituição de fundos pastéis e layouts informais por cartões brancos com sombras leves, bordas suaves e paleta de cores institucional utilizando o tom oficial laranja (#ff6600).
+- **Barra de Navegação Expandida:** Navbar superior com maior altura útil, melhor espaçamento entre itens, botão de perfil do utilizador e encerramento de sessão alinhados à direita.
+- **Formulários Padronizados:** Todos os campos de formulários (`usuario-form.php`, `trem-form.php`, `rota-form.php`, `sensor-form.php`) contam com grupos de entrada (`input-group`) contendo ícones temáticos do Bootstrap Icons para identificação dos tipos de dado.
+- **Controle de Acesso por Perfil (RBAC):** Restrição de funcionalidades críticas do frontend e backend baseada em perfis (`admin`, `supervisor`, `operador`), ocultando botões de edição e exclusão para utilizadores sem privilégios administrativos.
+- **Modais Nativos de Confirmação:** Remoção de alertas legados JavaScript em favor de modais Bootstrap responsivos para confirmação de exclusão segura em todas as listagens.
+- **Badges de Estado e Leitura:** Exibição dinâmica de estados operacionais e perfis de conta através de badges coloridas e estilizadas com bordas suaves.
+
+---
+
+## Funcionalidades e Requisitos Funcionais (RFs)
 
 As funcionalidades do ecossistema foram categorizadas em três pilares, associadas aos Requisitos Funcionais (RFs) do projeto:
 
 ### 1. Controlo de Acesso e Segurança (Autenticação)
-* **[RF01] Login de Utilizadores:** Interface segura para autenticação de operadores.
-* **[RF02] Validação de Credenciais:** Integração e verificação de acessos via banco de dados MySQL (PDO / API REST).
-* **[RF03] Sessão Segura:** Função de logout e controlo de permissões para encerramento de atividades na mesa de controlo.
+- **[RF01] Login de Utilizadores:** Interface segura para autenticação de operadores e administradores.
+- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via banco de dados MySQL via PDO.
+- **[RF03] Sessão Segura e Controle de Perfil:** Função de logout e controle de permissões por perfil (`admin`, `supervisor`, `operador`) para restrição de ações no sistema.
 
 ### 2. Monitorização e Telemetria em Tempo Real
-* **[RF04] Localização no Mapa Interativo:** Exibição em tempo real do posicionamento exato da locomotiva ao longo dos trilhos.
-* **[RF05] Classificação Automática de Status:** Algoritmo que categoriza instantaneamente o estado operacional do trem (*Normal*, *Alerta*, *Falha*).
-* **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página (via AJAX/Fetch API em JS).
-* **[RF07] Controlo Remoto de Variáveis:** Monitorização e ajuste remoto de velocidade, sentido de direção e iluminação.
+- **[RF04] Localização no Mapa Interativo:** Exibição em tempo real do posicionamento exato da locomotiva ao longo dos trilhos.
+- **[RF05] Classificação Automática de Status:** Algoritmo que categoriza instantaneamente o estado operacional do trem (*Ativo*, *Em Manutenção*, *Inativo*).
+- **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página (via AJAX/Fetch API em JS).
+- **[RF07] Controlo Remoto de Variáveis:** Monitorização e ajuste remoto de velocidade, sentido de direção e iluminação.
 
 ### 3. Gestão de Dispositivos (IoT) e Relatórios Preditivos
-* **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Telas e formulários para cadastro, listagem, edição e eliminação.
-* **[RF09] Manutenção Preditiva:** Análise do estado dos componentes e leitura de sensores para antecipar falhas operacionais.
-* **[RF10] Automação de Desvios:** Controlo inteligente de desvios de trilhos e paradas logísticas programadas.
-* **[RF11] Módulo Analítico e Relatórios:** Geração e histórico de relatórios de desempenho e métricas operacionais para auditoria.
+- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e padronizada.
+- **[RF09] Manutenção Preditiva:** Análise do estado dos componentes e leitura de sensores para antecipar falhas operacionais.
+- **[RF10] Automação de Desvios:** Controlo inteligente de desvios de trilhos e paradas logísticas programadas.
+- **[RF11] Módulo Analítico e Relatórios:** Geração e histórico de relatórios de desempenho e métricas operacionais para auditoria.
 
 ---
 
-## 🖥️ Mapeamento de Interfaces (CRUD UI)
+## Mapeamento de Interfaces (CRUD UI)
 
 Abaixo estão listadas as interfaces desenvolvidas e padronizadas para cada entidade do sistema:
 
@@ -74,14 +87,14 @@ Abaixo estão listadas as interfaces desenvolvidas e padronizadas para cada enti
 
 ---
 
-## 📊 Metodologia de Desenvolvimento e Kanban
+## Metodologia de Desenvolvimento e Kanban
 
 Para a condução do projeto, a equipa adotou a metodologia **Scrumban** (combinação entre **Scrum** e **Kanban**).
 
 ### Justificativa da Escolha:
 A combinação do Scrum com o Kanban garante à equipa a agilidade e a previsibilidade necessárias para entregas académicas em etapas, mantendo total flexibilidade visual sobre o fluxo de trabalho.
-* O **Kanban** fornece transparência imediata sobre o status de cada tarefa (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*), evitando sobrecarga nos desenvolvedores.
-* Os ritos do **Scrum** mantêm a equipa em sincronia quanto aos prazos e prioridades dos Requisitos Funcionais.
+- O **Kanban** fornece transparência imediata sobre o status de cada tarefa (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*), evitando sobrecarga nos desenvolvedores.
+- Os ritos do **Scrum** mantêm a equipa em sincronia quanto aos prazos e prioridades dos Requisitos Funcionais.
 
 ### Gestão e Acompanhamento das Tarefas:
 O acompanhamento do desenvolvimento é realizado via **GitHub Projects**. Cada card no board contém obrigatoriamente:
@@ -90,28 +103,28 @@ O acompanhamento do desenvolvimento é realizado via **GitHub Projects**. Cada c
 - **Membro responsável (Assignee)**
 - **Status de execução**
 
-📌 **Link do GitHub Projects (Kanban):** [https://github.com/jaime168-arch/SA_1/projects](https://github.com/jaime168-arch/SA_1/projects)
+Link do GitHub Projects (Kanban): [https://github.com/jaime168-arch/SA_1/projects](https://github.com/jaime168-arch/SA_1/projects)
 
 ---
 
-## 🎨 Padrões de Código (Style Guide)
+## Padrões de Código (Style Guide)
 
 Para garantir a consistência e organização do repositório, a equipa estabeleceu as seguintes regras de desenvolvimento:
 
 ### 1. Nomenclatura de Arquivos e Pastas
-* **Arquivos Web, PHP, JS e CSS:** Padrão `kebab-case` em minúsculas (ex: `sensor-form.php`, `sensor-salvar.js`, `style.css`).
-* **Arquivos de Pesquisa e Documentação:** Padrão `kebab-case` minúsculo dentro da pasta `pesquisas/` ou `doc/` (ex: `pesquisas/pdo.md`).
-* **Variáveis e Funções (JS/PHP):** Padrão `camelCase` (ex: `validarUsuario()`, `statusSensor`).
-* **Constantes:** Padrão `UPPER_SNAKE_CASE` (ex: `LIMITE_VELOCIDADE`).
+- **Arquivos Web, PHP, JS e CSS:** Padrão `kebab-case` em minúsculas (ex: `sensor-form.php`, `sensor-salvar.js`, `style.css`).
+- **Arquivos de Pesquisa e Documentação:** Padrão `kebab-case` minúsculo dentro da pasta `pesquisas/` ou `doc/` (ex: `pesquisas/pdo.md`).
+- **Variáveis e Funções (JS/PHP):** Padrão `camelCase` (ex: `validarUsuario()`, `statusSensor`).
+- **Constantes:** Padrão `UPPER_SNAKE_CASE` (ex: `LIMITE_VELOCIDADE`).
 
 ### 2. Boas Práticas de Código
-* **Indentação:** Espaçamento padrão de 2 a 4 espaços em arquivos HTML, PHP, CSS e JS.
-* **Comentários:** Utilizados para explicar regras de negócio complexas, rotas de API ou blocos de script SQL.
-* **Idioma:** Nomenclatura em português alinhada ao domínio do projeto Ferroramas.
+- **Indentação:** Espaçamento padrão de 2 a 4 espaços em arquivos HTML, PHP, CSS e JS.
+- **Comentários:** Utilizados para explicar regras de negócio complexas, rotas de API ou blocos de script SQL.
+- **Idioma:** Nomenclatura em português alinhada ao domínio do projeto Ferroramas.
 
 ---
 
-## 🛠️ Tecnologias e Ferramentas
+## Tecnologias e Ferramentas
 
 O ecossistema utiliza as seguintes tecnologias:
 
@@ -121,15 +134,15 @@ O ecossistema utiliza as seguintes tecnologias:
   </a>
 </p>
 
-* **Frontend:** HTML5, CSS3, JavaScript (ES6+ com Fetch API / AJAX), Bootstrap 5.
-* **Backend:** PHP / Node.js (Comunicação via APIs REST e integração MySQL via PDO/MySQLi).
-* **Banco de Dados:** MySQL (Gerenciado via XAMPP / MySQL Workbench).
-* **Documentação & Pesquisa:** Markdown (Pesquisa técnica sobre **PDO** disponível em `pesquisas/pdo.md`).
-* **Gestão & Versionamento:** Git, GitHub e GitHub Projects (Kanban).
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com Fetch API / AJAX), Bootstrap 5 e Bootstrap Icons.
+- **Backend:** PHP (Comunicação via APIs REST, controle de sessões e integração MySQL via PDO).
+- **Banco de Dados:** MySQL com suporte a relacionamentos entre Usuários, Trens, Rotas e Sensores.
+- **Documentação & Pesquisa:** Markdown (Pesquisa técnica sobre **PDO** disponível em `pesquisas/pdo.md`).
+- **Gestão & Versionamento:** Git, GitHub e GitHub Projects (Kanban).
 
 ---
 
-## 📂 Estrutura do Projeto
+## Estrutura do Projeto
 
 A estrutura de diretórios do repositório está organizada da seguinte forma:
 
