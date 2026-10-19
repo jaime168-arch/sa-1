@@ -8,6 +8,7 @@ R: Funciona como uma ponte regulamentada que permite que dois softwares "convers
 
 ## 3. O que são APIs REST
 R: É uma interface de programação de aplicações que segue os princípios de design da arquitetura REST
+
 ### Princípios Fundamentais do REST:
  - GET: É utilizado para recuperar dados 
  - POST: É utilizado para criar um novo recurso no servidor 
