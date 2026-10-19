@@ -139,10 +139,8 @@ try {
 
         <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 bg-white shadow-sm border border-light-subtle">
             <div>
-                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
-                    <i class="bi bi-cpu-fill" style="color: #ff6600;"></i> Monitorização de Sensores
-                </h2>
-                <small class="text-muted">Acompanhe a telemetria, estado operacional e dispositivos IoT acoplados à frota.</small>
+                <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2"> Monitorização de Sensores </h2>
+                <small class="text-muted">Acompanhe o estado operacional dos sensores registrados</small>
             </div>
             <?php if ($isAdmin): ?>
                 <a href="sensor-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">

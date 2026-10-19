@@ -150,11 +150,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
-        
-      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
-
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -191,7 +189,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="card border-0 shadow-sm rounded-4 bg-white">
                     <div class="card-header bg-transparent border-bottom p-4 d-flex justify-content-between align-items-center">
                         <h3 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
-                            <i class="bi bi-map-fill" style="color: #ff6600;"></i>
                             <?= $rota['id'] ? 'Editar Rota' : 'Cadastrar Nova Rota'; ?>
                         </h3>
                         <a href="rotas.php" class="btn btn-sm btn-outline-secondary rounded-3">
@@ -199,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </div>
 
-                    <div class="card-body p-4 p-md-5">
+                    <div class="card-body p-4 p-md-4">
                         <p class="text-muted small mb-4">Preencha as informações abaixo para <?= $rota['id'] ? 'atualizar os dados da' : 'cadastrar uma nova'; ?> rota no sistema.</p>
 
                         <form action="" method="POST">
@@ -275,8 +272,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </div>
                             </div>
-
-                            <hr class="my-4">
 
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="rotas.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
