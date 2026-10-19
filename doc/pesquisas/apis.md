@@ -29,7 +29,7 @@ R: Ela funciona sob um modelo de comunicação estruturado, baseado em requisiç
 ## 11. Importância da autenticação, autorização e segurança no consumo de APIs;
 R: A autenticação, a autorização e a segurança no consumo de APIs são fundamentais para proteger dados confidenciais, garantir a integridade dos sistemas e impedir o acesso não autorizado.
 ## 12. Exemplos de utilização de APIs em sistemas empresariais.
-R: as APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
+R: As APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
 
 ## Fontes: 
 - https://www.alura.com.br/artigos/api
