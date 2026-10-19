@@ -1,16 +1,19 @@
-O que é uma API e qual é sua finalidade;
+# Pesquisa Técnica: APIs e Integração entre Sistemas
+
+## 1. O que é uma API e qual é sua finalidadeO que é uma API e qual é sua finalidade;
 R: É um conjunto de regras, protocolos e ferramentas que permite que diferentes sistemas de software se comuniquem e troquem dados entre si de forma segura 
-Como funciona a comunicação entre sistemas por meio de APIs;
+## 2. Como funciona a comunicação entre sistemas por meio de APIs
 R: Funciona como uma ponte regulamentada que permite que dois softwares "conversem" e troquem dados de forma automática, segura e padronizada, sem que um precise conhecer o código interno do outro.
-O que são APIs REST;
+## 3. O que são APIs REST
 R: É uma interface de programação de aplicações que segue os princípios de design da arquitetura REST
 O papel dos métodos HTTP, como GET, POST, PUT, PATCH e DELETE;
 R: Funcionam como a "ação" ou o "comando" que uma aplicação cliente deseja realizar sobre um recurso no servidor em uma arquitetura de API RESTful. 
-GET: É utilizado para recuperar dados 
-POST: É utilizado para criar um novo recurso no servidor 
-PUT: É utilizado para atualizar ou substituir um recurso existente por completo 
-PATCH: É utilizado para realizar uma atualização parcial em um recurso
-DELETE: É utilizado para remover um recurso específico do servidor 
+### Princípios Fundamentais do REST:
+ - **GET: É utilizado para recuperar dados 
+ - **POST: É utilizado para criar um novo recurso no servidor 
+ - **PUT: É utilizado para atualizar ou substituir um recurso existente por completo 
+ - **PATCH: É utilizado para realizar uma atualização parcial em um recurso
+ - **DELETE: É utilizado para remover um recurso específico do servidor 
 O que são requisições e respostas HTTP;
 R: São mensagens trocadas entre um cliente e um servidor para permitir a comunicação na internet, seguindo o Protocolo de Transferência de Hipertexto 
 O que são endpoints;
