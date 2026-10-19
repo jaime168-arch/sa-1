@@ -13,14 +13,14 @@
 
 ## Índice
 - [Descrição do Projeto](#descrição-do-projeto)
-- [Novidades e Atualizações da Interface](#novidades-e-atualizações-da-interface)
+- [Novidades e Atualizações do Sistema](#novidades-e-atualizações-do-sistema)
 - [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
 - [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
+- [Pesquisa Técnica sobre APIs](#pesquisa-técnica-sobre-apis)
 - [Metodologia de Desenvolvimento e Kanban](#metodologia-de-desenvolvimento-e-kanban)
 - [Padrões de Código (Style Guide)](#padrões-de-código-style-guide)
 - [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
 - [Estrutura do Projeto](#estrutura-do-projeto)
-- [Desenvolvedores](#desenvolvedores)
 
 ---
 
@@ -38,16 +38,15 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 ---
 
-## Novidades e Atualizações da Interface
+## Novidades e Atualizações do Sistema
 
-A plataforma passou por uma reformulação visual completa com o objetivo de entregar uma experiência de uso profissional, executiva e alinhada às plataformas industriais de telemetria:
+O sistema passou por uma consolidação funcional e refatoração completa para a primeira apresentação integrada de funcionamento:
 
-- **Interface Corporativa e Sábria:** Substituição de fundos pastéis e layouts informais por cartões brancos com sombras leves, bordas suaves e paleta de cores institucional utilizando o tom oficial laranja (#ff6600).
-- **Barra de Navegação Expandida:** Navbar superior com maior altura útil, melhor espaçamento entre itens, botão de perfil do utilizador e encerramento de sessão alinhados à direita.
-- **Formulários Padronizados:** Todos os campos de formulários (`usuario-form.php`, `trem-form.php`, `rota-form.php`, `sensor-form.php`) contam com grupos de entrada (`input-group`) contendo ícones temáticos do Bootstrap Icons para identificação dos tipos de dado.
-- **Controle de Acesso por Perfil (RBAC):** Restrição de funcionalidades críticas do frontend e backend baseada em perfis (`admin`, `supervisor`, `operador`), ocultando botões de edição e exclusão para utilizadores sem privilégios administrativos.
-- **Modais Nativos de Confirmação:** Remoção de alertas legados JavaScript em favor de modais Bootstrap responsivos para confirmação de exclusão segura em todas as listagens.
-- **Badges de Estado e Leitura:** Exibição dinâmica de estados operacionais e perfis de conta através de badges coloridas e estilizadas com bordas suaves.
+- **Segurança e Criptografia de Senhas:** Implementação do armazenamento seguro de credenciais via `password_hash()` no banco de dados MySQL, eliminando o armazenamento de senhas em texto puro.
+- **Controle de Acesso por Perfil (RBAC no Backend):** Proteção das rotas e páginas administrativas no servidor. Usuários do tipo `operador` possuem menus adaptados e são bloqueados caso tentem acessar páginas exclusivas de administradores diretamente pela URL.
+- **Integração Completa dos Quatro CRUDs:** Todas as entidades (Usuários, Trens, Rotas e Sensores) possuem relacionamento no banco de dados PDO (Exemplo: Responsável do Trem, Trem vinculado à Rota e Trem/Localização associados aos Sensores).
+- **Interface e Navbar Reestruturadas:** Reformulação da barra de navegação corporativa, aumentando sua proporção e alinhamento visual, com suporte a fallback dinâmico de imagem e exibição dos dados da sessão ativa (`ID`, `Nome` e `Perfil`).
+- **Formulários e Modais Padronizados:** Todos os formulários contam com grupos de entrada (`input-group`) e ícones temáticos do Bootstrap Icons, além de modais responsivos de confirmação para exclusão de registros.
 
 ---
 
@@ -56,9 +55,9 @@ A plataforma passou por uma reformulação visual completa com o objetivo de ent
 As funcionalidades do ecossistema foram categorizadas em três pilares, associadas aos Requisitos Funcionais (RFs) do projeto:
 
 ### 1. Controlo de Acesso e Segurança (Autenticação)
-- **[RF01] Login de Utilizadores:** Interface segura para autenticação de operadores e administradores.
-- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via banco de dados MySQL via PDO.
-- **[RF03] Sessão Segura e Controle de Perfil:** Função de logout e controle de permissões por perfil (`admin`, `supervisor`, `operador`) para restrição de ações no sistema.
+- **[RF01] Login de Utilizadores:** Interface para autenticação de operadores e administradores.
+- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via banco de dados MySQL via PDO com comparação de hashes criptográficos.
+- **[RF03] Sessão Segura e Controle de Perfil:** Encerramento seguro de sessão via logout e controle de permissões por perfil (`admin`, `supervisor`, `operador`) para restrição de ações diretamente no backend.
 
 ### 2. Monitorização e Telemetria em Tempo Real
 - **[RF04] Localização no Mapa Interativo:** Exibição em tempo real do posicionamento exato da locomotiva ao longo dos trilhos.
@@ -67,7 +66,7 @@ As funcionalidades do ecossistema foram categorizadas em três pilares, associad
 - **[RF07] Controlo Remoto de Variáveis:** Monitorização e ajuste remoto de velocidade, sentido de direção e iluminação.
 
 ### 3. Gestão de Dispositivos (IoT) e Relatórios Preditivos
-- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e padronizada.
+- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e relacionamentos entre chaves estrangeiras.
 - **[RF09] Manutenção Preditiva:** Análise do estado dos componentes e leitura de sensores para antecipar falhas operacionais.
 - **[RF10] Automação de Desvios:** Controlo inteligente de desvios de trilhos e paradas logísticas programadas.
 - **[RF11] Módulo Analítico e Relatórios:** Geração e histórico de relatórios de desempenho e métricas operacionais para auditoria.
@@ -87,6 +86,22 @@ Abaixo estão listadas as interfaces desenvolvidas e padronizadas para cada enti
 
 ---
 
+## Pesquisa Técnica sobre APIs
+
+Como parte das entregas académicas do projeto, a equipe realizou uma pesquisa aprofundada sobre a arquitetura e consumo de APIs (*Application Programming Interfaces*), documentada no arquivo `pesquisas/apis.md`.
+
+### Principais Tópicos Cobertos no Documento:
+1. Conceito e finalidade de uma API no desenvolvimento moderno.
+2. Funcionamento do modelo Cliente-Servidor e stateless no padrão REST.
+3. Utilização dos Métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
+4. Estruturação de Requisições, Respostas, Headers e Códigos de Status HTTP (`200`, `201`, `400`, `401`, `403`, `404`, `500`).
+5. Definição e mapeamento de Endpoints para telemetria e controle de frotas.
+6. Troca e estruturação de dados em formato JSON.
+7. Exemplos práticos em PHP para consumo de APIs via `cURL` e disponibilização de dados via `json_encode()`.
+8. Padrões de segurança em consumo de APIs (tokens JWT, API Keys e HTTPS).
+
+---
+
 ## Metodologia de Desenvolvimento e Kanban
 
 Para a condução do projeto, a equipa adotou a metodologia **Scrumban** (combinação entre **Scrum** e **Kanban**).
@@ -98,7 +113,7 @@ A combinação do Scrum com o Kanban garante à equipa a agilidade e a previsibi
 
 ### Gestão e Acompanhamento das Tarefas:
 O acompanhamento do desenvolvimento é realizado via **GitHub Projects**. Cada card no board contém obrigatoriamente:
-- **Título claro da ação** (com tag `[RF]` ou `[Frontend]`)
+- **Título claro da ação** (com tag `[RF]`, `[Backend]` ou `[Frontend]`)
 - **Descrição das atividades**
 - **Membro responsável (Assignee)**
 - **Status de execução**
@@ -109,11 +124,11 @@ Link do GitHub Projects (Kanban): [https://github.com/jaime168-arch/SA_1/project
 
 ## Padrões de Código (Style Guide)
 
-Para garantir a consistência e organização do repositório, a equipa estabeleceu as seguintes regras de desenvolvimento:
+Para garantir a consistência e organização do repositório, a equipa established as seguintes regras de desenvolvimento:
 
 ### 1. Nomenclatura de Arquivos e Pastas
 - **Arquivos Web, PHP, JS e CSS:** Padrão `kebab-case` em minúsculas (ex: `sensor-form.php`, `sensor-salvar.js`, `style.css`).
-- **Arquivos de Pesquisa e Documentação:** Padrão `kebab-case` minúsculo dentro da pasta `pesquisas/` ou `doc/` (ex: `pesquisas/pdo.md`).
+- **Arquivos de Pesquisa e Documentação:** Padrão `kebab-case` minúsculo dentro da pasta `pesquisas/` ou `doc/` (ex: `pesquisas/apis.md`, `pesquisas/pdo.md`).
 - **Variáveis e Funções (JS/PHP):** Padrão `camelCase` (ex: `validarUsuario()`, `statusSensor`).
 - **Constantes:** Padrão `UPPER_SNAKE_CASE` (ex: `LIMITE_VELOCIDADE`).
 
@@ -137,7 +152,7 @@ O ecossistema utiliza as seguintes tecnologias:
 - **Frontend:** HTML5, CSS3, JavaScript (ES6+ com Fetch API / AJAX), Bootstrap 5 e Bootstrap Icons.
 - **Backend:** PHP (Comunicação via APIs REST, controle de sessões e integração MySQL via PDO).
 - **Banco de Dados:** MySQL com suporte a relacionamentos entre Usuários, Trens, Rotas e Sensores.
-- **Documentação & Pesquisa:** Markdown (Pesquisa técnica sobre **PDO** disponível em `pesquisas/pdo.md`).
+- **Documentação & Pesquisa:** Markdown (Pesquisas técnicas disponíveis em `pesquisas/pdo.md` e `pesquisas/apis.md`).
 - **Gestão & Versionamento:** Git, GitHub e GitHub Projects (Kanban).
 
 ---
@@ -151,7 +166,9 @@ A estrutura de diretórios do repositório está organizada da seguinte forma:
 ├── assets/                 # Imagens, logos e recursos visuais
 ├── database/               # Scripts SQL (WorkBench.SQL) e arquivos de conexão PHP
 ├── doc/                    # Documentações do projeto
-├── pesquisas/              # Pesquisas acadêmicas e técnicas (pdo.md)
+├── pesquisas/              # Pesquisas acadêmicas e técnicas (pdo.md, apis.md)
+│   ├── pdo.md
+│   └── apis.md
 ├── public/                 # Telas e formulários PHP/HTML do sistema
 │   ├── home.php
 │   ├── usuarios.php
