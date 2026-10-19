@@ -59,10 +59,9 @@ try {
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
-    <div class="container-fluid px-4">
-        <!-- Logo com link -->
-      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+   <div class="container-fluid px-4">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
 
         <!-- Botão sanduíche para celular -->
