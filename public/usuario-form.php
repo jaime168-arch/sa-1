@@ -53,7 +53,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - <?= $modoEdicao ? 'Editar Usuário #' . $usuarioEdit['id'] : 'Novo Usuário'; ?></title>
-    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -85,17 +84,14 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
-        <!-- Logo com link -->
-      <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
-    <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
+      <a class="navbar-brand d-flex align-items-center" href="home.php">
+    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
 </a>
 
-        <!-- Botão sanduíche para celular -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <!-- Itens do Menu -->
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
@@ -105,7 +101,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
             </ul>
             
-            <!-- Lado Direito: Usuário e Botão Sair -->
             <div class="d-flex align-items-center gap-3">
                 <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                 <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
@@ -114,12 +109,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     </div>
 </nav>
 
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 
-                <!-- MENSAGENS DE ALERTA -->
                 <?php if (isset($_SESSION['mensagem_erro'])): ?>
                     <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
                         <i class="bi bi-exclamation-triangle-fill me-2"></i>
@@ -136,7 +129,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                     </div>
                 <?php endif; ?>
 
-                <!-- CARD FORMULÁRIO -->
                 <div class="card border-0 shadow-sm rounded-4 bg-white">
                     <div class="card-header bg-transparent border-bottom p-4 d-flex justify-content-between align-items-center">
                         <h3 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
@@ -155,7 +147,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             <input type="hidden" name="id" value="<?= htmlspecialchars($usuarioEdit['id']); ?>">
 
                             <div class="row g-3 mb-3">
-                                <!-- NOME COMPLETO -->
                                 <div class="col-md-6">
                                     <label for="nome" class="form-label fw-semibold text-dark">Nome Completo <span class="text-danger">*</span></label>
                                     <div class="input-group">
@@ -164,7 +155,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                     </div>
                                 </div>
 
-                                <!-- E-MAIL -->
                                 <div class="col-md-6">
                                     <label for="email" class="form-label fw-semibold text-dark">Endereço de E-mail <span class="text-danger">*</span></label>
                                     <div class="input-group">
@@ -175,7 +165,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             </div>
 
                             <div class="row g-3 mb-3">
-                                <!-- PERFIL DE ACESSO -->
                                 <div class="col-md-6">
                                     <label for="tipo" class="form-label fw-semibold text-dark">Perfil de Acesso <span class="text-danger">*</span></label>
                                     <div class="input-group">
@@ -188,7 +177,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                     </div>
                                 </div>
 
-                                <!-- STATUS DA CONTA -->
                                 <div class="col-md-6">
                                     <label for="ativo" class="form-label fw-semibold text-dark">Status da Conta <span class="text-danger">*</span></label>
                                     <select class="form-select rounded-3" id="ativo" name="ativo" required>
@@ -199,7 +187,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             </div>
 
                             <div class="row g-3 mb-4">
-                                <!-- SENHA -->
                                 <div class="col-md-6">
                                     <label for="senha" class="form-label fw-semibold text-dark">
                                         Senha <?= $modoEdicao ? '<small class="text-muted fw-normal">(deixe em branco para não alterar)</small>' : '<span class="text-danger">*</span>'; ?>
@@ -210,7 +197,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                                     </div>
                                 </div>
 
-                                <!-- CONFIRMAR SENHA -->
                                 <div class="col-md-6">
                                     <label for="confirmar_senha" class="form-label fw-semibold text-dark">
                                         Confirmar Senha <?= $modoEdicao ? '' : '<span class="text-danger">*</span>'; ?>
@@ -224,7 +210,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
                             <hr class="my-4">
 
-                            <!-- BOTÕES DE AÇÃO -->
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="usuarios.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>
                                 <button type="submit" class="btn btn-brand px-4 rounded-3 shadow-sm">
@@ -240,7 +225,6 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.</div>
     </footer>
