@@ -23,7 +23,7 @@ R: O JSON funciona como um formato de texto leve e padronizado para armazenar e 
 ## 8. Diferenças entre uma API e um sistema web tradicional;
 R: A diferença está no público-alvo que consome o serviço e na forma como os dados são entregues
 ## 9. Como uma aplicação PHP pode consumir uma API;
-R: Uma aplicação PHP pode consumir uma API principalmente através da extensão cURL, da função nativa file_get_contents(, ou de bibliotecas de terceiros gerenciadas pelo Composer.  
+R: Uma aplicação PHP pode consumir uma API principalmente através da extensão cURL, da função nativa file_get_contents, ou de bibliotecas de terceiros gerenciadas pelo Composer.  
 ## 10. Como uma API pode disponibilizar informações para outros sistemas;
 R: Ela funciona sob um modelo de comunicação estruturado, baseado em requisições e respostas. 
 ## 11. Importância da autenticação, autorização e segurança no consumo de APIs;
