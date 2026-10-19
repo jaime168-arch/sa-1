@@ -32,10 +32,10 @@ R: A autenticação, a autorização e a segurança no consumo de APIs são fund
 R: as APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
 
 ## Fontes: 
-https://www.alura.com.br/artigos/api
-https://aws.amazon.com/pt/what-is/restful-api/
-https://www.cloudflare.com/pt-br/learning/ddos/glossary/hypertext-transfer-protocol-http/
-https://www.alura.com.br/artigos/o-que-e-json
-https://imasters.com.br/apis-microsservicos/como-consumir-apis-em-aplicacoes-php-de-forma-simples
-https://www.cloudflare.com/pt-br/learning/security/api/what-is-api-security/
-https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods.
+- https://www.alura.com.br/artigos/api
+- https://aws.amazon.com/pt/what-is/restful-api/
+- https://www.cloudflare.com/pt-br/learning/ddos/glossary/hypertext-transfer-protocol-http/
+- https://www.alura.com.br/artigos/o-que-e-json
+- https://imasters.com.br/apis-microsservicos/como-consumir-apis-em-aplicacoes-php-de-forma-simples
+- https://www.cloudflare.com/pt-br/learning/security/api/what-is-api-security/
+- https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Reference/Methods.
