@@ -85,7 +85,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 
                 <!-- COLUNA CENTRAL (LOGO PERFEITAMENTE CENTRALIZADA) -->
                 <div class="col-4 text-center">
-                    <a class="navbar-brand m-0 d-inline-block" href="../index.php">
+                    <a class="navbar-brand m-0 d-inline-block" href="home.php">
                         <img src="../assets/img_2.png" 
                              alt="Logo Já Ismaga" 
                              class="logo-nav-central"
