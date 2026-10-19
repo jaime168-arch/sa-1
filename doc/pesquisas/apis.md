@@ -21,18 +21,25 @@ R: Funcionam como a "ação" ou o "comando" que uma aplicação cliente deseja r
 
 ## 5. O que são requisições e respostas HTTP;
 R: São mensagens trocadas entre um cliente e um servidor para permitir a comunicação na internet, seguindo o Protocolo de Transferência de Hipertexto 
+
 ## 6. O que são endpoints;
 R: É uma URL específica que serve como ponto de contato para que sistemas externos interajam com uma API
+
 ## 7. Como funciona a troca de dados no formato JSON;
 R: O JSON funciona como um formato de texto leve e padronizado para armazenar e transportar dados, permitindo que diferentes sistemas.
+
 ## 8. Diferenças entre uma API e um sistema web tradicional;
 R: A diferença está no público-alvo que consome o serviço e na forma como os dados são entregues
+
 ## 9. Como uma aplicação PHP pode consumir uma API;
 R: Uma aplicação PHP pode consumir uma API principalmente através da extensão cURL, da função nativa file_get_contents, ou de bibliotecas de terceiros gerenciadas pelo Composer.  
+
 ## 10. Como uma API pode disponibilizar informações para outros sistemas;
 R: Ela funciona sob um modelo de comunicação estruturado, baseado em requisições e respostas. 
+
 ## 11. Importância da autenticação, autorização e segurança no consumo de APIs;
 R: A autenticação, a autorização e a segurança no consumo de APIs são fundamentais para proteger dados confidenciais, garantir a integridade dos sistemas e impedir o acesso não autorizado.
+
 ## 12. Exemplos de utilização de APIs em sistemas empresariais.
 R: As APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
 
