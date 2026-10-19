@@ -75,15 +75,11 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    <!-- NAVBAR COM LOGO CENTRALIZADA E SAUDAÇÃO NO CANTO DIREITO -->
     <nav class="navbar shadow-sm sticky-top py-2" style="background-color: #ff6600 !important;">
         <div class="container-fluid px-4">
             <div class="row w-100 align-items-center m-0">
                 
-                <!-- COLUNA ESQUERDA (ESPAÇADOR VACIO PARA MANTER O EQUILÍBRIO) -->
                 <div class="col-4"></div>
-
-                <!-- COLUNA CENTRAL (LOGO PERFEITAMENTE CENTRALIZADA) -->
                 <div class="col-4 text-center">
                     <a class="navbar-brand m-0 d-inline-block" href="home.php">
                         <img src="../assets/img_2.png" 
@@ -96,7 +92,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </a>
                 </div>
 
-                <!-- COLUNA DIREITA (SAUDAÇÃO E BOTÃO SAIR NO CANTO) -->
                 <div class="col-4 d-flex justify-content-end align-items-center gap-3">
                     <span class="text-dark fs-6 text-nowrap">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                     <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-1 fw-semibold text-nowrap">
@@ -108,7 +103,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </nav>
 
-    <!-- CONTEÚDO PRINCIPAL (MANTIDO INTACTO) -->
     <main class="container my-5">    
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
@@ -122,56 +116,52 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
             
             <div class="row g-4 m-1">
-                <!-- USUÁRIOS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-people-fill fs-4"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-1">Usuários</h5>
-                        <p class="small text-muted mb-4">Gestão de contas e permissões de acesso</p>
+                        <p class="small text-muted mb-4">Gerencie contas de utilizadores e permissões de acesso</p>
                         <a href="usuarios.php" class="btn btn-brand btn-sm rounded-3 w-100 mt-auto shadow-sm">
                             <i class="bi bi-arrow-right-short fs-5 align-middle me-1"></i>Acessar
                         </a>
                     </div>
                 </div>
 
-                <!-- TRENS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-train-front-fill fs-4"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-1">Trens</h5>
-                        <p class="small text-muted mb-4">Controle e frota das locomotivas</p>
+                        <p class="small text-muted mb-4">Gerencie e consulte aqui as locomotivas e seus responsáveis</p>
                         <a href="trens.php" class="btn btn-brand btn-sm rounded-3 w-100 mt-auto shadow-sm">
                             <i class="bi bi-arrow-right-short fs-5 align-middle me-1"></i>Acessar
                         </a>
                     </div>
                 </div>
 
-                <!-- ROTAS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-map-fill fs-4"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-1">Rotas</h5>
-                        <p class="small text-muted mb-4">Mapeamento, trajetos e durações</p>
+                        <p class="small text-muted mb-4">Consulte as rotas cadastradas e os trens vinculados aos percursos</p>
                         <a href="rotas.php" class="btn btn-brand btn-sm rounded-3 w-100 mt-auto shadow-sm">
                             <i class="bi bi-arrow-right-short fs-5 align-middle me-1"></i>Acessar
                         </a>
                     </div>
                 </div>
 
-                <!-- SENSORES -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-cpu-fill fs-4"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-1">Sensores</h5>
-                        <p class="small text-muted mb-4">Telemetria e monitorização em tempo real</p>
+                        <p class="small text-muted mb-4">Acompanhe o estado operacional dos sensores registrados</p>
                         <a href="sensores.php" class="btn btn-brand btn-sm rounded-3 w-100 mt-auto shadow-sm">
                             <i class="bi bi-arrow-right-short fs-5 align-middle me-1"></i>Acessar
                         </a>
@@ -183,7 +173,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
-    <!-- FOOTER (MANTIDO INTACTO) -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">
             &copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.
