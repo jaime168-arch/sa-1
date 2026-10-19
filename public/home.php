@@ -135,7 +135,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                             <i class="bi bi-train-front-fill fs-4"></i>
                         </div>
                         <h5 class="fw-bold text-dark mb-1">Trens</h5>
-                        <p class="small text-muted mb-4">Gerencie e consulte aqui as locomotivas e seus responsáveis</p>
+                        <p class="small text-muted mb-4">Consulte aqui as locomotivas e seus respectivos responsáveis</p>
                         <a href="trens.php" class="btn btn-brand btn-sm rounded-3 w-100 mt-auto shadow-sm">
                             <i class="bi bi-arrow-right-short fs-5 align-middle me-1"></i>Acessar
                         </a>
