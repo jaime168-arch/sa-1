@@ -69,23 +69,17 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
-    <div class="container-fluid px-4">
-      <a class="navbar-brand d-flex align-items-center" href="home.php">
-    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="d-inline-block align-top">
-</a>
+         <div class="container d-flex justify-content-center align-items-center">
+            <a class="navbar-brand m-0 d-flex align-items-center" href="../index.php">
+                <img src="../assets/img_2.png" alt="Logo Já Ismaga" style="max-height: 80px; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
         
         <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
-                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
-                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'usuarios.php' || $paginaAtual == 'usuario-form.php') ? 'fw-bold active' : ''; ?>" href="usuarios.php">Usuários</a></li>
-                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'trens.php' || $paginaAtual == 'trem-form.php') ? 'fw-bold active' : ''; ?>" href="trens.php">Trens</a></li>
-                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'rotas.php' || $paginaAtual == 'rota-form.php') ? 'fw-bold active' : ''; ?>" href="rotas.php">Rotas</a></li>
-                <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
-            </ul>
+            <ul class="navbar-nav me-auto mb-5 mb-lg-0 fw-semibold fs-1"> </ul>
             
             <div class="d-flex align-items-center gap-3">
                 <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
