@@ -2,10 +2,13 @@
 
 ## 1. O que é uma API e qual é sua finalidadeO que é uma API e qual é sua finalidade;
 R: É um conjunto de regras, protocolos e ferramentas que permite que diferentes sistemas de software se comuniquem e troquem dados entre si de forma segura 
+
 ## 2. Como funciona a comunicação entre sistemas por meio de APIs
 R: Funciona como uma ponte regulamentada que permite que dois softwares "conversem" e troquem dados de forma automática, segura e padronizada, sem que um precise conhecer o código interno do outro.
+
 ## 3. O que são APIs REST
 R: É uma interface de programação de aplicações que segue os princípios de design da arquitetura REST
+
 ### Princípios Fundamentais do REST:
  - GET: É utilizado para recuperar dados 
  - POST: É utilizado para criar um novo recurso no servidor 
@@ -29,7 +32,7 @@ R: Ela funciona sob um modelo de comunicação estruturado, baseado em requisiç
 ## 11. Importância da autenticação, autorização e segurança no consumo de APIs;
 R: A autenticação, a autorização e a segurança no consumo de APIs são fundamentais para proteger dados confidenciais, garantir a integridade dos sistemas e impedir o acesso não autorizado.
 ## 12. Exemplos de utilização de APIs em sistemas empresariais.
-R: as APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
+R: As APIs funcionam como pontes que conectam sistemas internos (como ERPs e CRMs) a serviços de gigantes da tecnologia e parceiros comerciais
 
 ## Fontes: 
 - https://www.alura.com.br/artigos/api
