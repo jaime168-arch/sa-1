@@ -139,7 +139,6 @@ try {
                 <div class="card border-0 shadow-sm rounded-4 bg-white">
                     <div class="card-header bg-transparent border-bottom p-4 d-flex justify-content-between align-items-center">
                         <h3 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
-                            <i class="bi bi-cpu-fill" style="color: #ff6600;"></i>
                             <?= $sensor['id'] ? 'Editar Sensor' : 'Registar Novo Sensor'; ?>
                         </h3>
                         <a href="sensores.php" class="btn btn-sm btn-outline-secondary rounded-3">
