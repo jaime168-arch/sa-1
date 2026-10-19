@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img width="300" height="300" alt="Logo Já Ismaga" src="assets/imagem_1.webp.png" />
+  <img width="300" height="300" alt="Logo Já Ismaga" src="assets/imagem_1.png" />
 </p>
 
 ---
