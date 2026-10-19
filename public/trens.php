@@ -32,7 +32,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Gestão de Trens</title>
-    <!-- Bootstrap 5 & Icons -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -64,17 +64,15 @@ try {
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
     <div class="container-fluid px-4">
-        <!-- Logo com link -->
+        
       <a class="navbar-brand d-flex align-items-center me-4" href="home.php">
     <img src="../assets/imagem_1.png" alt="Logo Já.Ismaga" height="90" class="d-inline-block align-top">
 </a>
 
-        <!-- Botão sanduíche para celular -->
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
         </button>
         
-        <!-- Itens do Menu -->
         <div class="collapse navbar-collapse" id="navbarMain">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 fw-semibold fs-6">
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'home.php') ? 'fw-bold active' : ''; ?>" href="home.php">Início</a></li>
@@ -84,7 +82,6 @@ try {
                 <li class="nav-item"><a class="nav-link text-dark <?= ($paginaAtual == 'sensores.php' || $paginaAtual == 'sensor-form.php') ? 'fw-bold active' : ''; ?>" href="sensores.php">Sensores</a></li>
             </ul>
             
-            <!-- Lado Direito: Usuário e Botão Sair -->
             <div class="d-flex align-items-center gap-3">
                 <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
                 <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
@@ -93,10 +90,8 @@ try {
     </div>
 </nav>
 
-    <!-- CONTEÚDO PRINCIPAL -->
     <main class="container my-5">
         
-        <!-- MENSAGENS DE ALERTA -->
         <?php if (isset($_SESSION['mensagem_sucesso'])): ?>
             <div class="alert alert-success alert-dismissible fade show rounded-3 mb-4 shadow-sm" role="alert">
                 <i class="bi bi-check-circle-fill me-2"></i>
@@ -113,7 +108,6 @@ try {
             </div>
         <?php endif; ?>
 
-        <!-- CABEÇALHO DO MÓDULO -->
         <div class="d-flex justify-content-between align-items-center mb-4 p-4 rounded-4 bg-white shadow-sm border border-light-subtle">
             <div>
                 <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
@@ -128,7 +122,6 @@ try {
             <?php endif; ?>
         </div>
 
-        <!-- TABELA DE TRENS -->
         <div class="card border-0 shadow-sm rounded-4 bg-white">
             <div class="card-body p-4">
                 <div class="table-responsive">
@@ -201,7 +194,6 @@ try {
         </div>
     </main>
 
-    <!-- MODAL DE EXCLUSÃO -->
     <div class="modal fade" id="modalExcluirTrem" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content border-0 shadow rounded-4">
@@ -221,7 +213,6 @@ try {
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">&copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.</div>
     </footer>
