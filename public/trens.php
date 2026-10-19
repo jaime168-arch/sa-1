@@ -111,7 +111,7 @@ try {
                 <h2 class="fw-bold text-dark m-0 d-flex align-items-center gap-2">
                     <i class="bi bi-train-front-fill" style="color: #ff6600;"></i> Gestão de Trens
                 </h2>
-                <small class="text-muted">Consulte e gerencie as locomotivas e seus respectivos responsáveis.</small>
+                <small class="text-muted">Gerencie e consulte aqui as locomotivas e seus respectivos responsáveis</small>
             </div>
             <?php if ($isAdmin): ?>
                 <a href="trem-form.php" class="btn btn-brand rounded-3 px-3 shadow-sm">
