@@ -5,6 +5,7 @@ R: É um conjunto de regras, protocolos e ferramentas que permite que diferentes
 
 ## 2. Como funciona a comunicação entre sistemas por meio de APIs
 R: Funciona como uma ponte regulamentada que permite que dois softwares "conversem" e troquem dados de forma automática, segura e padronizada, sem que um precise conhecer o código interno do outro.
+
 ## 3. O que são APIs REST
 R: É uma interface de programação de aplicações que segue os princípios de design da arquitetura REST
 ### Princípios Fundamentais do REST:
