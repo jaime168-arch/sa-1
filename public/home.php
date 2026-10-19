@@ -65,30 +65,51 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             background-color: #fff3eb;
             color: var(--brand-color);
         }
+
+        /* Ajuste do Efeito Multiply na Imagem da Logo da Navbar */
+        .logo-nav-central {
+            max-height: 70px;
+            width: auto;
+            mix-blend-mode: multiply;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
-         <div class="container d-flex justify-content-center align-items-center">
-            <a class="navbar-brand m-0 d-flex align-items-center" href="../index.php">
-                <img src="../assets/img_2.png" alt="Logo Já Ismaga" style="max-height: 80px; width: auto; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            </a>
 
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        
-        <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav me-auto mb-5 mb-lg-0 fw-semibold fs-1"> </ul>
-            
-            <div class="d-flex align-items-center gap-3">
-                <span class="text-dark fs-6">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
-                <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-2 fw-semibold"><i class="bi bi-box-arrow-right me-1"></i> Sair</a>
+    <!-- NAVBAR COM LOGO CENTRALIZADA E SAUDAÇÃO NO CANTO DIREITO -->
+    <nav class="navbar shadow-sm sticky-top py-2" style="background-color: #ff6600 !important;">
+        <div class="container-fluid px-4">
+            <div class="row w-100 align-items-center m-0">
+                
+                <!-- COLUNA ESQUERDA (ESPAÇADOR VACIO PARA MANTER O EQUILÍBRIO) -->
+                <div class="col-4"></div>
+
+                <!-- COLUNA CENTRAL (LOGO PERFEITAMENTE CENTRALIZADA) -->
+                <div class="col-4 text-center">
+                    <a class="navbar-brand m-0 d-inline-block" href="../index.php">
+                        <img src="../assets/img_2.png" 
+                             alt="Logo Já Ismaga" 
+                             class="logo-nav-central"
+                             onerror="this.style.display='none'; document.getElementById('nav-fallback-title').style.display='inline-block';">
+                        <span id="nav-fallback-title" class="fw-bold fs-4 text-white" style="display: none;">
+                            + Já.Ismaga
+                        </span>
+                    </a>
+                </div>
+
+                <!-- COLUNA DIREITA (SAUDAÇÃO E BOTÃO SAIR NO CANTO) -->
+                <div class="col-4 d-flex justify-content-end align-items-center gap-3">
+                    <span class="text-dark fs-6 text-nowrap">Olá, <strong><?= htmlspecialchars($nomeUsuario); ?></strong></span>
+                    <a href="logout.php" class="btn btn-outline-dark btn-sm rounded-3 px-3 py-1 fw-semibold text-nowrap">
+                        <i class="bi bi-box-arrow-right me-1"></i> Sair
+                    </a>
+                </div>
+
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
+    <!-- CONTEÚDO PRINCIPAL (MANTIDO INTACTO) -->
     <main class="container my-5">    
         <div class="p-4 p-md-5 mb-4 bg-white rounded-4 shadow-sm border border-light-subtle">
             
@@ -102,7 +123,8 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
             </div>
             
             <div class="row g-4 m-1">
-                        <div class="col-12 col-sm-6 col-lg-3">
+                <!-- USUÁRIOS -->
+                <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
                             <i class="bi bi-people-fill fs-4"></i>
@@ -115,6 +137,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
+                <!-- TRENS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -128,6 +151,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
+                <!-- ROTAS -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -141,6 +165,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
                     </div>
                 </div>
 
+                <!-- SENSORES -->
                 <div class="col-12 col-sm-6 col-lg-3">
                     <div class="card action-card h-100 shadow-sm text-center p-4">
                         <div class="card-icon-box mx-auto">
@@ -159,6 +184,7 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
         </div>
     </main>
 
+    <!-- FOOTER (MANTIDO INTACTO) -->
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
         <div class="container">
             &copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.
