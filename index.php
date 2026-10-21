@@ -12,7 +12,7 @@
         <nav class="navbar navbar-orange navbar-ismaga" style="background-color: #ff6600 !important;">
             <div class="container justify-content-center">
                 <h2 style="color: #000000 !important; margin: 0; padding: 10px 0;">
-                    <strong>Já</strong>.Ismaga
+                    <strong>Já</strong>Ismaga
                 </h2>
             </div>
         </nav>
