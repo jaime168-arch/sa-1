@@ -16,7 +16,8 @@
 - [Novidades e Atualizações do Sistema](#novidades-e-atualizações-do-sistema)
 - [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
 - [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
-- [Pesquisa Técnica sobre APIs](#pesquisa-técnica-sobre-apis)
+- [Firmware e Hardware (IoT)](#firmware-e-hardware-iot)
+- [Pesquisas Técnicas e Documentação](#pesquisas-técnicas-e-documentação)
 - [Metodologia de Desenvolvimento e Kanban](#metodologia-de-desenvolvimento-e-kanban)
 - [Padrões de Código (Style Guide)](#padrões-de-código-style-guide)
 - [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
@@ -40,13 +41,13 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 ## Novidades e Atualizações do Sistema
 
-O sistema passou por uma consolidação funcional e refatoração completa para a primeira apresentação integrada de funcionamento:
+O sistema passou por uma consolidação funcional e refatoração completa para a apresentação integrada de funcionamento:
 
-- **Segurança e Criptografia de Senhas:** Implementação do armazenamento seguro de credenciais via `password_hash()` no banco de dados MySQL, eliminando o armazenamento de senhas em texto puro.
-- **Controle de Acesso por Perfil (RBAC no Backend):** Proteção das rotas e páginas administrativas no servidor. Usuários do tipo `operador` possuem menus adaptados e são bloqueados caso tentem acessar páginas exclusivas de administradores diretamente pela URL.
-- **Integração Completa dos Quatro CRUDs:** Todas as entidades (Usuários, Trens, Rotas e Sensores) possuem relacionamento no banco de dados PDO (Exemplo: Responsável do Trem, Trem vinculado à Rota e Trem/Localização associados aos Sensores).
-- **Interface e Navbar Reestruturadas:** Reformulação da barra de navegação corporativa, aumentando sua proporção e alinhamento visual, com suporte a fallback dinâmico de imagem e exibição dos dados da sessão ativa (`ID`, `Nome` e `Perfil`).
-- **Formulários e Modais Padronizados:** Todos os formulários contam com grupos de entrada (`input-group`) e ícones temáticos do Bootstrap Icons, além de modais responsivos de confirmação para exclusão de registros.
+- **Controlo de Permissões Flexível (RBAC no Backend):** Liberação do acesso aos CRUDs operacionais (**Trens**, **Rotas** e **Sensores**) para usuários do tipo `operador` e `admin`, mantendo a gestão de **Usuários** restrita exclusivamente a administradores (`admin`).
+- **Autenticação, Utilitários de Senha e API de Telemetria:** Inclusão de scripts de apoio para utilitários de autenticação e redefinição de senhas (`autenticar.php`, `atualizar_senhas.php`, `gerar_senha.php`, `login-processar.php`, `reset.php`), além da API dedicada para recepção de dados (`api-telemetria.php`).
+- **Firmware ESP32 Integrado:** Presença do código-fonte para o microcontrolador ESP32 (`firmware/esp32-sa.ino`) responsável pela leitura e transmissão dos dados dos sensores na ferrovia.
+- **Ajustes na Integridade Referencial (MySQL):** Chaves estrangeiras configuradas com `ON DELETE SET NULL` no banco de dados (`database/ja_ismaga.sql`), permitindo a exclusão de trens sem causar conflitos com rotas vinculadas.
+- **Documentação de Projeto Expandida:** Inclusão de guias e pesquisas técnicas na pasta `doc/` cobrindo Identidade Visual, Pesquisa CRUD, Pesquisa Scrum e XAMPP.
 
 ---
 
@@ -56,150 +57,162 @@ As funcionalidades do ecossistema foram categorizadas em três pilares, associad
 
 ### 1. Controlo de Acesso e Segurança (Autenticação)
 - **[RF01] Login de Utilizadores:** Interface para autenticação de operadores e administradores.
-- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via banco de dados MySQL via PDO com comparação de hashes criptográficos.
-- **[RF03] Sessão Segura e Controle de Perfil:** Encerramento seguro de sessão via logout e controle de permissões por perfil (`admin`, `supervisor`, `operador`) para restrição de ações diretamente no backend.
+- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via PDO MySQL com utilitários de redefinição de hash.
+- **[RF03] Sessão Segura e Controle de Perfil:** Controle de permissões por perfil (`admin`, `operador`, `usuario comum`) para restrição de ações operacionais e administrativas diretamente no servidor.
 
 ### 2. Monitorização e Telemetria em Tempo Real
-- **[RF04] Localização no Mapa Interativo:** Exibição em tempo real do posicionamento exato da locomotiva ao longo dos trilhos.
+- **[RF04] API de Telemetria IoT:** Endpoint dedicado (`api-telemetria.php`) para recepção e processamento das medições dos sensores do microcontrolador ESP32.
 - **[RF05] Classificação Automática de Status:** Algoritmo que categoriza instantaneamente o estado operacional do trem (*Ativo*, *Em Manutenção*, *Inativo*).
-- **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página (via AJAX/Fetch API em JS).
+- **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página via scripts JavaScript dedicados em `scripts/`.
 - **[RF07] Controlo Remoto de Variáveis:** Monitorização e ajuste remoto de velocidade, sentido de direção e iluminação.
 
 ### 3. Gestão de Dispositivos (IoT) e Relatórios Preditivos
-- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e relacionamentos entre chaves estrangeiras.
+- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e validações no frontend e backend.
 - **[RF09] Manutenção Preditiva:** Análise do estado dos componentes e leitura de sensores para antecipar falhas operacionais.
 - **[RF10] Automação de Desvios:** Controlo inteligente de desvios de trilhos e paradas logísticas programadas.
-- **[RF11] Módulo Analítico e Relatórios:** Geração e histórico de relatórios de desempenho e métricas operacionais para auditoria.
 
 ---
 
 ## Mapeamento de Interfaces (CRUD UI)
 
-Abaixo estão listadas as interfaces desenvolvidas e padronizadas para cada entidade do sistema:
+Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema[cite: 4, 5]:
 
-| Entidade | Tela de Listagem / Exibição | Tela de Form (Cadastro / Edição) | Lógica JS Front / Backend |
-| :--- | :--- | :--- | :--- |
-| **Utilizadores** | `public/usuarios.php` | `public/usuario-form.php` | `scripts/usuarios.js`, `usuario-form.js`, `usuario-salvar.js`, `usuario-deletar.js` |
-| **Trens** | `public/trens.php` | `public/trem-form.php` | `scripts/trens.js`, `trem-form.js`, `trem-deletar.js` |
-| **Rotas** | `public/rotas.php` | `public/rota-form.php` | `scripts/rotas.js`, `rota-form.js`, `rota-salvar.js`, `rota-deletar.js` |
-| **Sensores** | `public/sensores.php` | `public/sensor-form.php` | `scripts/sensores.js`, `sensor-form.js`, `sensor-salvar.js`, `sensor-deletar.js` |
+| Entidade | Tela de Listagem | Tela de Form | Processadores Backend | Script JS Dedicado |
+| :--- | :--- | :--- | :--- | :--- |
+| **Utilizadores** | `public/usuarios.php` | `public/usuario-form.php` | `usuario-salvar.php`, `usuario-deletar.php` | `scripts/usuarios.js`, `usuario-form.js`, `usuario-salvar.js`, `usuario-deletar.js` |
+| **Trens** | `public/trens.php` | `public/trem-form.php` | `trem-salvar.php`, `trem-deletar.php` | `scripts/trens.js`, `trem-form.js`, `trem-deletar.js` |
+| **Rotas** | `public/rotas.php` | `public/rota-form.php` | `rota-salvar.php`, `rota-deletar.php` | `scripts/rotas.js`, `rota-form.js`, `rota-salvar.js`, `rota-deletar.js` |
+| **Sensores** | `public/Sensores.php` | `public/sensor-form.php` | `sensor-salvar.php`, `sensor-deletar.php` | `scripts/Sensores.js`, `sensor-form.js`, `sensor-salvar.js`, `sensor-deletar.js` |
 
 ---
 
-## Pesquisa Técnica sobre APIs
+## Firmware e Hardware (IoT)
 
-Como parte das entregas académicas do projeto, a equipe realizou uma pesquisa aprofundada sobre a arquitetura e consumo de APIs (*Application Programming Interfaces*), documentada no arquivo `pesquisas/apis.md`.
+O projeto integra hardware embarcado para coleta e controle em tempo real[cite: 4]:
+- **Microcontrolador:** ESP32
+- **Arquivo de Firmware:** `firmware/esp32-sa.ino`[cite: 4]
+- **Comunicação:** Conexão Wi-Fi enviando requisições HTTP POST para a rota `public/api-telemetria.php`[cite: 4].
 
-### Principais Tópicos Cobertos no Documento:
-1. Conceito e finalidade de uma API no desenvolvimento moderno.
-2. Funcionamento do modelo Cliente-Servidor e stateless no padrão REST.
-3. Utilização dos Métodos HTTP (`GET`, `POST`, `PUT`, `PATCH`, `DELETE`).
-4. Estruturação de Requisições, Respostas, Headers e Códigos de Status HTTP (`200`, `201`, `400`, `401`, `403`, `404`, `500`).
-5. Definição e mapeamento de Endpoints para telemetria e controle de frotas.
-6. Troca e estruturação de dados em formato JSON.
-7. Exemplos práticos em PHP para consumo de APIs via `cURL` e disponibilização de dados via `json_encode()`.
-8. Padrões de segurança em consumo de APIs (tokens JWT, API Keys e HTTPS).
+---
+
+## Pesquisas Técnicas e Documentação
+
+O diretório `doc/` armazena a documentação e pesquisas técnicas do projeto[cite: 4]:
+- **`indentidade.visual.md`:** Manual de identidade visual, cores e padrões da marca[cite: 4].
+- **`pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados[cite: 4].
+- **`pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento[cite: 4].
+- **`XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento[cite: 4].
 
 ---
 
 ## Metodologia de Desenvolvimento e Kanban
 
-Para a condução do projeto, a equipa adotou a metodologia **Scrumban** (combinação entre **Scrum** e **Kanban**).
+A condução do projeto utiliza a metodologia **Scrumban** (Scrum + Kanban)[cite: 4].
+- **Kanban:** Gestão visual de tarefas no **GitHub Projects** (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*).
+- **Scrum:** Alinhamento de prazos e validação das entregas dos Requisitos Funcionais.
 
-### Justificativa da Escolha:
-A combinação do Scrum com o Kanban garante à equipa a agilidade e a previsibilidade necessárias para entregas académicas em etapas, mantendo total flexibilidade visual sobre o fluxo de trabalho.
-- O **Kanban** fornece transparência imediata sobre o status de cada tarefa (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*), evitando sobrecarga nos desenvolvedores.
-- Os ritos do **Scrum** mantêm a equipa em sincronia quanto aos prazos e prioridades dos Requisitos Funcionais.
-
-### Gestão e Acompanhamento das Tarefas:
-O acompanhamento do desenvolvimento é realizado via **GitHub Projects**. Cada card no board contém obrigatoriamente:
-- **Título claro da ação** (com tag `[RF]`, `[Backend]` ou `[Frontend]`)
-- **Descrição das atividades**
-- **Membro responsável (Assignee)**
-- **Status de execução**
-
-Link do GitHub Projects (Kanban): [https://github.com/jaime168-arch/SA_1/projects](https://github.com/jaime168-arch/SA_1/projects)
+Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https://github.com/jaime168-arch/SA_1/projects)
 
 ---
 
 ## Padrões de Código (Style Guide)
 
-Para garantir a consistência e organização do repositório, a equipa established as seguintes regras de desenvolvimento:
-
-### 1. Nomenclatura de Arquivos e Pastas
-- **Arquivos Web, PHP, JS e CSS:** Padrão `kebab-case` em minúsculas (ex: `sensor-form.php`, `sensor-salvar.js`, `style.css`).
-- **Arquivos de Pesquisa e Documentação:** Padrão `kebab-case` minúsculo dentro da pasta `pesquisas/` ou `doc/` (ex: `pesquisas/apis.md`, `pesquisas/pdo.md`).
-- **Variáveis e Funções (JS/PHP):** Padrão `camelCase` (ex: `validarUsuario()`, `statusSensor`).
-- **Constantes:** Padrão `UPPER_SNAKE_CASE` (ex: `LIMITE_VELOCIDADE`).
-
-### 2. Boas Práticas de Código
-- **Indentação:** Espaçamento padrão de 2 a 4 espaços em arquivos HTML, PHP, CSS e JS.
-- **Comentários:** Utilizados para explicar regras de negócio complexas, rotas de API ou blocos de script SQL.
-- **Idioma:** Nomenclatura em português alinhada ao domínio do projeto Ferroramas.
+- **Arquivos e Pastas:** Padrão `kebab-case` para scripts e arquivos (ex: `trem-form.php`, `api-telemetria.php`)[cite: 4].
+- **Variáveis e Funções:** Padrão `camelCase` em PHP e JavaScript (ex: `limparStatusCampo()`, `usuarioId`).
+- **Banco de Dados:** Tabelas e colunas em minúsculas com separação por underline (`usuario_id`, `trem_id`)[cite: 4].
 
 ---
 
 ## Tecnologias e Ferramentas
 
-O ecossistema utiliza as seguintes tecnologias:
-
 <p align="left">
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=html,css,js,php,mysql,bootstrap,git,github" />
+    <img src="https://skillicons.dev/icons?i=html,css,js,php,mysql,bootstrap,cpp,git,github" />
   </a>
 </p>
 
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com Fetch API / AJAX), Bootstrap 5 e Bootstrap Icons.
-- **Backend:** PHP (Comunicação via APIs REST, controle de sessões e integração MySQL via PDO).
-- **Banco de Dados:** MySQL com suporte a relacionamentos entre Usuários, Trens, Rotas e Sensores.
-- **Documentação & Pesquisa:** Markdown (Pesquisas técnicas disponíveis em `pesquisas/pdo.md` e `pesquisas/apis.md`).
-- **Gestão & Versionamento:** Git, GitHub e GitHub Projects (Kanban).
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com AJAX/Fetch), Bootstrap 5 e Bootstrap Icons[cite: 4, 5].
+- **Backend:** PHP 8+ (Controle de sessões, autenticação, APIs REST e PDO MySQL)[cite: 4].
+- **IoT & Embarcados:** C++ / Arduino (ESP32)[cite: 4].
+- **Banco de Dados:** MySQL (`database/ja_ismaga.sql`)[cite: 4].
+- **Ambiente Local:** XAMPP (Apache + MySQL)[cite: 4].
 
 ---
 
 ## Estrutura do Projeto
 
-A estrutura de diretórios do repositório está organizada da seguinte forma:
+Estrutura completa de diretórios e arquivos do repositório[cite: 4, 5]:
 
 ```text
 /
-├── assets/                 # Imagens, logos e recursos visuais
-├── database/               # Scripts SQL (WorkBench.SQL) e arquivos de conexão PHP
+├── assets/                 # Recursos visuais e gráficos
+│   ├── crud.png
+│   ├── flecha.webp
+│   ├── imagem_1.png
+│   ├── img_2.png
+│   ├── scrum.png
+│   ├── wmremove-transformed.png
+│   └── xampp.png
+├── config/                 # Arquivos de configuração e conexão
+│   ├── auth.php
+│   └── conexao.php
+├── database/               # Script do banco de dados MySQL
+│   └── ja_ismaga.sql
 ├── doc/                    # Documentações do projeto
-├── pesquisas/              # Pesquisas acadêmicas e técnicas (pdo.md, apis.md)
-│   ├── pdo.md
-│   └── apis.md
-├── public/                 # Telas e formulários PHP/HTML do sistema
+│   ├── pesquisas/          # Pesquisas técnicas adicionais
+│   ├── indentidade.visual.md
+│   ├── pesquisa-crud.md
+│   ├── pesquisa-scrum.md
+│   └── XAMPP.md
+├── firmware/               # Código-fonte para hardware IoT (ESP32)
+│   └── esp32-sa.ino
+├── public/                 # Interfaces web e scripts PHP do backend
+│   ├── api-telemetria.php
+│   ├── atualizar_senhas.php
+│   ├── autenticar.php
+│   ├── gerar_senha.php
 │   ├── home.php
-│   ├── usuarios.php
-│   ├── usuario-form.php
-│   ├── trens.php
-│   ├── trem-form.php
-│   ├── rotas.php
+│   ├── login-processar.php
+│   ├── login.php
+│   ├── logout.php
+│   ├── reset.php
+│   ├── rota-deletar.php
 │   ├── rota-form.php
-│   ├── sensores.php
-│   └── sensor-form.php
-├── scripts/                # Lógicas e chamadas assíncronas em JavaScript
+│   ├── rota-salvar.php
+│   ├── rotas.php
+│   ├── sensor-deletar.php
+│   ├── sensor-form.php
+│   ├── sensor-salvar.php
+│   ├── Sensores.php
+│   ├── trem-deletar.php
+│   ├── trem-form.php
+│   ├── trem-salvar.php
+│   ├── trens.php
+│   ├── usuario-deletar.php
+│   ├── usuario-form.php
+│   ├── usuario-salvar.php
+│   └── usuarios.php
+├── scripts/                # Lógicas e validadores em JavaScript
 │   ├── autenticar.js
-│   ├── cadastro.js
 │   ├── home.js
 │   ├── login.js
-│   ├── usuarios.js
-│   ├── usuario-form.js
-│   ├── usuario-salvar.js
-│   ├── usuario-deletar.js
-│   ├── trens.js
-│   ├── trem-form.js
-│   ├── trem-deletar.js
-│   ├── rotas.js
+│   ├── rota-deletar.js
 │   ├── rota-form.js
 │   ├── rota-salvar.js
-│   ├── rota-deletar.js
-│   ├── sensores.js
+│   ├── rotas.js
+│   ├── sensor-deletar.js
 │   ├── sensor-form.js
 │   ├── sensor-salvar.js
-│   └── sensor-deletar.js
-├── styles/                 # Folhas de estilo CSS (style.css)
-├── index.php               # Arquivo principal / Inicial da aplicação
-├── LICENSE
-└── README.md               # Documentação oficial do projeto
+│   ├── Sensores.js
+│   ├── trem-deletar.js
+│   ├── trem-form.js
+│   ├── trens.js
+│   ├── usuario-deletar.js
+│   ├── usuario-form.js
+│   ├── usuario-salvar.js
+│   └── usuarios.js
+├── styles/                 # Estilos CSS
+│   └── style.css
+├── index.php               # Página inicial pública da aplicação
+├── LICENSE                 # Licença do projeto
+└── README.md               # Documentação oficial
