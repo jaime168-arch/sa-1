@@ -16,7 +16,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Já Ismaga - Início</title>
-    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -74,7 +73,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
-
     <nav class="navbar shadow-sm sticky-top py-2" style="background-color: #ff6600 !important;">
         <div class="container-fluid px-4">
             <div class="row w-100 align-items-center m-0">
