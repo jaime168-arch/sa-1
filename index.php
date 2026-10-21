@@ -11,9 +11,7 @@
     <div class="main-container" style="background-color: rgb(255, 246, 230);">
         <nav class="navbar navbar-orange navbar-ismaga" style="background-color: #ff6600 !important;">
             <div class="container justify-content-center">
-                <h2 style="color: #000000 !important; margin: 0; padding: 10px 0;">
-                    <strong>Já</strong> Ismaga
-                </h2>
+                <img src="assets/img_2.png" alt="Logo Já Ismaga" style="max-height: 75px; padding: 5px 0;">
             </div>
         </nav>
 
