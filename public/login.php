@@ -8,8 +8,6 @@ $pageTitle = "Já Ismaga - Login";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle); ?></title>
-    
-    <!-- Bootstrap 5 & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../styles/style.css">
@@ -75,7 +73,6 @@ $pageTitle = "Já Ismaga - Login";
             </div>
         </nav>
 
-        <!-- MANTIDA A ESTRUTURA E ESPAÇAMENTO ORIGINAL -->
         <div class="login-wrapper my-5">
             <div class="container">
                 <div class="row justify-content-center w-100 m-0">
@@ -89,7 +86,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <p class="text-muted small mt-1">Acesse o sistema ferroviário</p>
                                 </div>
 
-                                <!-- ALERTAS ORIGINAIS -->
                                 <?php if (isset($_SESSION['mensagem_erro'])): ?>
                                     <div class="alert alert-danger alert-dismissible fade show rounded-3 mb-3" role="alert">
                                         <i class="bi bi-exclamation-triangle-fill me-1"></i>
@@ -108,7 +104,6 @@ $pageTitle = "Já Ismaga - Login";
                                     <?php unset($_SESSION['mensagem_sucesso']); ?>
                                 <?php endif; ?>
 
-                                <!-- FORMULÁRIO COM MESMOS CAMPOS E ATRIBUTOS -->
                                 <form id="loginForm" action="autenticar.php" method="POST">
                                     <div class="mb-3">
                                         <label for="email" class="form-label fw-semibold text-dark">E-mail</label>
