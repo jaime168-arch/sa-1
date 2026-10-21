@@ -15,12 +15,15 @@
 - [Descrição do Projeto](#descrição-do-projeto)
 - [Novidades e Atualizações do Sistema](#novidades-e-atualizações-do-sistema)
 - [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
+- [Integração com APIs Externas](#integração-com-apis-externas)
 - [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
 - [Firmware e Hardware (IoT)](#firmware-e-hardware-iot)
+- [Utilização de Inteligência Artificial](#utilização-de-inteligência-artificial)
 - [Pesquisas Técnicas e Documentação](#pesquisas-técnicas-e-documentação)
 - [Metodologia de Desenvolvimento e Kanban](#metodologia-de-desenvolvimento-e-kanban)
 - [Padrões de Código (Style Guide)](#padrões-de-código-style-guide)
 - [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
+- [Instruções de Execução do Sistema](#instruções-de-execução-do-sistema)
 - [Estrutura do Projeto](#estrutura-do-projeto)
 
 ---
@@ -43,11 +46,12 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 O sistema passou por uma consolidação funcional e refatoração completa para a apresentação integrada de funcionamento:
 
+- **Integração com APIs Externas (Clima & CEP):** Implementação de consulta meteorológica em tempo real (Open-Meteo) no painel principal e auto-preenchimento de endereços via CEP (ViaCEP) com tratamento de erros.
 - **Controlo de Permissões Flexível (RBAC no Backend):** Liberação do acesso aos CRUDs operacionais (**Trens**, **Rotas** e **Sensores**) para usuários do tipo `operador` e `admin`, mantendo a gestão de **Usuários** restrita exclusivamente a administradores (`admin`).
 - **Autenticação, Utilitários de Senha e API de Telemetria:** Inclusão de scripts de apoio para utilitários de autenticação e redefinição de senhas (`autenticar.php`, `atualizar_senhas.php`, `gerar_senha.php`, `login-processar.php`, `reset.php`), além da API dedicada para recepção de dados (`api-telemetria.php`).
 - **Firmware ESP32 Integrado:** Presença do código-fonte para o microcontrolador ESP32 (`firmware/esp32-sa.ino`) responsável pela leitura e transmissão dos dados dos sensores na ferrovia.
 - **Ajustes na Integridade Referencial (MySQL):** Chaves estrangeiras configuradas com `ON DELETE SET NULL` no banco de dados (`database/ja_ismaga.sql`), permitindo a exclusão de trens sem causar conflitos com rotas vinculadas.
-- **Documentação de Projeto Expandida:** Inclusão de guias e pesquisas técnicas na pasta `doc/` cobrindo Identidade Visual, Pesquisa CRUD, Pesquisa Scrum e XAMPP.
+- **Documentação do Relatório de IA:** Inclusão do relatório descritivo das ferramentas de Inteligência Artificial e coautoria de código em `doc/relatorio-uso-ia.md`.
 
 ---
 
@@ -64,18 +68,34 @@ As funcionalidades do ecossistema foram categorizadas em três pilares, associad
 - **[RF04] API de Telemetria IoT:** Endpoint dedicado (`api-telemetria.php`) para recepção e processamento das medições dos sensores do microcontrolador ESP32.
 - **[RF05] Classificação Automática de Status:** Algoritmo que categoriza instantaneamente o estado operacional do trem (*Ativo*, *Em Manutenção*, *Inativo*).
 - **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página via scripts JavaScript dedicados em `scripts/`.
-- **[RF07] Controlo Remoto de Variáveis:** Monitorização e ajuste remoto de velocidade, sentido de direção e iluminação.
+- **[RF07] Widget de Clima em Tempo Real:** Exibição dinâmica das condições meteorológicas da estação na Home Page.
 
 ### 3. Gestão de Dispositivos (IoT) e Relatórios Preditivos
 - **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e validações no frontend e backend.
-- **[RF09] Manutenção Preditiva:** Análise do estado dos componentes e leitura de sensores para antecipar falhas operacionais.
-- **[RF10] Automação de Desvios:** Controlo inteligente de desvios de trilhos e paradas logísticas programadas.
+- **[RF09] Validação e Preenchimento por CEP:** Auto-preenchimento e validação assíncrona de endereços brasileiros via API.
+- **[RF10] Manutenção Preditiva & Automação de Desvios:** Leitura de sensores para antecipar falhas operacionais e controle logístico.
+
+---
+
+## Integração com APIs Externas
+
+O sistema consome duas APIs públicas REST em tempo real:
+
+1. **API de Clima — [Open-Meteo API](https://open-meteo.com/):**
+   - **Objetivo:** Exibir na Home Page as condições meteorológicas da estação ferroviária (temperatura atual, código de condição climática e data/hora da atualização).
+   - **Endpoint Utilizado:** `https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true`
+   - **Tratamento de Erros:** Em caso de falha de conexão ou timeout, a interface exibe uma mensagem preventiva sem interromper as demais funções da página.
+
+2. **API de CEP — [ViaCEP API](https://viacep.com.br/):**
+   - **Objetivo:** Consultar e preencher automaticamente os dados de endereço (logradouro, bairro, cidade, UF) nos formulários do sistema.
+   - **Endpoint Utilizado:** `https://viacep.com.br/ws/{CEP}/json/`
+   - **Tratamento de Erros:** Validação de formato (8 dígitos), tratamento para CEPs inexistentes na base nacional e tratamento para exceções de rede.
 
 ---
 
 ## Mapeamento de Interfaces (CRUD UI)
 
-Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema[cite: 4, 5]:
+Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema:
 
 | Entidade | Tela de Listagem | Tela de Form | Processadores Backend | Script JS Dedicado |
 | :--- | :--- | :--- | :--- | :--- |
@@ -88,26 +108,35 @@ Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema
 
 ## Firmware e Hardware (IoT)
 
-O projeto integra hardware embarcado para coleta e controle em tempo real[cite: 4]:
+O projeto integra hardware embarcado para coleta e controle em tempo real:
 - **Microcontrolador:** ESP32
-- **Arquivo de Firmware:** `firmware/esp32-sa.ino`[cite: 4]
-- **Comunicação:** Conexão Wi-Fi enviando requisições HTTP POST para a rota `public/api-telemetria.php`[cite: 4].
+- **Arquivo de Firmware:** `firmware/esp32-sa.ino`
+- **Comunicação:** Conexão Wi-Fi enviando requisições HTTP POST para o endpoint `public/api-telemetria.php`.
+
+---
+
+## Utilização de Inteligência Artificial
+
+O desenvolvimento contou com o auxílio transparente e documentado de agentes de Inteligência Artificial (Google Gemini / GitHub Copilot):
+- **Aplicações:** Estruturação de scripts PHP de validação RBAC, refatoração de regras do MySQL, construção do script assíncrono de consumo das APIs e padronização visual com Bootstrap 5.
+- **Relatório Completo & Coautoria:** O detalhamento dos prompts, testes executados pela equipe, correções aplicadas e registro de coautoria em commits estão disponíveis no arquivo **`doc/relatorio-uso-ia.md`**.
 
 ---
 
 ## Pesquisas Técnicas e Documentação
 
-O diretório `doc/` armazena a documentação e pesquisas técnicas do projeto[cite: 4]:
-- **`indentidade.visual.md`:** Manual de identidade visual, cores e padrões da marca[cite: 4].
-- **`pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados[cite: 4].
-- **`pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento[cite: 4].
-- **`XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento[cite: 4].
+O diretório `doc/` armazena a documentação e pesquisas técnicas do projeto:
+- **`indentidade.visual.md`:** Manual de identidade visual, cores e padrões da marca.
+- **`pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados.
+- **`pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento.
+- **`XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento.
+- **`relatorio-uso-ia.md`:** Documentação oficial do uso responsável de IA na entrega.
 
 ---
 
 ## Metodologia de Desenvolvimento e Kanban
 
-A condução do projeto utiliza a metodologia **Scrumban** (Scrum + Kanban)[cite: 4].
+A condução do projeto utiliza a metodologia **Scrumban** (Scrum + Kanban).
 - **Kanban:** Gestão visual de tarefas no **GitHub Projects** (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*).
 - **Scrum:** Alinhamento de prazos e validação das entregas dos Requisitos Funcionais.
 
@@ -117,9 +146,9 @@ Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https:
 
 ## Padrões de Código (Style Guide)
 
-- **Arquivos e Pastas:** Padrão `kebab-case` para scripts e arquivos (ex: `trem-form.php`, `api-telemetria.php`)[cite: 4].
+- **Arquivos e Pastas:** Padrão `kebab-case` para scripts e arquivos (ex: `trem-form.php`, `api-telemetria.php`).
 - **Variáveis e Funções:** Padrão `camelCase` em PHP e JavaScript (ex: `limparStatusCampo()`, `usuarioId`).
-- **Banco de Dados:** Tabelas e colunas em minúsculas com separação por underline (`usuario_id`, `trem_id`)[cite: 4].
+- **Banco de Dados:** Tabelas e colunas em minúsculas com separação por underline (`usuario_id`, `trem_id`).
 
 ---
 
@@ -131,17 +160,36 @@ Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https:
   </a>
 </p>
 
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com AJAX/Fetch), Bootstrap 5 e Bootstrap Icons[cite: 4, 5].
-- **Backend:** PHP 8+ (Controle de sessões, autenticação, APIs REST e PDO MySQL)[cite: 4].
-- **IoT & Embarcados:** C++ / Arduino (ESP32)[cite: 4].
-- **Banco de Dados:** MySQL (`database/ja_ismaga.sql`)[cite: 4].
-- **Ambiente Local:** XAMPP (Apache + MySQL)[cite: 4].
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com AJAX/Fetch), Bootstrap 5 e Bootstrap Icons.
+- **Backend:** PHP 8+ (Controle de sessões, autenticação, APIs REST e PDO MySQL).
+- **IoT & Embarcados:** C++ / Arduino (ESP32).
+- **Banco de Dados:** MySQL (`database/ja_ismaga.sql`).
+- **Ambiente Local:** XAMPP (Apache + MySQL).
+
+---
+
+## Instruções de Execução do Sistema
+
+1. **Configuração do Ambiente Local (XAMPP):**
+   - Baixe e instale o XAMPP com suporte a Apache e MySQL.
+   - Mova a pasta do projeto para o diretório `C:\xampp\htdocs\ja_ismaga`.
+
+2. **Importação do Banco de Dados:**
+   - Abra o phpMyAdmin (`http://localhost/phpmyadmin`).
+   - Crie um banco de dados ou execute o script contido em `database/ja_ismaga.sql`.
+
+3. **Conexão com o Banco:**
+   - Verifique se as credenciais no arquivo `config/conexao.php` correspondem ao seu ambiente local (Host, Usuário e Senha do MySQL).
+
+4. **Acesso à Aplicação:**
+   - Inicie os módulos Apache e MySQL no XAMPP Control Panel.
+   - Acesse no navegador: `http://localhost/ja_ismaga/public/login.php` ou `http://localhost/ja_ismaga/index.php`.
 
 ---
 
 ## Estrutura do Projeto
 
-Estrutura completa de diretórios e arquivos do repositório[cite: 4, 5]:
+Estrutura completa de diretórios e arquivos do repositório:
 
 ```text
 /
@@ -163,6 +211,7 @@ Estrutura completa de diretórios e arquivos do repositório[cite: 4, 5]:
 │   ├── indentidade.visual.md
 │   ├── pesquisa-crud.md
 │   ├── pesquisa-scrum.md
+│   ├── relatorio-uso-ia.md
 │   └── XAMPP.md
 ├── firmware/               # Código-fonte para hardware IoT (ESP32)
 │   └── esp32-sa.ino
