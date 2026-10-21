@@ -11,12 +11,18 @@ require_once __DIR__ . '/../config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id         = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
-    $codigo     = trim(filter_input(INPUT_POST, 'codigo', FILTER_SANITIZE_SPECIAL_CHARS));
+   
+    $nome       = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_SPECIAL_CHARS)); 
     $modelo     = trim(filter_input(INPUT_POST, 'modelo', FILTER_SANITIZE_SPECIAL_CHARS));
     $capacidade = filter_input(INPUT_POST, 'capacidade', FILTER_VALIDATE_INT);
-    $status     = trim($_POST['status'] ?? 'Em Operação');
+    
+   
+    $status     = trim($_POST['status'] ?? 'ativo'); 
+    
+ 
+    $usuario_id = filter_input(INPUT_POST, 'usuario_id', FILTER_VALIDATE_INT) ?: null;
 
-    if (!$codigo || !$modelo || !$capacidade) {
+    if (!$nome || !$modelo || !$capacidade) {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios (*).";
         header("Location: " . ($id ? "trem-form.php?id=$id" : "trem-form.php"));
         exit;
@@ -24,18 +30,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         if ($id) {
-            $sql = "UPDATE trens SET codigo = :codigo, modelo = :modelo, capacidade = :capacidade, status = :status WHERE id = :id";
+          
+            $sql = "UPDATE trens SET nome = :nome, modelo = :modelo, capacidade = :capacidade, status = :status, usuario_id = :usuario_id WHERE id = :id";
             $stmt = $pdo->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         } else {
-            $sql = "INSERT INTO trens (codigo, modelo, capacidade, status) VALUES (:codigo, :modelo, :capacidade, :status)";
+            $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (:nome, :modelo, :capacidade, :status, :usuario_id)";
             $stmt = $pdo->prepare($sql);
         }
 
-        $stmt->bindValue(':codigo', $codigo);
+        $stmt->bindValue(':nome', $nome);
         $stmt->bindValue(':modelo', $modelo);
         $stmt->bindValue(':capacidade', $capacidade, PDO::PARAM_INT);
         $stmt->bindValue(':status', $status);
+        
+        if ($usuario_id) {
+            $stmt->bindValue(':usuario_id', $usuario_id, PDO::PARAM_INT);
+        } else {
+            $stmt->bindValue(':usuario_id', null, PDO::PARAM_NULL);
+        }
+
         $stmt->execute();
 
         $_SESSION['mensagem_sucesso'] = $id ? "Trem atualizado com sucesso!" : "Trem adicionado com sucesso!";
@@ -44,11 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } catch (PDOException $e) {
         error_log("Erro ao salvar trem: " . $e->getMessage());
-        if ($e->getCode() == 23000) {
-            $_SESSION['mensagem_erro'] = "O código do trem informado já existe.";
-        } else {
-            $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($e->getMessage());
-        }
+        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($e->getMessage());
         header("Location: " . ($id ? "trem-form.php?id=$id" : "trem-form.php"));
         exit;
     }

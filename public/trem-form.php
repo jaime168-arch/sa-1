@@ -89,20 +89,19 @@ try {
             border-color: var(--brand-hover);
             color: #ffffff;
         }
-         .logo-nav-central {
+        .logo-nav-central {
             max-height: 70px;
             width: auto;
             mix-blend-mode: multiply;
         }
-
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm sticky-top py-3" style="background-color: #ff6600 !important;">
    <div class="container-fluid px-4">
       <a class="navbar-brand d-flex align-items-center" href="home.php">
-    <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="logo-nav-central" align-top">
-</a>
+          <img src="../assets/img_2.png" alt="Logo Já.Ismaga" height="75" class="logo-nav-central align-top">
+      </a>
 
         <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
             <span class="navbar-toggler-icon"></span>
@@ -208,7 +207,6 @@ try {
                                 </div>
                                 <small class="form-text text-muted">Selecione o funcionário ou supervisor que ficará encarregado deste trem.</small>
                             </div>
-
 
                             <div class="d-flex justify-content-end gap-3 align-items-center">
                                 <a href="trens.php" class="btn btn-secondary px-4 fw-bold rounded-3">Cancelar</a>

@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const formTrem = document.querySelector('#form-trem');
+   
+    const formTrem = document.querySelector('form[action="trem-salvar.php"]') || document.querySelector('#formTrem');
 
     if (!formTrem) return;
 
-    const inputNome = document.querySelector('#nome_trem');
+    
+    const inputNome = document.querySelector('#nome');
     const inputModelo = document.querySelector('#modelo');
     const inputCapacidade = document.querySelector('#capacidade');
-    const selectStatus = document.querySelector('#status_trem');
+    const selectStatus = document.querySelector('#status');
 
     formTrem.addEventListener('submit', (event) => {
         let erros = [];
