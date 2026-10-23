@@ -14,7 +14,6 @@ async function buscarCEP(cepInput) {
             return;
         }
 
-        // Auto-preenchimento dos campos do formulário
         if (document.getElementById('logradouro')) document.getElementById('logradouro').value = data.logradouro;
         if (document.getElementById('bairro')) document.getElementById('bairro').value = data.bairro;
         if (document.getElementById('cidade')) document.getElementById('cidade').value = data.localidade;
