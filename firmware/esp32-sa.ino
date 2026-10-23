@@ -24,12 +24,10 @@ void loop() {
     http.begin(serverName);
     http.addHeader("Content-Type", "application/json");
 
-    // Simulando dados dos sensores do ferrorama
     int tremId = 1; 
-    int velocidadeAtual = random(20, 80); // Simulando sensor de velocidade
+    int velocidadeAtual = random(20, 80); 
     String statusSensor = "Ativo";
 
-    // Monta o JSON para enviar ao PHP
     String httpRequestData = "{\"trem_id\":" + String(tremId) + 
                              ",\"velocidade\":" + String(velocidadeAtual) + 
                              ",\"status_sensor\":\"" + statusSensor + "\"}";
@@ -46,5 +44,5 @@ void loop() {
     }
     http.end();
   }
-  delay(3000); // Envia dados a cada 3 segundos
+  delay(3000); 
 }
