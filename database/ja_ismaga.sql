@@ -14,7 +14,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `protegido` TINYINT(1) DEFAULT 0,
   `trem_id` INT(11) NULL,
   
-  -- CAMPOS PARA A API DE CEP (ViaCEP)
   `cep` VARCHAR(9) NULL,
   `logradouro` VARCHAR(150) NULL,
   `bairro` VARCHAR(100) NULL,
