@@ -21,7 +21,7 @@ document.querySelector("form").addEventListener("submit", async (e) => {
         });
 
         if (response.ok) {
-            window.location.href = "sensores.php"; // ou sensores.html
+            window.location.href = "sensores.php"; 
         } else {
             alert("Erro ao guardar o sensor.");
         }
