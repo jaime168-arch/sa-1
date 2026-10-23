@@ -13,6 +13,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `ativo` TINYINT(1) NOT NULL DEFAULT 1,
   `protegido` TINYINT(1) DEFAULT 0,
   `trem_id` INT(11) NULL,
+  
+  -- CAMPOS PARA A API DE CEP (ViaCEP)
+  `cep` VARCHAR(9) NULL,
+  `logradouro` VARCHAR(150) NULL,
+  `bairro` VARCHAR(100) NULL,
+  `cidade` VARCHAR(100) NULL,
+  `estado` VARCHAR(2) NULL,
+  
   `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
@@ -89,14 +97,15 @@ CREATE TABLE IF NOT EXISTS `dados_sensores` (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `tipo`, `ativo`, `protegido`, `trem_id`) VALUES
-(1, 'Administrador', 'admin@ismaga.com', '123456', 'admin', 1, 1, NULL),
-(2, 'Ícaro', 'icaro@gmail.com', '123456', 'operador', 1, 0, NULL),
-(3, 'Isabela', 'isabela@gmail.com', '123456', 'operador', 1, 0, NULL),
-(4, 'Gabriela', 'gabriela@gmail.com', '123456', 'operador', 1, 0, NULL),
-(5, 'Maria', 'maria@gmail.com', '123456', 'operador', 1, 0, NULL),
-(6, 'Jaime', 'jaime@gmail.com', '123456', 'operador', 1, 0, NULL),
-(7, 'Lucas', 'lucas@gmail.com', '123456', 'usuario comum', 1, 0, NULL); 
+(1, 'Administrador', 'admin@ismaga.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'admin', 1, 1, NULL),
+(2, 'Ícaro', 'icaro@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'operador', 1, 0, NULL),
+(3, 'Isabela', 'isabela@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'operador', 1, 0, NULL),
+(4, 'Gabriela', 'gabriela@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'operador', 1, 0, NULL),
+(5, 'Maria', 'maria@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'operador', 1, 0, NULL),
+(6, 'Jaime', 'jaime@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'operador', 1, 0, NULL),
+(7, 'Lucas', 'lucas@gmail.com', '$2y$10$e0MYzXyjpJS7Pd0RVvHwHe112k/kC9K2.S2/B69315nSJu5O.xIey', 'usuario comum', 1, 0, NULL);
 
 INSERT INTO `trens` (`id`, `nome`, `modelo`, `capacidade`, `status`, `usuario_id`) VALUES
 (1, 'Expressa Ferrorama', 'EF-2000', 350, 'ativo', 2),
