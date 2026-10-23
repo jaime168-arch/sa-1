@@ -23,7 +23,7 @@ Em quais situações o PDO pode ser uma boa escolha.
 R: Quando você está desenvolvendo aplicações em PHP que precisam interagir com bancos de dados relacionais e exigem segurança, flexibilidade e manutenção.
 
 
-Fontes: 
+## Fontes: 
 https://www.treinaweb.com.br/blog/o-que-e-pdo-no-php
 https://www.php.net/manual/pt_BR/pdo.connections.php
 https://www.locaweb.com.br/ajuda/wiki/tudo-sobre-o-php-data-object-pdo-hospedagem-de-sites/
