@@ -249,7 +249,7 @@ try {
     </div>
 
     <footer class="mt-auto py-3 bg-white border-top text-center text-muted small">
-        <div class="container">&copy; <?= date('Y'); ?> <strong>+ Já.Ismaga</strong>. Todos os direitos reservados.</div>
+        <div class="container">&copy; <?= date('Y'); ?> <strong>Já Ismaga</strong>. Todos os direitos reservados.</div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
