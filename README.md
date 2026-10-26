@@ -16,6 +16,7 @@
 - [Novidades e Atualizações do Sistema](#novidades-e-atualizações-do-sistema)
 - [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
 - [Integração com APIs Externas](#integração-com-apis-externas)
+- [Identidade Visual e Teoria das Cores](#identidade-visual-e-teoria-das-cores)
 - [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
 - [Firmware e Hardware (IoT)](#firmware-e-hardware-iot)
 - [Utilização de Inteligência Artificial](#utilização-de-inteligência-artificial)
@@ -46,12 +47,13 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 O sistema passou por uma consolidação funcional e refatoração completa para a apresentação integrada de funcionamento:
 
-- **Integração com APIs Externas (Clima & CEP):** Implementação de consulta meteorológica em tempo real (Open-Meteo) no painel principal e auto-preenchimento de endereços via CEP (ViaCEP) com tratamento de erros.
+- **Design Autoral e Teoria das Cores:** Implementação da paleta de cores baseada em sinalização ferroviária industrial (`#FF6600` Laranja Sinalização e `#334155` Grafite Escuro) com alto contraste (WCAG AAA) e suporte multissensorial com ícones temáticos para daltônicos.
+- **Integração com APIs Externas (Clima & CEP):** Implementação de consulta meteorológica em tempo real (**Open-Meteo**) no painel principal e auto-preenchimento de endereços via CEP (**ViaCEP**) com tratamento completo de erros e exceções de rede.
 - **Controlo de Permissões Flexível (RBAC no Backend):** Liberação do acesso aos CRUDs operacionais (**Trens**, **Rotas** e **Sensores**) para usuários do tipo `operador` e `admin`, mantendo a gestão de **Usuários** restrita exclusivamente a administradores (`admin`).
-- **Autenticação, Utilitários de Senha e API de Telemetria:** Inclusão de scripts de apoio para utilitários de autenticação e redefinição de senhas (`autenticar.php`, `atualizar_senhas.php`, `gerar_senha.php`, `login-processar.php`, `reset.php`), além da API dedicada para recepção de dados (`api-telemetria.php`).
+- **Autenticação Segura com Bcrypt Hash:** Criptografia das senhas no banco de dados MySQL via `password_hash()` e verificação segura no login (`login-processar.php`), eliminando o armazenamento em texto puro.
+- **Estrutura de Banco e Chaves Estrangeiras:** Inclusão dos campos de CEP/endereço na tabela `usuarios` e ajuste das chaves estrangeiras com `ON DELETE SET NULL` no banco de dados (`database/ja_ismaga.sql`), permitindo a exclusão de registros sem travamentos de integridade referencial.
 - **Firmware ESP32 Integrado:** Presença do código-fonte para o microcontrolador ESP32 (`firmware/esp32-sa.ino`) responsável pela leitura e transmissão dos dados dos sensores na ferrovia.
-- **Ajustes na Integridade Referencial (MySQL):** Chaves estrangeiras configuradas com `ON DELETE SET NULL` no banco de dados (`database/ja_ismaga.sql`), permitindo a exclusão de trens sem causar conflitos com rotas vinculadas.
-- **Documentação do Relatório de IA:** Inclusão do relatório descritivo das ferramentas de Inteligência Artificial e coautoria de código em `doc/relatorio-uso-ia.md`.
+- **Relatório de Utilização de IA:** Inclusão da documentação transparente dos prompts, revisões e registros de coautoria em `doc/relatorio-uso-ia.md`.
 
 ---
 
@@ -61,7 +63,7 @@ As funcionalidades do ecossistema foram categorizadas em três pilares, associad
 
 ### 1. Controlo de Acesso e Segurança (Autenticação)
 - **[RF01] Login de Utilizadores:** Interface para autenticação de operadores e administradores.
-- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via PDO MySQL com utilitários de redefinição de hash.
+- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via PDO MySQL com hash Bcrypt criptográfico.
 - **[RF03] Sessão Segura e Controle de Perfil:** Controle de permissões por perfil (`admin`, `operador`, `usuario comum`) para restrição de ações operacionais e administrativas diretamente no servidor.
 
 ### 2. Monitorização e Telemetria em Tempo Real
@@ -93,6 +95,20 @@ O sistema consome duas APIs públicas REST em tempo real:
 
 ---
 
+## Identidade Visual e Teoria das Cores
+
+A interface do sistema foi desenvolvida com base num estudo de **UI/UX e Teoria das Cores**, visando afastar-se de templates genéricos e refletir o contexto ferroviário industrial:
+
+- **Paleta de Cores:**
+  - `Laranja Sinalização (#FF6600)`: Cor primária da marca (Navbar, botões primários e destaques).
+  - `Laranja Queimado (#E05500)`: Estado de *hover* e interação.
+  - `Grafite Escuro (#334155)`: Leitura de títulos e textos com alto contraste.
+  - `Cinza Névoa (#F8FAFC)`: Fundo das telas, reduzindo a fadiga visual do operador.
+- **Acessibilidade:** Todas as badges de status utilizam cores combinadas a ícones e textos claros (*Ativo*, *Em Manutenção*, *Inativo*), garantindo acessibilidade para daltônicos.
+- **Documentação do Estudo:** O relatório detalhado de design está disponível em [`pesquisas/identidade-visual.md`](pesquisas/identidade-visual.md).
+
+---
+
 ## Mapeamento de Interfaces (CRUD UI)
 
 Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema:
@@ -118,19 +134,19 @@ O projeto integra hardware embarcado para coleta e controle em tempo real:
 ## Utilização de Inteligência Artificial
 
 O desenvolvimento contou com o auxílio transparente e documentado de agentes de Inteligência Artificial (Google Gemini / GitHub Copilot):
-- **Aplicações:** Estruturação de scripts PHP de validação RBAC, refatoração de regras do MySQL, construção do script assíncrono de consumo das APIs e padronização visual com Bootstrap 5.
+- **Aplicações:** Estruturação de scripts PHP de validação RBAC, refatoração de regras do MySQL, construção dos scripts assíncronos de consumo das APIs e padronização visual com Bootstrap 5.
 - **Relatório Completo & Coautoria:** O detalhamento dos prompts, testes executados pela equipe, correções aplicadas e registro de coautoria em commits estão disponíveis no arquivo **`doc/relatorio-uso-ia.md`**.
 
 ---
 
 ## Pesquisas Técnicas e Documentação
 
-O diretório `doc/` armazena a documentação e pesquisas técnicas do projeto:
-- **`indentidade.visual.md`:** Manual de identidade visual, cores e padrões da marca.
-- **`pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados.
-- **`pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento.
-- **`XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento.
-- **`relatorio-uso-ia.md`:** Documentação oficial do uso responsável de IA na entrega.
+O diretório `doc/` e `pesquisas/` armazena a documentação e pesquisas técnicas do projeto:
+- **`pesquisas/identidade-visual.md`:** Manual de Identidade Visual, Teoria das Cores e decisões de UI/UX.
+- **`pesquisas/pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados.
+- **`pesquisas/pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento.
+- **`pesquisas/XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento.
+- **`doc/relatorio-uso-ia.md`:** Documentação oficial do uso responsável de IA na entrega.
 
 ---
 
@@ -176,14 +192,17 @@ Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https:
 
 2. **Importação do Banco de Dados:**
    - Abra o phpMyAdmin (`http://localhost/phpmyadmin`).
-   - Crie um banco de dados ou execute o script contido em `database/ja_ismaga.sql`.
+   - Importe ou execute o script SQL atualizado contido em `database/ja_ismaga.sql`.
 
 3. **Conexão com o Banco:**
-   - Verifique se as credenciais no arquivo `config/conexao.php` correspondem ao seu ambiente local (Host, Usuário e Senha do MySQL).
+   - Verifique se as credenciais no arquivo `config/conexao.php` correspondem ao seu ambiente local.
 
 4. **Acesso à Aplicação:**
    - Inicie os módulos Apache e MySQL no XAMPP Control Panel.
    - Acesse no navegador: `http://localhost/ja_ismaga/public/login.php` ou `http://localhost/ja_ismaga/index.php`.
+   - **Credenciais de Teste:**
+     - **Admin:** `admin@ismaga.com` | Senha: `123456`
+     - **Operador:** `icaro@gmail.com` | Senha: `123456`
 
 ---
 
@@ -206,7 +225,7 @@ Estrutura completa de diretórios e arquivos do repositório:
 │   └── conexao.php
 ├── database/               # Script do banco de dados MySQL
 │   └── ja_ismaga.sql
-├── doc/                    # Documentações do projeto
+├── doc/                    # Documentações e pesquisas do projeto
 │   ├── pesquisas/          # Pesquisas técnicas adicionais
 │   ├── indentidade.visual.md
 │   ├── pesquisa-crud.md
