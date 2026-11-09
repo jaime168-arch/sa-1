@@ -13,10 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
-        $stmt->execute([':email' => $email]);
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Consulta SQL adaptada para MySQLi nativo ($conn)
+    $sql = "SELECT * FROM usuarios WHERE LOWER(email) = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $usuario = $resultado->fetch_assoc();
 
         if ($usuario) {
             if (isset($usuario['ativo']) && $usuario['ativo'] == 0) {
@@ -42,9 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header("Location: login.php");
             exit;
         }
-
-    } catch (PDOException $e) {
-        $_SESSION['mensagem_erro'] = "Erro de conexão: " . $e->getMessage();
+    } else {
+        error_log("Erro ao autenticar usuário: " . $conn->error);
+        $_SESSION['mensagem_erro'] = "Erro de conexão com o banco de dados.";
         header("Location: login.php");
         exit;
     }
