@@ -29,7 +29,6 @@ $sensor = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    // Busca dados do sensor usando MySQLi nativo ($conn)
     $sql = "SELECT * FROM sensores WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
@@ -53,7 +52,6 @@ if ($id) {
 }
 
 $trens = [];
-// Listagem de trens adaptada para MySQLi nativo ($conn)
 $resTrens = $conn->query("SELECT id, nome, modelo FROM trens ORDER BY nome ASC");
 if ($resTrens) {
     $trens = $resTrens->fetch_all(MYSQLI_ASSOC);
