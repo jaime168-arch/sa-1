@@ -14,8 +14,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaRotas = [];
-
-// Consulta adaptada para MySQLi nativo ($conn)
 $sql = "SELECT r.*, t.nome AS nome_trem, t.modelo AS modelo_trem 
         FROM rotas r 
         LEFT JOIN trens t ON r.trem_id = t.id 

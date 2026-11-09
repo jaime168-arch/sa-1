@@ -23,7 +23,6 @@ if (!$id) {
     exit;
 }
 
-// Instrução SQL adaptada para MySQLi nativo ($conn)
 $sql = "DELETE FROM rotas WHERE id = ?";
 $stmt = $conn->prepare($sql);
 
@@ -37,7 +36,6 @@ if ($stmt) {
             $_SESSION['mensagem_erro'] = "Rota não encontrada ou já eliminada.";
         }
     } else {
-        // Trata erro de integridade referencial / Chave Estrangeira (FK)
         if ($conn->errno == 1451) {
             $_SESSION['mensagem_erro'] = "Não é possível excluir esta rota pois existem trens ou registros vinculados a ela.";
         } else {

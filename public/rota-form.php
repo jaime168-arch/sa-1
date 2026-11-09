@@ -32,7 +32,6 @@ $rota = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    // Busca dados da rota usando MySQLi
     $sql = "SELECT * FROM rotas WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
@@ -55,7 +54,6 @@ if ($id) {
 }
 
 $listaTrens = [];
-// Listagem de trens para o select usando MySQLi
 $resT = $conn->query("SELECT id, nome, modelo FROM trens WHERE status = 'ativo' ORDER BY nome ASC");
 if ($resT) {
     $listaTrens = $resT->fetch_all(MYSQLI_ASSOC);
@@ -77,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios corretamente (Distância deve ser um número positivo).";
     } else {
         if ($id) {
-            // UPDATE via MySQLi
             if ($trem_id !== null) {
                 $sql = "UPDATE rotas SET nome_rota = ?, descricao = ?, origem = ?, destino = ?, distancia_km = ?, tempo_previsto = ?, trem_id = ?, status_rota = ? WHERE id = ?";
                 $stmt = $conn->prepare($sql);
@@ -92,7 +89,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         } else {
-            // INSERT via MySQLi
             if ($trem_id !== null) {
                 $sql = "INSERT INTO rotas (nome_rota, descricao, origem, destino, distancia_km, tempo_previsto, trem_id, status_rota) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($sql);
