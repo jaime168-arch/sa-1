@@ -10,11 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // Prepara a consulta usando a sintaxe do MySQLi (?)
     $sql = "SELECT id, nome, email, senha, tipo, ativo FROM usuarios WHERE email = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
-    // SE O PREPARE FALHAR: exibe o erro exato do MySQL para sabermos o problema
     if ($stmt === false) {
         die("<div style='font-family:sans-serif; padding:20px; color:red;'>
                 <h3>Erro de SQL no prepare():</h3>
@@ -23,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
              </div>");
     }
 
-    // Associa o parâmetro de entrada
     $stmt->bind_param("s", $email);
     $stmt->execute();
 
@@ -35,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
-        // Suporta senha hash (password_hash) e texto puro para testes
         if (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
             $_SESSION['usuario_id']   = $usuario['id'];
             $_SESSION['usuario_nome'] = $usuario['nome'];
