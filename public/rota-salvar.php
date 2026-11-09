@@ -22,29 +22,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    try {
-        if ($id) {
-            $sql = "UPDATE rotas SET origem = :origem, destino = :destino, distancia = :distancia, tempo_estimado = :tempo_estimado WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        } else {
-            $sql = "INSERT INTO rotas (origem, destino, distancia, tempo_estimado) VALUES (:origem, :destino, :distancia, :tempo_estimado)";
-            $stmt = $pdo->prepare($sql);
+    if ($id) {
+     
+        $sql = "UPDATE rotas SET origem = ?, destino = ?, distancia = ?, tempo_estimado = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("ssdsi", $origem, $destino, $distancia, $tempo_estimado, $id);
         }
+    } else {
+       
+        $sql = "INSERT INTO rotas (origem, destino, distancia, tempo_estimado) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("ssds", $origem, $destino, $distancia, $tempo_estimado);
+        }
+    }
 
-        $stmt->bindValue(':origem', $origem);
-        $stmt->bindValue(':destino', $destino);
-        $stmt->bindValue(':distancia', $distancia);
-        $stmt->bindValue(':tempo_estimado', $tempo_estimado);
-        $stmt->execute();
-
+    if ($stmt && $stmt->execute()) {
         $_SESSION['mensagem_sucesso'] = $id ? "Rota atualizada com sucesso!" : "Rota adicionada com sucesso!";
         header("Location: rotas.php");
         exit;
-
-    } catch (PDOException $e) {
-        error_log("Erro ao salvar rota: " . $e->getMessage());
-        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($e->getMessage());
+    } else {
+        $erroMsg = $conn->error ?: ($stmt ? $stmt->error : "Erro na preparação do SQL");
+        error_log("Erro ao salvar rota: " . $erroMsg);
+        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($erroMsg);
         header("Location: " . ($id ? "rota-form.php?id=$id" : "rota-form.php"));
         exit;
     }

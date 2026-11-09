@@ -16,10 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $modelo     = trim(filter_input(INPUT_POST, 'modelo', FILTER_SANITIZE_SPECIAL_CHARS));
     $capacidade = filter_input(INPUT_POST, 'capacidade', FILTER_VALIDATE_INT);
     
-   
     $status     = trim($_POST['status'] ?? 'ativo'); 
     
- 
     $usuario_id = filter_input(INPUT_POST, 'usuario_id', FILTER_VALIDATE_INT) ?: null;
 
     if (!$nome || !$modelo || !$capacidade) {
@@ -28,37 +26,46 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    try {
-        if ($id) {
-          
-            $sql = "UPDATE trens SET nome = :nome, modelo = :modelo, capacidade = :capacidade, status = :status, usuario_id = :usuario_id WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    if ($id) {
+        // --- ATUALIZAR (UPDATE) ---
+        if ($usuario_id !== null) {
+            $sql = "UPDATE trens SET nome = ?, modelo = ?, capacidade = ?, status = ?, usuario_id = ? WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("ssisii", $nome, $modelo, $capacidade, $status, $usuario_id, $id);
+            }
         } else {
-            $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (:nome, :modelo, :capacidade, :status, :usuario_id)";
-            $stmt = $pdo->prepare($sql);
+            $sql = "UPDATE trens SET nome = ?, modelo = ?, capacidade = ?, status = ?, usuario_id = NULL WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("ssisi", $nome, $modelo, $capacidade, $status, $id);
+            }
         }
-
-        $stmt->bindValue(':nome', $nome);
-        $stmt->bindValue(':modelo', $modelo);
-        $stmt->bindValue(':capacidade', $capacidade, PDO::PARAM_INT);
-        $stmt->bindValue(':status', $status);
-        
-        if ($usuario_id) {
-            $stmt->bindValue(':usuario_id', $usuario_id, PDO::PARAM_INT);
+    } else {
+        // --- INSERIR (INSERT) ---
+        if ($usuario_id !== null) {
+            $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("ssisi", $nome, $modelo, $capacidade, $status, $usuario_id);
+            }
         } else {
-            $stmt->bindValue(':usuario_id', null, PDO::PARAM_NULL);
+            $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (?, ?, ?, ?, NULL)";
+            $stmt = $conn->prepare($sql);
+            if ($stmt) {
+                $stmt->bind_param("ssis", $nome, $modelo, $capacidade, $status);
+            }
         }
+    }
 
-        $stmt->execute();
-
+    if ($stmt && $stmt->execute()) {
         $_SESSION['mensagem_sucesso'] = $id ? "Trem atualizado com sucesso!" : "Trem adicionado com sucesso!";
         header("Location: trens.php");
         exit;
-
-    } catch (PDOException $e) {
-        error_log("Erro ao salvar trem: " . $e->getMessage());
-        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($e->getMessage());
+    } else {
+        $erroMsg = $conn->error ?: ($stmt ? $stmt->error : "Erro na preparação do SQL");
+        error_log("Erro ao salvar trem: " . $erroMsg);
+        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($erroMsg);
         header("Location: " . ($id ? "trem-form.php?id=$id" : "trem-form.php"));
         exit;
     }

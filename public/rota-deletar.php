@@ -23,18 +23,29 @@ if (!$id) {
     exit;
 }
 
-try {
-    $stmt = $pdo->prepare("DELETE FROM rotas WHERE id = :id");
-    $sucesso = $stmt->execute([':id' => $id]);
+// Instrução SQL adaptada para MySQLi nativo ($conn)
+$sql = "DELETE FROM rotas WHERE id = ?";
+$stmt = $conn->prepare($sql);
 
-    if ($sucesso && $stmt->rowCount() > 0) {
-        $_SESSION['mensagem_sucesso'] = "Rota eliminada com sucesso!";
+if ($stmt) {
+    $stmt->bind_param("i", $id);
+
+    if ($stmt->execute()) {
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['mensagem_sucesso'] = "Rota eliminada com sucesso!";
+        } else {
+            $_SESSION['mensagem_erro'] = "Rota não encontrada ou já eliminada.";
+        }
     } else {
-        $_SESSION['mensagem_erro'] = "Rota não encontrada ou já eliminada.";
+        // Trata erro de integridade referencial / Chave Estrangeira (FK)
+        if ($conn->errno == 1451) {
+            $_SESSION['mensagem_erro'] = "Não é possível excluir esta rota pois existem trens ou registros vinculados a ela.";
+        } else {
+            $_SESSION['mensagem_erro'] = "Erro ao excluir rota no banco de dados: " . $conn->error;
+        }
     }
-
-} catch (PDOException $e) {
-    $_SESSION['mensagem_erro'] = "Erro ao excluir rota no banco de dados: " . $e->getMessage();
+} else {
+    $_SESSION['mensagem_erro'] = "Erro na preparação da consulta: " . $conn->error;
 }
 
 header("Location: rotas.php");

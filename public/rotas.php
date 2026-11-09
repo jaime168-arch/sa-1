@@ -14,15 +14,19 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaRotas = [];
-try {
-    $sql = "SELECT r.*, t.nome AS nome_trem, t.modelo AS modelo_trem 
-            FROM rotas r 
-            LEFT JOIN trens t ON r.trem_id = t.id 
-            ORDER BY r.id DESC";
-    $stmt = $pdo->query($sql);
-    $listaRotas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar rotas: " . $e->getMessage());
+
+// Consulta adaptada para MySQLi nativo ($conn)
+$sql = "SELECT r.*, t.nome AS nome_trem, t.modelo AS modelo_trem 
+        FROM rotas r 
+        LEFT JOIN trens t ON r.trem_id = t.id 
+        ORDER BY r.id DESC";
+
+$resultado = $conn->query($sql);
+
+if ($resultado) {
+    $listaRotas = $resultado->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar rotas: " . $conn->error);
     $_SESSION['mensagem_erro'] = "Erro ao carregar a lista de rotas.";
 }
 ?>

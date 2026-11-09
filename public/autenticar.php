@@ -1,49 +1,53 @@
 <?php
-session_start();
 require_once __DIR__ . '/../config/conexao.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = strtolower(trim($_POST['email'] ?? ''));
+    $email = trim($_POST['email'] ?? '');
     $senha = trim($_POST['senha'] ?? '');
 
     if (empty($email) || empty($senha)) {
-        $_SESSION['mensagem_erro'] = "Preencha todos os campos.";
-        header("Location: login.php");
+        header("Location: login.php?erro=campos_vazios");
         exit;
     }
 
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE LOWER(email) = :email LIMIT 1");
-        $stmt->execute([':email' => $email]);
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Prepara a consulta usando a sintaxe do MySQLi (?)
+    $sql = "SELECT id, nome, email, senha, tipo, ativo FROM usuarios WHERE email = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
 
-        if ($usuario && (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha'])) {
-            
-            session_regenerate_id(true);
-            $_SESSION['usuario_id']   = (int)$usuario['id'];
-            $_SESSION['usuario_nome'] = $usuario['nome'];
-            $_SESSION['usuario_tipo'] = strtolower($usuario['tipo']);
-            $_SESSION['logged_in']    = true;
+    // SE O PREPARE FALHAR: exibe o erro exato do MySQL para sabermos o problema
+    if ($stmt === false) {
+        die("<div style='font-family:sans-serif; padding:20px; color:red;'>
+                <h3>Erro de SQL no prepare():</h3>
+                <p>" . htmlspecialchars($conn->error) . "</p>
+                <p><strong>Dica:</strong> Verifique se a tabela 'usuarios' e a coluna 'email' existem no banco de dados.</p>
+             </div>");
+    }
 
-            if ($senha === $usuario['senha']) {
-                $novoHash = password_hash($senha, PASSWORD_DEFAULT);
-                $up = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
-                $up->execute([':senha' => $novoHash, ':id' => $usuario['id']]);
-            }
+    // Associa o parâmetro de entrada
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
 
-            header("Location: home.php");
-            exit;
-        } else {
-            $_SESSION['mensagem_erro'] = "E-mail ou senha incorretos.";
-            header("Location: login.php");
+    $resultado = $stmt->get_result();
+
+    if ($usuario = $resultado->fetch_assoc()) {
+        if ($usuario['ativo'] != 1) {
+            header("Location: login.php?erro=usuario_inativo");
             exit;
         }
 
-    } catch (PDOException $e) {
-        $_SESSION['mensagem_erro'] = "Erro ao processar o login.";
-        header("Location: login.php");
-        exit;
+        // Suporta senha hash (password_hash) e texto puro para testes
+        if (password_verify($senha, $usuario['senha']) || $senha === $usuario['senha']) {
+            $_SESSION['usuario_id']   = $usuario['id'];
+            $_SESSION['usuario_nome'] = $usuario['nome'];
+            $_SESSION['usuario_tipo'] = $usuario['tipo'];
+
+            header("Location: home.php");
+            exit;
+        }
     }
+
+    header("Location: login.php?erro=dados_invalidos");
+    exit;
 } else {
     header("Location: login.php");
     exit;

@@ -14,7 +14,8 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 try {
-    $pdo->exec("CREATE TABLE IF NOT EXISTS sensores (
+    // Execução da criação de tabela adaptada para MySQLi ($conn)
+    $conn->query("CREATE TABLE IF NOT EXISTS sensores (
         id INT AUTO_INCREMENT PRIMARY KEY,
         codigo_sensor VARCHAR(50) NOT NULL,
         tipo VARCHAR(100) NOT NULL,
@@ -24,34 +25,42 @@ try {
         criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;");
 
-    $columns = $pdo->query("SHOW COLUMNS FROM sensores")->fetchAll(PDO::FETCH_COLUMN);
+    $resColumns = $conn->query("SHOW COLUMNS FROM sensores");
+    $columns = [];
+    if ($resColumns) {
+        while ($row = $resColumns->fetch_assoc()) {
+            $columns[] = $row['Field'];
+        }
+    }
 
     if (!in_array('codigo_sensor', $columns)) {
-        $pdo->exec("ALTER TABLE sensores ADD COLUMN codigo_sensor VARCHAR(50) NOT NULL AFTER id;");
+        $conn->query("ALTER TABLE sensores ADD COLUMN codigo_sensor VARCHAR(50) NOT NULL AFTER id;");
     }
     if (!in_array('tipo', $columns)) {
-        $pdo->exec("ALTER TABLE sensores ADD COLUMN tipo VARCHAR(100) NOT NULL AFTER codigo_sensor;");
+        $conn->query("ALTER TABLE sensores ADD COLUMN tipo VARCHAR(100) NOT NULL AFTER codigo_sensor;");
     }
     if (!in_array('localizacao', $columns)) {
-        $pdo->exec("ALTER TABLE sensores ADD COLUMN localizacao VARCHAR(100) NOT NULL AFTER tipo;");
+        $conn->query("ALTER TABLE sensores ADD COLUMN localizacao VARCHAR(100) NOT NULL AFTER tipo;");
     }
     if (!in_array('status_leitura', $columns)) {
-        $pdo->exec("ALTER TABLE sensores ADD COLUMN status_leitura VARCHAR(50) NOT NULL DEFAULT 'Ativo' AFTER localizacao;");
+        $conn->query("ALTER TABLE sensores ADD COLUMN status_leitura VARCHAR(50) NOT NULL DEFAULT 'Ativo' AFTER localizacao;");
     }
-} catch (PDOException $e) {
+} catch (Throwable $e) {
     error_log("Erro ao ajustar tabela sensores: " . $e->getMessage());
 }
 
 $listaSensores = [];
-try {
-    $sql = "SELECT s.*, t.nome AS nome_trem 
-            FROM sensores s 
-            LEFT JOIN trens t ON s.trem_id = t.id 
-            ORDER BY s.id DESC";
-    $stmt = $pdo->query($sql);
-    $listaSensores = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar sensores: " . $e->getMessage());
+// Consulta adaptada para MySQLi nativo ($conn)
+$sql = "SELECT s.*, t.nome AS nome_trem 
+        FROM sensores s 
+        LEFT JOIN trens t ON s.trem_id = t.id 
+        ORDER BY s.id DESC";
+
+$resultado = $conn->query($sql);
+if ($resultado) {
+    $listaSensores = $resultado->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar sensores: " . $conn->error);
     $_SESSION['mensagem_erro'] = "Erro ao carregar a lista de sensores.";
 }
 ?>

@@ -1,18 +1,36 @@
 <?php
-$host     = '127.0.0.1';
-$port     = '3306'; 
-$dbname   = 'ja_ismaga';
-$username = 'root';
-$password = '';
+// Exibe erros em tela para evitar página em branco durante testes
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-try {
-    $pdo = new PDO("mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4", $username, $password);
-    
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-
-} catch (PDOException $e) {
-    error_log("Erro de Conexão MySQL: " . $e->getMessage());
-    die("Erro ao conectar com o banco de dados. Por favor, tente novamente mais tarde.");
+// Inicia a sessão com segurança
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+
+$host    = "localhost";
+$usuario = "root";
+$senha   = "";
+$banco   = "ja_ismaga";
+
+// Evita crash total silencioso do PHP no MySQLi
+mysqli_report(MYSQLI_REPORT_OFF);
+
+// Conexão MySQLi Nativa
+$conn = @new mysqli($host, $usuario, $senha, $banco);
+
+// Validação de erro de conexão
+if ($conn->connect_error) {
+    die("<div style='font-family:sans-serif; padding:20px; color:red;'>
+            <h3>Erro de Conexão com o Banco de Dados</h3>
+            <p>" . $conn->connect_error . "</p>
+         </div>");
+}
+
+// Define codificação de caracteres
+$conn->set_charset("utf8mb4");
+
+// Apelido para garantir que código que chama $pdo receba $conn sem dar erro
+$pdo = $conn;
+?>

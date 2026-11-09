@@ -32,10 +32,15 @@ $rota = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM rotas WHERE id = :id LIMIT 1");
-        $stmt->execute([':id' => $id]);
-        $carregado = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Busca dados da rota usando MySQLi
+    $sql = "SELECT * FROM rotas WHERE id = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $carregado = $resultado->fetch_assoc();
 
         if ($carregado) {
             $rota = $carregado;
@@ -44,17 +49,18 @@ if ($id) {
             header("Location: rotas.php");
             exit;
         }
-    } catch (PDOException $e) {
-        error_log("Erro ao buscar rota: " . $e->getMessage());
+    } else {
+        error_log("Erro ao buscar rota: " . $conn->error);
     }
 }
 
 $listaTrens = [];
-try {
-    $stmtT = $pdo->query("SELECT id, nome, modelo FROM trens WHERE status = 'ativo' ORDER BY nome ASC");
-    $listaTrens = $stmtT->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar trens: " . $e->getMessage());
+// Listagem de trens para o select usando MySQLi
+$resT = $conn->query("SELECT id, nome, modelo FROM trens WHERE status = 'ativo' ORDER BY nome ASC");
+if ($resT) {
+    $listaTrens = $resT->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar trens: " . $conn->error);
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -70,43 +76,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($nome_rota) || empty($origem) || empty($destino) || $distancia_km === false || $distancia_km <= 0 || empty($tempo_previsto)) {
         $_SESSION['mensagem_erro'] = "Preencha todos os campos obrigatórios corretamente (Distância deve ser um número positivo).";
     } else {
-        try {
-            if ($id) {
-                $sql = "UPDATE rotas SET nome_rota = :nome_rota, descricao = :descricao, origem = :origem, destino = :destino, distancia_km = :distancia_km, tempo_previsto = :tempo_previsto, trem_id = :trem_id, status_rota = :status_rota WHERE id = :id";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    ':nome_rota'      => $nome_rota,
-                    ':descricao'      => $descricao,
-                    ':origem'         => $origem,
-                    ':destino'        => $destino,
-                    ':distancia_km'   => $distancia_km,
-                    ':tempo_previsto' => $tempo_previsto,
-                    ':trem_id'        => $trem_id,
-                    ':status_rota'    => $status_rota,
-                    ':id'             => $id
-                ]);
-                $_SESSION['mensagem_sucesso'] = "Rota '{$nome_rota}' atualizada com sucesso!";
+        if ($id) {
+            // UPDATE via MySQLi
+            if ($trem_id !== null) {
+                $sql = "UPDATE rotas SET nome_rota = ?, descricao = ?, origem = ?, destino = ?, distancia_km = ?, tempo_previsto = ?, trem_id = ?, status_rota = ? WHERE id = ?";
+                $stmt = $conn->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param("ssssdsisi", $nome_rota, $descricao, $origem, $destino, $distancia_km, $tempo_previsto, $trem_id, $status_rota, $id);
+                }
             } else {
-                $sql = "INSERT INTO rotas (nome_rota, descricao, origem, destino, distancia_km, tempo_previsto, trem_id, status_rota) VALUES (:nome_rota, :descricao, :origem, :destino, :distancia_km, :tempo_previsto, :trem_id, :status_rota)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->execute([
-                    ':nome_rota'      => $nome_rota,
-                    ':descricao'      => $descricao,
-                    ':origem'         => $origem,
-                    ':destino'        => $destino,
-                    ':distancia_km'   => $distancia_km,
-                    ':tempo_previsto' => $tempo_previsto,
-                    ':trem_id'        => $trem_id,
-                    ':status_rota'    => $status_rota
-                ]);
-                $_SESSION['mensagem_sucesso'] = "Rota '{$nome_rota}' cadastrada com sucesso!";
+                $sql = "UPDATE rotas SET nome_rota = ?, descricao = ?, origem = ?, destino = ?, distancia_km = ?, tempo_previsto = ?, trem_id = NULL, status_rota = ? WHERE id = ?";
+                $stmt = $conn->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param("ssssdssi", $nome_rota, $descricao, $origem, $destino, $distancia_km, $tempo_previsto, $status_rota, $id);
+                }
             }
+        } else {
+            // INSERT via MySQLi
+            if ($trem_id !== null) {
+                $sql = "INSERT INTO rotas (nome_rota, descricao, origem, destino, distancia_km, tempo_previsto, trem_id, status_rota) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param("ssssdsis", $nome_rota, $descricao, $origem, $destino, $distancia_km, $tempo_previsto, $trem_id, $status_rota);
+                }
+            } else {
+                $sql = "INSERT INTO rotas (nome_rota, descricao, origem, destino, distancia_km, tempo_previsto, trem_id, status_rota) VALUES (?, ?, ?, ?, ?, ?, NULL, ?)";
+                $stmt = $conn->prepare($sql);
+                if ($stmt) {
+                    $stmt->bind_param("ssssdss", $nome_rota, $descricao, $origem, $destino, $distancia_km, $tempo_previsto, $status_rota);
+                }
+            }
+        }
 
+        if ($stmt && $stmt->execute()) {
+            $_SESSION['mensagem_sucesso'] = $id ? "Rota '{$nome_rota}' atualizada com sucesso!" : "Rota '{$nome_rota}' cadastrada com sucesso!";
             header("Location: rotas.php");
             exit;
-
-        } catch (PDOException $e) {
-            error_log("Erro ao salvar rota: " . $e->getMessage());
+        } else {
+            $erroMsg = $conn->error ?: ($stmt ? $stmt->error : "Erro na preparação do SQL");
+            error_log("Erro ao salvar rota: " . $erroMsg);
             $_SESSION['mensagem_erro'] = "Erro ao salvar os dados da rota no banco de dados.";
         }
     }

@@ -29,10 +29,17 @@ $modoEdicao = false;
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = (int)$_GET['id'];
-    try {
-        $stmt = $pdo->prepare("SELECT id, nome, email, tipo, ativo FROM usuarios WHERE id = :id LIMIT 1");
-        $stmt->execute([':id' => $id]);
-        $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+    // Consulta convertida para MySQLi nativo ($conn) mantendo o tratamento de erros
+    $sql = "SELECT id, nome, email, tipo, ativo FROM usuarios WHERE id = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $resultado = $stmt->get_result();
+        $dados = $resultado->fetch_assoc();
+
         if ($dados) {
             $usuarioEdit = $dados;
             $modoEdicao = true;
@@ -41,8 +48,8 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
             header("Location: usuarios.php");
             exit;
         }
-    } catch (PDOException $e) {
-        error_log("Erro ao carregar usuário: " . $e->getMessage());
+    } else {
+        error_log("Erro ao carregar usuário: " . $conn->error);
         $_SESSION['mensagem_erro'] = "Erro ao carregar dados do usuário.";
     }
 }

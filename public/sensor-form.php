@@ -29,11 +29,16 @@ $sensor = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM sensores WHERE id = :id LIMIT 1");
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    // Busca dados do sensor usando MySQLi nativo ($conn)
+    $sql = "SELECT * FROM sensores WHERE id = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
         $stmt->execute();
-        $carregado = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultado = $stmt->get_result();
+        $carregado = $resultado->fetch_assoc();
+
         if ($carregado) {
             $sensor = $carregado;
         } else {
@@ -41,18 +46,19 @@ if ($id) {
             header("Location: sensores.php");
             exit;
         }
-    } catch (PDOException $e) {
-        error_log("Erro ao buscar sensor: " . $e->getMessage());
+    } else {
+        error_log("Erro ao buscar sensor: " . $conn->error);
         $_SESSION['mensagem_erro'] = "Erro ao carregar dados do sensor.";
     }
 }
 
 $trens = [];
-try {
-    $stmtTrens = $pdo->query("SELECT id, nome, modelo FROM trens ORDER BY nome ASC");
-    $trens = $stmtTrens->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao buscar trens: " . $e->getMessage());
+// Listagem de trens adaptada para MySQLi nativo ($conn)
+$resTrens = $conn->query("SELECT id, nome, modelo FROM trens ORDER BY nome ASC");
+if ($resTrens) {
+    $trens = $resTrens->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao buscar trens: " . $conn->error);
 }
 ?>
 <!DOCTYPE html>

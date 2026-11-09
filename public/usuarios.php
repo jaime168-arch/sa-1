@@ -14,11 +14,14 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaUsuarios = [];
-try {
-    $stmt = $pdo->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
-    $listaUsuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar utilizadores: " . $e->getMessage());
+
+// Consulta adaptada para MySQLi nativo ($conn) mantendo o tratamento de erros
+$resultado = $conn->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
+
+if ($resultado) {
+    $listaUsuarios = $resultado->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar utilizadores: " . $conn->error);
     $_SESSION['mensagem_erro'] = "Erro ao carregar a lista de utilizadores.";
 }
 ?>

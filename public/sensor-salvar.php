@@ -23,30 +23,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    try {
-        if ($id) {
-            $sql = "UPDATE sensores SET codigo_sensor = :codigo_sensor, tipo = :tipo, localizacao = :localizacao, status_leitura = :status_leitura, trem_id = :trem_id WHERE id = :id";
-            $stmt = $pdo->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        } else {
-            $sql = "INSERT INTO sensores (codigo_sensor, tipo, localizacao, status_leitura, trem_id) VALUES (:codigo_sensor, :tipo, :localizacao, :status_leitura, :trem_id)";
-            $stmt = $pdo->prepare($sql);
+    if ($id) {
+        // --- ATUALIZAR (UPDATE) ---
+        $sql = "UPDATE sensores SET codigo_sensor = ?, tipo = ?, localizacao = ?, status_leitura = ?, trem_id = ? WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("ssssii", $codigo_sensor, $tipo, $localizacao, $status_leitura, $trem_id, $id);
         }
+    } else {
+        // --- INSERIR (INSERT) ---
+        $sql = "INSERT INTO sensores (codigo_sensor, tipo, localizacao, status_leitura, trem_id) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        if ($stmt) {
+            $stmt->bind_param("ssssi", $codigo_sensor, $tipo, $localizacao, $status_leitura, $trem_id);
+        }
+    }
 
-        $stmt->bindValue(':codigo_sensor', $codigo_sensor);
-        $stmt->bindValue(':tipo', $tipo);
-        $stmt->bindValue(':localizacao', $localizacao);
-        $stmt->bindValue(':status_leitura', $status_leitura);
-        $stmt->bindValue(':trem_id', $trem_id, PDO::PARAM_INT);
-        $stmt->execute();
-
+    if ($stmt && $stmt->execute()) {
         $_SESSION['mensagem_sucesso'] = $id ? "Sensor atualizado com sucesso!" : "Sensor registado com sucesso!";
         header("Location: sensores.php");
         exit;
-
-    } catch (PDOException $e) {
-        error_log("Erro ao salvar sensor: " . $e->getMessage());
-        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($e->getMessage());
+    } else {
+        $erroMsg = $conn->error ?: ($stmt ? $stmt->error : "Erro na preparação do SQL");
+        error_log("Erro ao salvar sensor: " . $erroMsg);
+        $_SESSION['mensagem_erro'] = "Erro no MySQL: " . htmlspecialchars($erroMsg);
         header("Location: " . ($id ? "sensor-form.php?id=$id" : "sensor-form.php"));
         exit;
     }

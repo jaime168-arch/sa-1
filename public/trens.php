@@ -14,15 +14,19 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaTrens = [];
-try {
-    $sql = "SELECT t.*, u.nome AS nome_responsavel 
-            FROM trens t 
-            LEFT JOIN usuarios u ON t.usuario_id = u.id 
-            ORDER BY t.id DESC";
-    $stmt = $pdo->query($sql);
-    $listaTrens = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar trens: " . $e->getMessage());
+
+// Consulta adaptada para MySQLi nativo ($conn)
+$sql = "SELECT t.*, u.nome AS nome_responsavel 
+        FROM trens t 
+        LEFT JOIN usuarios u ON t.usuario_id = u.id 
+        ORDER BY t.id DESC";
+
+$resultado = $conn->query($sql);
+
+if ($resultado) {
+    $listaTrens = $resultado->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar trens: " . $conn->error);
     $_SESSION['mensagem_erro'] = "Erro ao carregar a lista de trens.";
 }
 ?>

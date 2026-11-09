@@ -29,11 +29,15 @@ $trem = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    try {
-        $stmt = $pdo->prepare("SELECT * FROM trens WHERE id = :id LIMIT 1");
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    // Consulta adaptada para MySQLi nativo ($conn)
+    $sql = "SELECT * FROM trens WHERE id = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if ($stmt) {
+        $stmt->bind_param("i", $id);
         $stmt->execute();
-        $carregado = $stmt->fetch(PDO::FETCH_ASSOC);
+        $resultado = $stmt->get_result();
+        $carregado = $resultado->fetch_assoc();
         
         if ($carregado) {
             $trem = $carregado;
@@ -42,18 +46,19 @@ if ($id) {
             header("Location: trens.php");
             exit;
         }
-    } catch (PDOException $e) {
-        error_log("Erro ao buscar trem: " . $e->getMessage());
+    } else {
+        error_log("Erro ao buscar trem: " . $conn->error);
         $_SESSION['mensagem_erro'] = "Erro ao carregar dados do trem.";
     }
 }
 
 $listaUsuarios = [];
-try {
-    $stmtU = $pdo->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");
-    $listaUsuarios = $stmtU->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    error_log("Erro ao carregar utilizadores: " . $e->getMessage());
+// Listagem de usuários adaptada para MySQLi nativo ($conn)
+$resU = $conn->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");
+if ($resU) {
+    $listaUsuarios = $resU->fetch_all(MYSQLI_ASSOC);
+} else {
+    error_log("Erro ao carregar utilizadores: " . $conn->error);
 }
 ?>
 <!DOCTYPE html>

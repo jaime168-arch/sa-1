@@ -2,13 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['usuario_id'])) {
-    $_SESSION['mensagem_erro'] = "Precisa de fazer login para aceder a esta página.";
     header("Location: login.php");
     exit;
 }
 
 if (($_SESSION['usuario_tipo'] ?? '') !== 'admin') {
-    $_SESSION['mensagem_erro'] = "Acesso negado. Apenas administradores podem excluir registos.";
+    $_SESSION['mensagem_erro'] = "Apenas administradores podem excluir utilizadores.";
     header("Location: usuarios.php");
     exit;
 }
@@ -18,33 +17,36 @@ require_once __DIR__ . '/../config/conexao.php';
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 if (!$id) {
-    $_SESSION['mensagem_erro'] = "Identificador de utilizador inválido.";
+    $_SESSION['mensagem_erro'] = "ID de utilizador inválido.";
     header("Location: usuarios.php");
     exit;
 }
 
-if ($id === (int)$_SESSION['usuario_id']) {
-    $_SESSION['mensagem_erro'] = "Não pode eliminar a sua própria conta enquanto estiver ligado.";
+
+if ($id === (int)$_SESSION['usuario_id'] || $id === 1) {
+    $_SESSION['mensagem_erro'] = "Não é permitido excluir a sua própria conta ou o administrador principal.";
     header("Location: usuarios.php");
     exit;
 }
 
-try {
-    $stmt = $pdo->prepare("DELETE FROM usuarios WHERE id = :id");
-    $sucesso = $stmt->execute([':id' => $id]);
 
-    if ($sucesso && $stmt->rowCount() > 0) {
-        $_SESSION['mensagem_sucesso'] = "Utilizador eliminado com sucesso!";
-    } else {
-        $_SESSION['mensagem_erro'] = "Utilizador não encontrado ou já eliminado.";
-    }
+$sql = "DELETE FROM usuarios WHERE id = ?";
+$stmt = $conn->prepare($sql);
 
-} catch (PDOException $e) {
-    if ($e->getCode() == '23000') {
-        $_SESSION['mensagem_erro'] = "Não é possível eliminar este utilizador pois possui dados associados no sistema.";
-    } else {
-        $_SESSION['mensagem_erro'] = "Erro na base de dados: " . $e->getMessage();
-    }
+if (!$stmt) {
+    die("<div style='font-family:sans-serif; padding:20px; color:red;'>
+            <h3>Erro no prepare() ao excluir usuário:</h3>
+            <p>" . htmlspecialchars($conn->error) . "</p>
+         </div>");
+}
+
+
+$stmt->bind_param("i", $id);
+
+if ($stmt->execute()) {
+    $_SESSION['mensagem_sucesso'] = "Utilizador excluído com sucesso!";
+} else {
+    $_SESSION['mensagem_erro'] = "Erro ao excluir utilizador: " . $stmt->error;
 }
 
 header("Location: usuarios.php");
