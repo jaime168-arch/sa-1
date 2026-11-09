@@ -119,7 +119,7 @@ if ($resUsuarios) {
     <div class="row mb-4">
         <div class="col-lg-7 mb-3 mb-lg-0">
             <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle h-100 d-flex flex-column justify-content-center">
-                <h2 class="fw-bold text-dark m-0">Bem-vindo ao Já Ismaga IoT</h2>
+                <h2 class="fw-bold text-dark m-7">Bem-vindo(a) <?= htmlspecialchars($nomeUsuario); ?> ao Já Ismaga </h2>
                 <p class="text-muted mt-2 mb-0">Sistema industrial de monitoramento ferroviário e telemetria em tempo real.</p>
             </div>
         </div>
