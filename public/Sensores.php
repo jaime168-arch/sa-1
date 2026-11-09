@@ -14,7 +14,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 try {
-    // Execução da criação de tabela adaptada para MySQLi ($conn)
     $conn->query("CREATE TABLE IF NOT EXISTS sensores (
         id INT AUTO_INCREMENT PRIMARY KEY,
         codigo_sensor VARCHAR(50) NOT NULL,
@@ -50,7 +49,6 @@ try {
 }
 
 $listaSensores = [];
-// Consulta adaptada para MySQLi nativo ($conn)
 $sql = "SELECT s.*, t.nome AS nome_trem 
         FROM sensores s 
         LEFT JOIN trens t ON s.trem_id = t.id 
