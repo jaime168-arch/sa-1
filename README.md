@@ -31,11 +31,9 @@
 
 ## Descrição do Projeto
 
-O projeto de **Ferrorama IoT da Já Ismaga** une a nostalgia do clássico brinquedo à vanguarda da **Indústria 4.0**, transformando linhas férreas e trilhos tradicionais num ecossistema conectado, automatizado e inteligente.
+O projeto **Já Ismaga — Ferrorama IoT** conecta maquetes e linhas férreas tradicionais aos conceitos da **Indústria 4.0**, integrando automação, monitoramento e telemetria ferroviária em tempo real.
 
-A solução foca em tecnologia, automação e monitorização ferroviária através do conceito de IoT (*Internet of Things*). O objetivo principal é criar uma plataforma inteligente para o acompanhamento e controlo de informações da ferrovia em tempo real, integrando sensores, atuadores, conectividade sem fio e uma interface moderna para a visualização analítica dos dados. 
-
-O sistema eleva o nível de controlo e segurança operacional através da recolha e transmissão contínua de telemetria, mitigando falhas e otimizando o gerenciamento logístico.
+A solução consiste em uma plataforma web integrada a sensores e microcontroladores embarcados na malha ferroviária. O sistema realiza a coleta e transmissão contínua de dados operacionais, permitindo o acompanhamento preditivo de falhas, o controle logístico de rotas e o gerenciamento da frota de trens e equipes.
 
 <p align="center">
   <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/wmremove-transformed.png" />
@@ -45,77 +43,65 @@ O sistema eleva o nível de controlo e segurança operacional através da recolh
 
 ## Novidades e Atualizações do Sistema
 
-O sistema passou por uma consolidação funcional e refatoração completa para a apresentação integrada de funcionamento:
-
-- **Design Autoral e Teoria das Cores:** Implementação da paleta de cores baseada em sinalização ferroviária industrial (`#FF6600` Laranja Sinalização e `#334155` Grafite Escuro) com alto contraste (WCAG AAA) e suporte multissensorial com ícones temáticos para daltônicos.
-- **Integração com APIs Externas (Clima & CEP):** Implementação de consulta meteorológica em tempo real (**Open-Meteo**) no painel principal e auto-preenchimento de endereços via CEP (**ViaCEP**) com tratamento completo de erros e exceções de rede.
-- **Controlo de Permissões Flexível (RBAC no Backend):** Liberação do acesso aos CRUDs operacionais (**Trens**, **Rotas** e **Sensores**) para usuários do tipo `operador` e `admin`, mantendo a gestão de **Usuários** restrita exclusivamente a administradores (`admin`).
-- **Autenticação Segura com Bcrypt Hash:** Criptografia das senhas no banco de dados MySQL via `password_hash()` e verificação segura no login (`login-processar.php`), eliminando o armazenamento em texto puro.
-- **Estrutura de Banco e Chaves Estrangeiras:** Inclusão dos campos de CEP/endereço na tabela `usuarios` e ajuste das chaves estrangeiras com `ON DELETE SET NULL` no banco de dados (`database/ja_ismaga.sql`), permitindo a exclusão de registros sem travamentos de integridade referencial.
-- **Firmware ESP32 Integrado:** Presença do código-fonte para o microcontrolador ESP32 (`firmware/esp32-sa.ino`) responsável pela leitura e transmissão dos dados dos sensores na ferrovia.
-- **Relatório de Utilização de IA:** Inclusão da documentação transparente dos prompts, revisões e registros de coautoria em `doc/relatorio-uso-ia.md`.
+- **Arquitetura de Banco com MySQLi:** Migração e padronização completa das consultas para a extensão nativa `mysqli` (`$conn`), utilizando *prepared statements* (`bind_param`) e tratamento de exceções de integridade referencial (`ON DELETE SET NULL` e tratamento do erro 1451).
+- **Design Autoral e Teoria das Cores:** Paleta baseada na sinalização ferroviária industrial (`#FF6600` Laranja Sinalização e `#334155` Grafite Escuro) com alto contraste (WCAG AAA) e suporte multissensorial com ícones informativos.
+- **Integração com APIs Externas (Clima & ViaCEP):** Consulta meteorológica em tempo real via **Open-Meteo** no painel principal e validação/preenchimento de endereços assíncrono via **ViaCEP**.
+- **Controle de Permissões (RBAC no Backend):** Restrição de acesso baseada em perfis (`admin` e `operador`). Módulos operacionais de Trens, Rotas e Sensores liberados para operadores e administradores; gestão de Usuários restrita aos administradores.
+- **Autenticação Segura:** Criptografia de senhas no banco de dados via `password_hash()` e verificação por `password_verify()` no fluxo de login.
+- **Firmware ESP32:** Código-fonte C++/Arduino para o microcontrolador ESP32 (`firmware/esp32-sa.ino`) responsável pela transmissão via Wi-Fi dos dados de telemetria dos sensores.
+- **Relatório de Uso de IA:** Documentação transparente das rotinas de auxílio, prompts e coautoria em `doc/relatorio-uso-ia.md`.
 
 ---
 
 ## Funcionalidades e Requisitos Funcionais (RFs)
 
-As funcionalidades do ecossistema foram categorizadas em três pilares, associadas aos Requisitos Funcionais (RFs) do projeto:
+### 1. Controle de Acesso e Segurança (Autenticação)
+- **[RF01] Login de Usuários:** Interface para autenticação de operadores e administradores.
+- **[RF02] Validação de Credenciais:** Verificação segura via MySQLi com suporte a hash criptográfico.
+- **[RF03] Controle de Perfil:** Validação no servidor para restrição de rotas e ações por perfil (`admin`, `operador`).
 
-### 1. Controlo de Acesso e Segurança (Autenticação)
-- **[RF01] Login de Utilizadores:** Interface para autenticação de operadores e administradores.
-- **[RF02] Validação de Credenciais:** Integração e verificação de acessos via PDO MySQL com hash Bcrypt criptográfico.
-- **[RF03] Sessão Segura e Controle de Perfil:** Controle de permissões por perfil (`admin`, `operador`, `usuario comum`) para restrição de ações operacionais e administrativas diretamente no servidor.
+### 2. Monitoramento e Telemetria em Tempo Real
+- **[RF04] API de Telemetria IoT:** Endpoint JSON (`api-telemetria.php`) para recepção de medições enviadas por dispositivos ESP32.
+- **[RF05] Status Operacional:** Classificação automática do estado dos trens (*Ativo*, *Em Manutenção*, *Inativo*).
+- **[RF06] Atualização Dinâmica:** Visualização de dados na interface web atualizada dinamicamente via JavaScript em `scripts/`.
+- **[RF07] Widget de Clima:** Informações meteorológicas da estação integradas à página inicial.
 
-### 2. Monitorização e Telemetria em Tempo Real
-- **[RF04] API de Telemetria IoT:** Endpoint dedicado (`api-telemetria.php`) para recepção e processamento das medições dos sensores do microcontrolador ESP32.
-- **[RF05] Classificação Automática de Status:** Algoritmo que categoriza instantaneamente o estado operacional do trem (*Ativo*, *Em Manutenção*, *Inativo*).
-- **[RF06] Atualização Dinâmica (Live Data):** Interface Web que atualiza os dados automaticamente sem recarregamento da página via scripts JavaScript dedicados em `scripts/`.
-- **[RF07] Widget de Clima em Tempo Real:** Exibição dinâmica das condições meteorológicas da estação na Home Page.
-
-### 3. Gestão de Dispositivos (IoT) e Relatórios Preditivos
-- **[RF08] CRUD de Entidades (Utilizadores, Trens, Rotas, Sensores):** Módulos completos para cadastro, listagem, edição e eliminação com interface responsiva e validações no frontend e backend.
-- **[RF09] Validação e Preenchimento por CEP:** Auto-preenchimento e validação assíncrona de endereços brasileiros via API.
-- **[RF10] Manutenção Preditiva & Automação de Desvios:** Leitura de sensores para antecipar falhas operacionais e controle logístico.
+### 3. Gestão de Entidades e Manutenção
+- **[RF08] CRUDs Operacionais (Usuários, Trens, Rotas, Sensores):** Interfaces responsivas para cadastro, listagem, edição e exclusão de dados com validações no frontend e backend.
+- **[RF09] Consulta de CEP:** Integração assíncrona para auto-preenchimento de dados de endereço.
+- **[RF10] Monitoramento Preditivo:** Leitura contínua dos sensores para prevenção de falhas operacionais na ferrovia.
 
 ---
 
 ## Integração com APIs Externas
 
-O sistema consome duas APIs públicas REST em tempo real:
+1. **Open-Meteo API (Clima):**
+   - **Finalidade:** Exibir as condições meteorológicas da estação no painel principal (temperatura, condição atual e horário de atualização).
+   - **Endpoint:** `https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true`
 
-1. **API de Clima — [Open-Meteo API](https://open-meteo.com/):**
-   - **Objetivo:** Exibir na Home Page as condições meteorológicas da estação ferroviária (temperatura atual, código de condição climática e data/hora da atualização).
-   - **Endpoint Utilizado:** `https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true`
-   - **Tratamento de Erros:** Em caso de falha de conexão ou timeout, a interface exibe uma mensagem preventiva sem interromper as demais funções da página.
-
-2. **API de CEP — [ViaCEP API](https://viacep.com.br/):**
-   - **Objetivo:** Consultar e preencher automaticamente os dados de endereço (logradouro, bairro, cidade, UF) nos formulários do sistema.
-   - **Endpoint Utilizado:** `https://viacep.com.br/ws/{CEP}/json/`
-   - **Tratamento de Erros:** Validação de formato (8 dígitos), tratamento para CEPs inexistentes na base nacional e tratamento para exceções de rede.
+2. **ViaCEP API (Endereços):**
+   - **Finalidade:** Consultar e preencher automaticamente logradouro, bairro, cidade e UF a partir do CEP informado nos formulários.
+   - **Endpoint:** `https://viacep.com.br/ws/{CEP}/json/`
 
 ---
 
 ## Identidade Visual e Teoria das Cores
 
-A interface do sistema foi desenvolvida com base num estudo de **UI/UX e Teoria das Cores**, visando afastar-se de templates genéricos e refletir o contexto ferroviário industrial:
+A interface foi estruturada com foco na usabilidade em ambientes operacionais industriais:
 
-- **Paleta de Cores:**
-  - `Laranja Sinalização (#FF6600)`: Cor primária da marca (Navbar, botões primários e destaques).
-  - `Laranja Queimado (#E05500)`: Estado de *hover* e interação.
-  - `Grafite Escuro (#334155)`: Leitura de títulos e textos com alto contraste.
-  - `Cinza Névoa (#F8FAFC)`: Fundo das telas, reduzindo a fadiga visual do operador.
-- **Acessibilidade:** Todas as badges de status utilizam cores combinadas a ícones e textos claros (*Ativo*, *Em Manutenção*, *Inativo*), garantindo acessibilidade para daltônicos.
-- **Documentação do Estudo:** O relatório detalhado de design está disponível em [`pesquisas/identidade-visual.md`](pesquisas/identidade-visual.md).
+- **`#FF6600` (Laranja Sinalização):** Elementos de navegação, destaques e ações principais.
+- **`#E05500` (Laranja Queimado):** Estados de interação (*hover* e foco).
+- **`#334155` (Grafite Escuro):** Tipografia e elementos de alto contraste.
+- **`#F8FAFC` (Cinza Névoa):** Plano de fundo para redução da fadiga visual.
+- **Acessibilidade:** Identificação visual combinando cores, badges e ícones indicativos para suporte a daltônicos.
 
 ---
 
 ## Mapeamento de Interfaces (CRUD UI)
 
-Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema:
-
-| Entidade | Tela de Listagem | Tela de Form | Processadores Backend | Script JS Dedicado |
+| Entidade | Tela de Listagem | Tela de Formulário | Processadores Backend (MySQLi) | Scripts JS |
 | :--- | :--- | :--- | :--- | :--- |
-| **Utilizadores** | `public/usuarios.php` | `public/usuario-form.php` | `usuario-salvar.php`, `usuario-deletar.php` | `scripts/usuarios.js`, `usuario-form.js`, `usuario-salvar.js`, `usuario-deletar.js` |
+| **Usuários** | `public/usuarios.php` | `public/usuario-form.php` | `usuario-salvar.php`, `usuario-deletar.php` | `scripts/usuarios.js`, `usuario-form.js`, `usuario-salvar.js`, `usuario-deletar.js` |
 | **Trens** | `public/trens.php` | `public/trem-form.php` | `trem-salvar.php`, `trem-deletar.php` | `scripts/trens.js`, `trem-form.js`, `trem-deletar.js` |
 | **Rotas** | `public/rotas.php` | `public/rota-form.php` | `rota-salvar.php`, `rota-deletar.php` | `scripts/rotas.js`, `rota-form.js`, `rota-salvar.js`, `rota-deletar.js` |
 | **Sensores** | `public/Sensores.php` | `public/sensor-form.php` | `sensor-salvar.php`, `sensor-deletar.php` | `scripts/Sensores.js`, `sensor-form.js`, `sensor-salvar.js`, `sensor-deletar.js` |
@@ -124,47 +110,41 @@ Abaixo estão listadas as interfaces desenvolvidas para cada entidade do sistema
 
 ## Firmware e Hardware (IoT)
 
-O projeto integra hardware embarcado para coleta e controle em tempo real:
-- **Microcontrolador:** ESP32
-- **Arquivo de Firmware:** `firmware/esp32-sa.ino`
-- **Comunicação:** Conexão Wi-Fi enviando requisições HTTP POST para o endpoint `public/api-telemetria.php`.
+- **Dispositivo:** Microcontrolador ESP32
+- **Firmware:** `firmware/esp32-sa.ino`
+- **Protocolo de Comunicação:** Requisições HTTP POST para o endpoint `public/api-telemetria.php` enviando payloads no formato JSON.
 
 ---
 
 ## Utilização de Inteligência Artificial
 
-O desenvolvimento contou com o auxílio transparente e documentado de agentes de Inteligência Artificial (Google Gemini / GitHub Copilot):
-- **Aplicações:** Estruturação de scripts PHP de validação RBAC, refatoração de regras do MySQL, construção dos scripts assíncronos de consumo das APIs e padronização visual com Bootstrap 5.
-- **Relatório Completo & Coautoria:** O detalhamento dos prompts, testes executados pela equipe, correções aplicadas e registro de coautoria em commits estão disponíveis no arquivo **`doc/relatorio-uso-ia.md`**.
+A documentação sobre as etapas de auxílio no desenvolvimento com Inteligência Artificial, testes executados e histórico de coautoria está disponível em **`doc/relatorio-uso-ia.md`**.
 
 ---
 
 ## Pesquisas Técnicas e Documentação
 
-O diretório `doc/` e `pesquisas/` armazena a documentação e pesquisas técnicas do projeto:
-- **`pesquisas/identidade-visual.md`:** Manual de Identidade Visual, Teoria das Cores e decisões de UI/UX.
-- **`pesquisas/pesquisa-crud.md`:** Fundamentos e arquitetura das operações de persistência de dados.
-- **`pesquisas/pesquisa-scrum.md`:** Estudo das metodologias ágeis aplicadas ao desenvolvimento.
-- **`pesquisas/XAMPP.md`:** Guia de configuração do ambiente local de desenvolvimento.
-- **`doc/relatorio-uso-ia.md`:** Documentação oficial do uso responsável de IA na entrega.
+- **`doc/pesquisas/identidade-visual.md`:** Guia de estilo visual, paleta de cores e UX.
+- **`doc/pesquisas/pesquisa-crud.md`:** Padrões das operações de persistência.
+- **`doc/pesquisas/pesquisa-scrum.md`:** Aplicação de metodologias ágeis.
+- **`doc/pesquisas/XAMPP.md`:** Instruções para configuração do servidor local.
+- **`doc/relatorio-uso-ia.md`:** Documentação do uso de IA no projeto.
 
 ---
 
 ## Metodologia de Desenvolvimento e Kanban
 
-A condução do projeto utiliza a metodologia **Scrumban** (Scrum + Kanban).
-- **Kanban:** Gestão visual de tarefas no **GitHub Projects** (*A Fazer*, *Em Desenvolvimento*, *Em Teste*, *Concluído*).
-- **Scrum:** Alinhamento de prazos e validação das entregas dos Requisitos Funcionais.
-
-Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https://github.com/jaime168-arch/SA_1/projects)
+Desenvolvimento guiado por **Scrumban** (Scrum + Kanban):
+- **Quadro Kanban:** Acompanhamento do fluxo de tarefas via GitHub Projects.
+- **Repositório:** [github.com/jaime168-arch/SA_1](https://github.com/jaime168-arch/SA_1)
 
 ---
 
 ## Padrões de Código (Style Guide)
 
-- **Arquivos e Pastas:** Padrão `kebab-case` para scripts e arquivos (ex: `trem-form.php`, `api-telemetria.php`).
-- **Variáveis e Funções:** Padrão `camelCase` em PHP e JavaScript (ex: `limparStatusCampo()`, `usuarioId`).
-- **Banco de Dados:** Tabelas e colunas em minúsculas com separação por underline (`usuario_id`, `trem_id`).
+- **Arquivos:** Nomenclatura em `kebab-case` (ex: `trem-salvar.php`, `sensor-form.php`).
+- **Variáveis e Funções:** Nomenclatura em `camelCase` no PHP e JavaScript.
+- **Banco de Dados:** Tabelas e colunas em `snake_case` (ex: `codigo_sensor`, `status_leitura`).
 
 ---
 
@@ -176,31 +156,38 @@ Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https:
   </a>
 </p>
 
-- **Frontend:** HTML5, CSS3, JavaScript (ES6+ com AJAX/Fetch), Bootstrap 5 e Bootstrap Icons.
-- **Backend:** PHP 8+ (Controle de sessões, autenticação, APIs REST e PDO MySQL).
-- **IoT & Embarcados:** C++ / Arduino (ESP32).
-- **Banco de Dados:** MySQL (`database/ja_ismaga.sql`).
-- **Ambiente Local:** XAMPP (Apache + MySQL).
+- **Frontend:** HTML5, CSS3, JavaScript (ES6+ / Fetch API), Bootstrap 5.3 e Bootstrap Icons.
+- **Backend:** PHP 8.x (Driver MySQLi nativo, sessões, RBAC e API REST).
+- **IoT:** C++ / Arduino (ESP32).
+- **Banco de Dados:** MySQL / MariaDB (`database/ja_ismaga.sql`).
+- **Ambiente de Desenvolvimento:** XAMPP (Apache + MySQL).
 
 ---
 
 ## Instruções de Execução do Sistema
 
 1. **Configuração do Ambiente Local (XAMPP):**
-   - Baixe e instale o XAMPP com suporte a Apache e MySQL.
-   - Mova a pasta do projeto para o diretório `C:\xampp\htdocs\ja_ismaga`.
+   - Clone ou copie a pasta do projeto para o diretório web do Apache: `C:\xampp\htdocs\jaime_rodrigues_2026\sa-1`.
 
 2. **Importação do Banco de Dados:**
-   - Abra o phpMyAdmin (`http://localhost/phpmyadmin`).
-   - Importe ou execute o script SQL atualizado contido em `database/ja_ismaga.sql`.
+   - Acesse o phpMyAdmin (`http://localhost/phpmyadmin`).
+   - Crie o banco de dados `ja_ismaga` e importe o arquivo `database/ja_ismaga.sql`.
 
-3. **Conexão com o Banco:**
-   - Verifique se as credenciais no arquivo `config/conexao.php` correspondem ao seu ambiente local.
+3. **Conexão com o Banco de Dados:**
+   - Verifique as credenciais no arquivo `config/conexao.php`:
+     ```php
+     $host = "localhost";
+     $user = "root";
+     $pass = "";
+     $db   = "ja_ismaga";
 
-4. **Acesso à Aplicação:**
+     $conn = new mysqli($host, $user, $pass, $db);
+     ```
+
+4. **Acesso ao Sistema:**
    - Inicie os módulos Apache e MySQL no XAMPP Control Panel.
-   - Acesse no navegador: `http://localhost/ja_ismaga/public/login.php` ou `http://localhost/ja_ismaga/index.php`.
-   - **Credenciais de Teste:**
+   - Acesse no navegador: `http://localhost/jaime_rodrigues_2026/sa-1/public/login.php`
+   - **Credenciais padrão:**
      - **Admin:** `admin@ismaga.com` | Senha: `123456`
      - **Operador:** `icaro@gmail.com` | Senha: `123456`
 
@@ -208,11 +195,9 @@ Link do GitHub Projects: [https://github.com/jaime168-arch/SA_1/projects](https:
 
 ## Estrutura do Projeto
 
-Estrutura completa de diretórios e arquivos do repositório:
-
 ```text
 /
-├── assets/                 # Recursos visuais e gráficos
+├── assets/                 # Imagens e recursos gráficos
 │   ├── crud.png
 │   ├── flecha.webp
 │   ├── imagem_1.png
@@ -223,18 +208,18 @@ Estrutura completa de diretórios e arquivos do repositório:
 ├── config/                 # Arquivos de configuração e conexão
 │   ├── auth.php
 │   └── conexao.php
-├── database/               # Script do banco de dados MySQL
+├── database/               # Script de criação do banco de dados MySQL
 │   └── ja_ismaga.sql
-├── doc/                    # Documentações e pesquisas do projeto
-│   ├── pesquisas/          # Pesquisas técnicas adicionais
-│   ├── indentidade.visual.md
-│   ├── pesquisa-crud.md
-│   ├── pesquisa-scrum.md
-│   ├── relatorio-uso-ia.md
-│   └── XAMPP.md
+├── doc/                    # Documentação técnica e relatórios
+│   ├── pesquisas/
+│   │   ├── indentidade.visual.md
+│   │   ├── pesquisa-crud.md
+│   │   ├── pesquisa-scrum.md
+│   │   └── XAMPP.md
+│   └── relatorio-uso-ia.md
 ├── firmware/               # Código-fonte para hardware IoT (ESP32)
 │   └── esp32-sa.ino
-├── public/                 # Interfaces web e scripts PHP do backend
+├── public/                 # Scripts PHP do backend e visões da aplicação
 │   ├── api-telemetria.php
 │   ├── atualizar_senhas.php
 │   ├── autenticar.php
@@ -260,7 +245,7 @@ Estrutura completa de diretórios e arquivos do repositório:
 │   ├── usuario-form.php
 │   ├── usuario-salvar.php
 │   └── usuarios.php
-├── scripts/                # Lógicas e validadores em JavaScript
+├── scripts/                # Controladores e scripts JavaScript
 │   ├── autenticar.js
 │   ├── home.js
 │   ├── login.js
@@ -279,8 +264,8 @@ Estrutura completa de diretórios e arquivos do repositório:
 │   ├── usuario-form.js
 │   ├── usuario-salvar.js
 │   └── usuarios.js
-├── styles/                 # Estilos CSS
+├── styles/                 # Estilos CSS customizados
 │   └── style.css
-├── index.php               # Página inicial pública da aplicação
-├── LICENSE                 # Licença do projeto
-└── README.md               # Documentação oficial
+├── index.php               # Ponto de entrada da aplicação
+├── LICENSE                 # Licença do repositório
+└── README.md               # Documentação oficial do projeto
