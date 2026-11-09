@@ -1,28 +1,75 @@
-# Relatório de Utilização de Inteligência Artificial — Já Ismaga
+# Relatório de Utilização de Inteligência Artificial
 
-## 1. Ferramentas Utilizadas
-- **Agente de IA / LLM:** Gemini (Google) / GitHub Copilot.
+**Projeto:** Já Ismaga — Ferrorama IoT e Indústria 4.0  
+**Contexto:** Situação de Aprendizagem (SA-1) / SENAI  
+**Data da Entrega:** 16 de Novembro de 2026  
+**Documento:** `doc/relatorio-uso-ia.md`  
 
-## 2. Objetivos da Utilização
-- Auxílio na criação das lógicas de validação de formulários em JavaScript (`trem-form.js`, `cep.js`).
-- Refatoração dos scripts PHP de permissões RBAC (`trem-salvar.php`, `trem-form.php`).
-- Estruturação do layout responsivo com Bootstrap 5 e ícones integrados.
-- Padronização da documentação no `README.md` e resolução de conflitos de Foreign Keys no MySQL.
+---
 
-## 3. Principais Prompts / Instruções Fornecidas
-- *"Ajuste o arquivo trem-form.php para permitir que o tipo operador consiga cadastrar e editar trens, mas sem visualizar/editar dados de usuários."*
-- *"Crie uma função assíncrona em JavaScript para consultar a API do ViaCEP e preencher os campos de endereço automaticamente com tratamento de erro."*
+## 1. Visão Geral e Transparência
+Durante o desenvolvimento do projeto **Já Ismaga**, a equipe utilizou assistentes de IA (Google Gemini e GitHub Copilot) como ferramentas de apoio e produtividade. O uso da IA foi conduzido de forma transparente, ética e responsável, servindo como suporte para refatoração de código, identificação de erros de execução e documentação técnica, sem substituir o controle e a validação do grupo.
 
-## 4. Arquivos e Funcionalidades Desenvolvidos com Auxílio da IA
-- `public/trem-form.php` e `public/trem-salvar.php` (Ajuste de perfil RBAC e atalhos de gravação PDO).
-- `scripts/trem-form.js` (Validação de campos obrigatórios no frontend).
-- `scripts/clima.js` (Consumo da API Open-Meteo para a Home Page).
-- `doc/relatorio-uso-ia.md` (Documentação do relatório de coautoria).
+Toda a lógica de negócios, regras de controle de acesso (RBAC), estrutura do banco de dados MySQL e validação de interfaces foram revisadas, testadas e integradas manualmente pela equipe.
 
-## 5. Validações, Testes e Alterações da Equipe
-- **Revisão de Código:** Todos os trechos gerados foram revisados linha a linha pelos integrantes da equipe.
-- **Ajustes Manuais:** Mapeamento de variáveis do banco de dados (troca de `codigo` por `nome` nos trechos gerados), ajuste no CSS corporativo da navbar (`mix-blend-mode: multiply`).
-- **Testes Executados:** Testes de submissão de formulários, tentativa de exclusão de registros vinculados no MySQL e validação de login com perfis `admin` e `operador`.
+---
 
-## 6. Reflexão sobre o Uso da IA
-A utilização da IA acelerou o processo de identificação de erros de validação e sintaxe, permitindo que a equipe focasse na regra de negócio e no design corporativo da aplicação. A validação manual continuou sendo essencial para garantir a integridade referencial do banco de dados e as permissões de acesso.
+## 2. Ferramentas e Agentes de IA Utilizados
+
+| Ferramenta / Agente | Função Principal no Projeto |
+| :--- | :--- |
+| **Google Gemini (AI Collaborator)** | Auxílio na migração do driver PDO para MySQLi nativo, estruturação de componentes Bootstrap 5, integração de APIs externas (Open-Meteo e ViaCEP) e padronização do README.md. |
+| **GitHub Copilot** | Autocompletar trechos repetitivos de código PHP/JS, sugestão de validações de formulário e apoio em comandos Git. |
+
+---
+
+## 3. Objetivos do Uso da IA
+
+1. **Migração Tecnológica:** Refatoração do driver do banco de dados de `PDO` para `MySQLi` nativo (`$conn`), garantindo padronização e segurança com *prepared statements* (`bind_param`).
+2. **Integração de APIs REST:** Implementação de chamadas assíncronas em JavaScript (`Fetch API`) para consumo da **Open-Meteo API** (clima da estação em Joinville/SC) e **ViaCEP API** (preenchimento automático de endereços).
+3. **Resolução de Erros de Execução:** Diagnóstico de exceções e erros fatais de PHP (como `Call to undefined method` e falhas de bind em prepared statements).
+4. **Documentação Técnica:** Auxílio na estruturação de documentações em Markdown e no alinhamento às exigências dos Requisitos Funcionais (RFs).
+
+---
+
+## 4. Histórico de Prompts e Atividades Realizadas
+
+### Atividade 1: Migração de PDO para MySQLi
+- **Prompt Utilizado:** *"Altere as instruções de banco de dados do arquivo rota-deletar.php de PDO ($pdo) para MySQLi ($conn), usando$stmt->bind_param() e mantendo todas as validações de sessão e permissão intactas."*
+- **Arquivo Impactado:** `public/rota-deletar.php`, `public/rota-salvar.php`, `public/sensor-deletar.php`, `public/sensor-salvar.php`, `public/sensor-form.php`, `public/sensores.php`.
+- **Alterações da Equipe:** Teste manual das rotas via navegador e validação no phpMyAdmin para confirmar a exclusão e atualização correta de registros.
+
+### Atividade 2: Correção de Erros de Conexão
+- **Prompt Utilizado:** *"Fatal error: Call to undefined method mysqli_result::fetchAll(). Como ajustar para a sintaxe nativa do MySQLi?"*
+- **Solução Gerada:** Substituição de `fetchAll(PDO::FETCH_ASSOC)` por `$resultado->fetch_all(MYSQLI_ASSOC)` e `fetch(PDO::FETCH_ASSOC)` por `$resultado->fetch_assoc()`.
+- **Validação:** Verificação das listagens para garantir que nenhum array nulo gerasse avisos de PHP (*warnings*).
+
+### Atividade 3: Widget de Clima em Joinville (Open-Meteo API)
+- **Prompt Utilizado:** *"Monte um widget em Bootstrap com paleta bege/creme para exibir na home.php a temperatura, direção do vento e condições de Joinville/SC consumindo a API da Open-Meteo."*
+- **Arquivo Impactado:** `public/home.php`.
+- **Validação:** Execução de testes de rede (simulando falhas de conexão) para validar o fallback e a exibição de mensagem preventiva.
+
+---
+
+## 5. Testes e Qualidade do Código
+
+Após cada sugestão fornecida pela IA, a equipe realizou a seguinte rotina de testes:
+
+1. **Testes de Integração Backend:** Execução do PHP no Apache local (XAMPP) com `error_reporting(E_ALL)` para garantir zero avisos (*notices* ou *warnings*).
+2. **Testes de Integridade Referencial:** Testes de exclusão de rotas e sensores vinculados a trens para verificar o comportamento das chaves estrangeiras (`foreign keys`).
+3. **Testes de Interface (UI/UX):** Verificação da responsividade em dispositivos móveis e testes de contraste de cores (paleta `#FF6600` e `#334155`).
+
+---
+
+## 6. Registro de Coautoria nos Commits
+
+Para os trechos de código estruturados com auxílio do agente de IA, a equipe aplicou o padrão oficial do Git para registro de coautoria:
+
+```text
+feat(home): integra widget de clima em bege com a API Open-Meteo
+
+- Consome a API da Open-Meteo para a cidade de Joinville/SC
+- Exibe temperatura, velocidade e direção do vento
+- Adiciona tratamento de erro para falhas de rede
+
+Co-authored-by: Gemini AI <assistant@gemini.google.com>
