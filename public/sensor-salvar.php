@@ -24,14 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($id) {
-        // --- ATUALIZAR (UPDATE) ---
         $sql = "UPDATE sensores SET codigo_sensor = ?, tipo = ?, localizacao = ?, status_leitura = ?, trem_id = ? WHERE id = ?";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
             $stmt->bind_param("ssssii", $codigo_sensor, $tipo, $localizacao, $status_leitura, $trem_id, $id);
         }
     } else {
-        // --- INSERIR (INSERT) ---
         $sql = "INSERT INTO sensores (codigo_sensor, tipo, localizacao, status_leitura, trem_id) VALUES (?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         if ($stmt) {
