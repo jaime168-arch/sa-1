@@ -35,8 +35,6 @@ if ($metodo === 'POST') {
         if ($sensorObj) {
             $sensor_id = $sensorObj['id'];
             $trem_id   = $sensorObj['trem_id'];
-
-            // 2. Grava a leitura de telemetria na tabela de leituras/logs
             $sqlInsert = "INSERT INTO leituras_telemetria (sensor_id, trem_id, temperatura, umidade, velocidade) VALUES (?, ?, ?, ?, ?)";
             $stmtInsert = $conn->prepare($sqlInsert);
 
