@@ -13,7 +13,6 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
-// Contadores para o Dashboard utilizando MySQLi nativo ($conn)
 $totalTrens = 0;
 $resTrens = $conn->query("SELECT COUNT(*) AS total FROM trens");
 if ($resTrens) {
@@ -76,7 +75,7 @@ if ($resUsuarios) {
             width: auto;
             mix-blend-mode: multiply;
         }
-        /* Estilização Bege do Card de Clima */
+
         .card-clima-beige {
             background-color: var(--beige-card);
             border: 1px solid var(--beige-dark);
@@ -115,7 +114,6 @@ if ($resUsuarios) {
 </nav>
 
 <main class="container my-5">
-    <!-- Banner de Boas-vindas e Widget de Clima em Tons Bege (Open-Meteo API) -->
     <div class="row mb-4">
         <div class="col-lg-7 mb-3 mb-lg-0">
             <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle h-100 d-flex flex-column justify-content-center">
@@ -124,7 +122,6 @@ if ($resUsuarios) {
             </div>
         </div>
         
-        <!-- Card de Clima Personalizado em Bege -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 card-clima-beige">
                 <div class="card-body p-4">
@@ -142,7 +139,6 @@ if ($resUsuarios) {
                     
                     <hr class="my-3" style="border-color: #d1c4b2;">
 
-                    <!-- Informações Detalhadas do Tempo em Joinville -->
                     <div class="row text-center g-2 small">
                         <div class="col-4 border-end" style="border-color: #d1c4b2 !important;">
                             <span class="text-muted d-block"><i class="bi bi-wind me-1"></i>Vento</span>
@@ -162,8 +158,7 @@ if ($resUsuarios) {
             </div>
         </div>
     </div>
-
-    <!-- Cards do Dashboard -->
+    
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 bg-white p-3">
@@ -218,7 +213,6 @@ if ($resUsuarios) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Consumo dinâmico da Open-Meteo API focada na cidade de Joinville, SC
     async function carregarClimaJoinville() {
         try {
             // Coordenadas geográficas de Joinville (-26.3045, -48.8487)
