@@ -1,5 +1,4 @@
 <?php
-// Define cabeçalhos para resposta JSON e suporte a requisições IoT (ESP32/Arduino)
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
