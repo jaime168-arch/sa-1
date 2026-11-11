@@ -23,7 +23,6 @@ if (!$id) {
     exit;
 }
 
-// Instrução SQL usando a sintaxe do MySQLi (?)
 $sql = "DELETE FROM trens WHERE id = ?";
 $stmt = $conn->prepare($sql);
 
