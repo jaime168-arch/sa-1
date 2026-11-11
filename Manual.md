@@ -31,25 +31,25 @@ Passo a passo com imagens
   <img width="80%" alt="Maquete / Protótipo Ferroviário" src="assets/passo1.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo2.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo3.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo4.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo5.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo6.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo7.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo8.png" />
 </p>
 
 ## Funcionalidades principais
