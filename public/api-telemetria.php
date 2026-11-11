@@ -4,12 +4,9 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 
 require_once __DIR__ . '/../config/conexao.php';
-
-// Captura requisições GET (leitura rápida) ou POST (envio de telemetria do ESP32)
 $metodo = $_SERVER['REQUEST_METHOD'];
 
 if ($metodo === 'POST') {
-    // Lê o payload JSON vindo do ESP32/cliente
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
 
