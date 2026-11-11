@@ -31,10 +31,10 @@ Passo a passo com imagens
   <img width="80%" alt="Maquete / Protótipo Ferroviário" src="assets/passo1.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo2.png" />
+  <img width="80%" alt="Maquete / Protótipo Ferroviário" src="assets/passo2.png" />
 </p>
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo3.png" />
+  <img width="50%" alt="Maquete / Protótipo Ferroviário" src="assets/passo3.png" />
 </p>
 <p align="center">
   <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo4.png" />
