@@ -15,7 +15,6 @@ $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaUsuarios = [];
 
-// Consulta adaptada para MySQLi nativo ($conn) mantendo o tratamento de erros
 $resultado = $conn->query("SELECT id, nome, email, tipo, ativo FROM usuarios ORDER BY id DESC");
 
 if ($resultado) {
