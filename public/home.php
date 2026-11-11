@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/../config/conexao.php';
+include '../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
@@ -115,7 +115,6 @@ if ($resUsuarios) {
 </nav>
 
 <main class="container my-5">
-    <!-- Banner de Boas-vindas e Widget de Clima em Tons Bege (Open-Meteo API) -->
     <div class="row mb-4">
         <div class="col-lg-7 mb-3 mb-lg-0">
             <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle h-100 d-flex flex-column justify-content-center">
