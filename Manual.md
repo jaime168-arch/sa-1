@@ -1,6 +1,6 @@
 # Já Ismaga — Ferrorama IoT e Indústria 4.0
 
-Nome do produto: Já.Ismaga 
+Nome do produto: Já.Ismaga <br>
 Versão: 6.51
 Fabricante: Gabriela Dias, Isabela Albano, Jaime Rodrigues, Maria Eduarda Loretto. 
 
