@@ -9,7 +9,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 if ($metodo === 'POST') {
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-    
+
     $codigo_sensor = $dados['codigo_sensor'] ?? $_POST['codigo_sensor'] ?? null;
     $temperatura   = $dados['temperatura'] ?? $_POST['temperatura'] ?? null;
     $umidade       = $dados['umidade'] ?? $_POST['umidade'] ?? null;
@@ -23,8 +23,6 @@ if ($metodo === 'POST') {
         ]);
         exit;
     }
-
-    // 1. Busca o sensor cadastrado para vincular a leitura
     $sqlSensor = "SELECT id, trem_id FROM sensores WHERE codigo_sensor = ? LIMIT 1";
     $stmtSensor = $conn->prepare($sqlSensor);
 
