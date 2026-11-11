@@ -67,5 +67,5 @@ Perguntas frequentes e erros comuns
 Falhas no JavaScript, Problemas com o commit, problemas no XAMPP e no MySQL, problema no index e na conexão.
 
 ## Suporte e contatos
-E-mail: admin@ismaga.com
-Telefone: (47) 9 6306-2560
+- E-mail: admin@ismaga.com
+- Telefone: (47) 9 6306-2560
