@@ -30,7 +30,6 @@ $modoEdicao = false;
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $id = (int)$_GET['id'];
     
-    // Consulta convertida para MySQLi nativo ($conn) mantendo o tratamento de erros
     $sql = "SELECT id, nome, email, tipo, ativo FROM usuarios WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
