@@ -156,7 +156,7 @@ if ($resUsuarios) {
             </div>
         </div>
     </div>
-    
+
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 bg-white p-3">
@@ -211,7 +211,6 @@ if ($resUsuarios) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Consumo dinâmico da Open-Meteo API focada na cidade de Joinville, SC
     async function carregarClimaJoinville() {
         try {
             // Coordenadas geográficas de Joinville (-26.3045, -48.8487)
