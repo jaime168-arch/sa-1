@@ -52,7 +52,6 @@ if ($id) {
 }
 
 $listaUsuarios = [];
-// Listagem de usuários adaptada para MySQLi nativo ($conn)
 $resU = $conn->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");
 if ($resU) {
     $listaUsuarios = $resU->fetch_all(MYSQLI_ASSOC);
