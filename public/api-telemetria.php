@@ -39,7 +39,6 @@ if ($metodo === 'POST') {
             $stmtInsert = $conn->prepare($sqlInsert);
 
             if ($stmtInsert) {
-                // "iiddd" -> integer, integer, double, double, double
                 $stmtInsert->bind_param("iiddd", $sensor_id, $trem_id, $temperatura, $umidade, $velocidade);
 
                 if ($stmtInsert->execute()) {
