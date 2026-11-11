@@ -12,8 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: login.php");
         exit;
     }
-
-    // Consulta SQL adaptada para MySQLi nativo ($conn)
     $sql = "SELECT * FROM usuarios WHERE LOWER(email) = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
