@@ -42,7 +42,6 @@ if ($metodo === 'POST') {
                 $stmtInsert->bind_param("iiddd", $sensor_id, $trem_id, $temperatura, $umidade, $velocidade);
 
                 if ($stmtInsert->execute()) {
-                    // Atualiza o status do sensor para ativo após leitura bem-sucedida
                     $sqlUpdate = "UPDATE sensores SET status_leitura = 'Ativo' WHERE id = ?";
                     $stmtUpd = $conn->prepare($sqlUpdate);
                     if ($stmtUpd) {
