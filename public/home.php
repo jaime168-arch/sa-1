@@ -213,7 +213,6 @@ if ($resUsuarios) {
 <script>
     async function carregarClimaJoinville() {
         try {
-            // Coordenadas geográficas de Joinville (-26.3045, -48.8487)
             const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true');
             if (!response.ok) throw new Error('Falha ao obter dados meteorológicos');
             const data = await response.json();
