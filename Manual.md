@@ -12,8 +12,60 @@ Através da integração de sensores avançados, atuadores e conectividade sem f
 
 ---
 
-## Descrição do Projeto
+## Visão Geral do Produto
+O Ferrorama IoT reinterpreta a dinâmica dos trilhos tradicionais sob a ótica da conectividade total. O sistema funciona em quatro etapas integradas, acompanhando a jornada da informação desde a via física até a tomada de decisão:
 
-O projeto **Já Ismaga — Ferrorama IoT** conecta maquetes e linhas férreas tradicionais aos conceitos da **Indústria 4.0**, integrando automação, monitoramento e telemetria ferroviária em tempo real.
+Na própria locomotiva e ao longo dos trilhos, sensores inteligentes monitoram constantemente variáveis como velocidade, posição e vibração, enquanto atuadores executam desvios e sinalizações automáticas.
 
-A solução consiste em uma plataforma web integrada a sensores e microcontroladores embarcados na malha ferroviária. O sistema realiza a coleta e transmissão contínua de dados operacionais, permitindo o acompanhamento preditivo de falhas, o controle logístico de rotas e o gerenciamento da frota de trens e equipes.
+Os dados coletados são reunidos pelo microcontrolador, que atua como a central de inteligência embarcada responsável por unificar as leituras do ambiente.
+
+Utilizando redes sem wi-fi e protocolos otimizados como MQTT e REST, as informações viajam instantaneamente até o servidor com latência mínima.
+
+## Público-Alvo
+- Pessoas que precisam se locomover à algum local desejado.
+
+## Instruções de uso
+Passo a passo com imagens
+
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+<p align="center">
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+</p>
+
+## Funcionalidades principais
+- Cadastrar rotas, sensores, usuários
+
+## Dicas e boas práticas
+- Cuidados no manuseio. 
+- Login de Utilizadores: Interface segura para autenticação de operadores. Validação de Credenciais: Integração e verificação de acessos via banco de dados MySQL.
+
+## Recomendações para uso seguro
+Sessão Segura: Função de logout e controle de permissões para encerramento de atividades na mesa de controle.
+
+## Solução de problemas 
+Perguntas frequentes e erros comuns 
+Falhas no JavaScript, Problemas com o commit, problemas no XAMPP e no MySQL, problema no index e na conexão.
+
+## Suporte e contatos
+- E-mail: admin@ismaga.com
+- Telefone: (47) 9 6306-2560
