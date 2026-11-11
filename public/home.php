@@ -120,8 +120,6 @@ if ($resUsuarios) {
                 <p class="text-muted mt-2 mb-0">Sistema industrial de monitoramento ferroviário e telemetria em tempo real.</p>
             </div>
         </div>
-        
-        <!-- Card de Clima Personalizado em Bege -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 card-clima-beige">
                 <div class="card-body p-4">
