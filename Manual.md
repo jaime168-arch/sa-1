@@ -1,24 +1,14 @@
 # Já Ismaga — Ferrorama IoT e Indústria 4.0
 
-Nome do produto: Já.Ismaga <br>
-Versão: 6.51
-Fabricante: Gabriela Dias, Isabela Albano, Jaime Rodrigues, Maria Eduarda Loretto. 
+- Nome do produto: Já.Ismaga 
+- Versão: 6.51
+- Fabricantes: Gabriela Dias, Isabela Albano, Jaime Rodrigues, Maria Eduarda Loretto. 
 
-## Índice
-- [Descrição do Projeto](#descrição-do-projeto)
-- [Novidades e Atualizações do Sistema](#novidades-e-atualizações-do-sistema)
-- [Funcionalidades e Requisitos Funcionais (RFs)](#funcionalidades-e-requisitos-funcionais-rfs)
-- [Integração com APIs Externas](#integração-com-apis-externas)
-- [Identidade Visual e Teoria das Cores](#identidade-visual-e-teoria-das-cores)
-- [Mapeamento de Interfaces (CRUD UI)](#mapeamento-de-interfaces-crud-ui)
-- [Firmware e Hardware (IoT)](#firmware-e-hardware-iot)
-- [Utilização de Inteligência Artificial](#utilização-de-inteligência-artificial)
-- [Pesquisas Técnicas e Documentação](#pesquisas-técnicas-e-documentação)
-- [Metodologia de Desenvolvimento e Kanban](#metodologia-de-desenvolvimento-e-kanban)
-- [Padrões de Código (Style Guide)](#padrões-de-código-style-guide)
-- [Tecnologias e Ferramentas](#tecnologias-e-ferramentas)
-- [Instruções de Execução do Sistema](#instruções-de-execução-do-sistema)
-- [Estrutura do Projeto](#estrutura-do-projeto)
+## Introdução
+O Ferrorama IoT, desenvolvido pela Já.Ismaga, representa os pilares de inovação da Indústria 4.0. 
+
+Através da integração de sensores avançados, atuadores e conectividade sem fio, o sistema fornece visualização analítica contínua e processamento de informações em tempo real. O projeto serve tanto como plataforma demonstrativa para automação e logística industrial quanto como um ambiente didático e executivo para validação de conceitos de conectividade e monitoria preditiva.
+
 
 ---
 
