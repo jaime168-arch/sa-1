@@ -85,6 +85,72 @@ if ($resUsuarios) {
             color: #5c4d3c;
             font-weight: 600;
         }
+
+        /* Estilização da Telemetria e Circuito Animado */
+        .telemetria-container {
+            background-color: #111111;
+            border-radius: 1.25rem;
+            padding: 30px;
+            color: #ffffff;
+            border: 1px solid #222222;
+        }
+
+        .track-box {
+            width: 200px;
+            height: 320px;
+        }
+
+        .track-box svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .track-glow {
+            fill: none;
+            stroke: #ff7b00;
+            stroke-width: 10;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.35;
+            filter: blur(4px);
+        }
+
+        .track-line {
+            fill: none;
+            stroke: #ff9900;
+            stroke-width: 4.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .gps-dot {
+            fill: #ffffff;
+            stroke: #4ade80;
+            stroke-width: 2.5;
+            filter: drop-shadow(0 0 6px #4ade80);
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .info-block .label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #888888;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-block .value {
+            font-size: 30px;
+            font-weight: 700;
+            color: #f3f4f6;
+        }
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100">
@@ -116,7 +182,7 @@ if ($resUsuarios) {
     <div class="row mb-4">
         <div class="col-lg-7 mb-3 mb-lg-0">
             <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle h-100 d-flex flex-column justify-content-center">
-                <h2 class="fw-bold text-dark m-7">Bem-vindo(a) <?= htmlspecialchars($nomeUsuario); ?> ao Já Ismaga </h2>
+                <h2 class="fw-bold text-dark m-0">Bem-vindo(a) <?= htmlspecialchars($nomeUsuario); ?> ao Já Ismaga</h2>
                 <p class="text-muted mt-2 mb-0">Sistema industrial de monitoramento ferroviário e telemetria em tempo real.</p>
             </div>
         </div>
@@ -157,6 +223,85 @@ if ($resUsuarios) {
         </div>
     </div>
 
+    <!-- Seção de Telemetria com Mapa do Circuito Integrado -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="telemetria-container shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom border-secondary pb-3">
+                    <h5 class="fw-bold m-0 text-white d-flex align-items-center gap-2">
+                        <i class="bi bi-broadcast text-warning"></i> Telemetria em Tempo Real — Circuito Ferrorama
+                    </h5>
+                    <span class="badge bg-success text-white px-3 py-2">
+                        <i class="bi bi-wifi me-1"></i> GPS Conectado
+                    </span>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row justify-content-around align-items-center gap-4">
+                    <!-- Mapa do Circuito SVG -->
+                    <div class="track-box">
+                        <svg viewBox="0 0 200 340">
+                            <!-- Brilho externo da pista -->
+                            <path id="track-path" class="track-glow" d="
+                                M 135,280 
+                                C 110,275 100,250 115,215 
+                                C 130,180 120,165 100,175 
+                                C 80,185 65,215 55,205 
+                                C 45,195 65,155 85,135 
+                                C 105,115 95,100 75,115 
+                                C 55,130 40,170 30,160 
+                                C 20,150 35,90 55,65 
+                                C 75,40 125,25 145,45 
+                                C 165,65 165,255 155,280 
+                                C 145,305 60,315 40,295 
+                                C 20,275 20,195 30,185
+                                C 40,175 60,235 80,255
+                                C 100,275 160,285 135,280 Z" />
+
+                            <!-- Linha principal da pista -->
+                            <path class="track-line" d="
+                                M 135,280 
+                                C 110,275 100,250 115,215 
+                                C 130,180 120,165 100,175 
+                                C 80,185 65,215 55,205 
+                                C 45,195 65,155 85,135 
+                                C 105,115 95,100 75,115 
+                                C 55,130 40,170 30,160 
+                                C 20,150 35,90 55,65 
+                                C 75,40 125,25 145,45 
+                                C 165,65 165,255 155,280 
+                                C 145,305 60,315 40,295 
+                                C 20,275 20,195 30,185
+                                C 40,175 60,235 80,255
+                                C 100,275 160,285 135,280 Z" />
+
+                            <!-- Marcador animado por JavaScript -->
+                            <circle id="marker" class="gps-dot" r="5" cx="0" cy="0" />
+                        </svg>
+                    </div>
+
+                    <!-- Painel de Informações Operacionais -->
+                    <div class="info-panel">
+                        <div class="info-block">
+                            <div class="label">Extensão do Trajeto</div>
+                            <div class="value">7,960 km</div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="label">Sensores GPS Ativos</div>
+                            <div class="value">7</div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="label">Velocidade Média</div>
+                            <div class="value text-warning">48.5 km/h</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Métricas -->
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 bg-white p-3">
@@ -211,6 +356,26 @@ if ($resUsuarios) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Animação JavaScript nativa do GPS sobre o caminho do circuito
+    const path = document.getElementById('track-path');
+    const marker = document.getElementById('marker');
+    const pathLength = path.getTotalLength();
+    const duration = 8000; // 8 segundos por volta
+    let startTime = null;
+
+    function animateTrack(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = (elapsed % duration) / duration;
+        const point = path.getPointAtLength(progress * pathLength);
+
+        marker.setAttribute('cx', point.x);
+        marker.setAttribute('cy', point.y);
+
+        requestAnimationFrame(animateTrack);
+    }
+
+    // Consumo dinâmico da API de Clima (Joinville, SC)
     async function carregarClimaJoinville() {
         try {
             const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true');
@@ -255,7 +420,10 @@ if ($resUsuarios) {
         return 'Noroeste (NO)';
     }
 
-    document.addEventListener('DOMContentLoaded', carregarClimaJoinville);
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarClimaJoinville();
+        requestAnimationFrame(animateTrack);
+    });
 </script>
 </body>
 </html>
