@@ -29,7 +29,6 @@ $trem = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    // Consulta adaptada para MySQLi nativo ($conn)
     $sql = "SELECT * FROM trens WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
