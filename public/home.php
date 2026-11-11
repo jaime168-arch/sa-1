@@ -136,8 +136,7 @@ if ($resUsuarios) {
                     </div>
                     
                     <hr class="my-3" style="border-color: #d1c4b2;">
-
-                    <!-- Informações Detalhadas do Tempo em Joinville -->
+                    
                     <div class="row text-center g-2 small">
                         <div class="col-4 border-end" style="border-color: #d1c4b2 !important;">
                             <span class="text-muted d-block"><i class="bi bi-wind me-1"></i>Vento</span>
