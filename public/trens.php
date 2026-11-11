@@ -14,8 +14,6 @@ $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
 $listaTrens = [];
-
-// Consulta adaptada para MySQLi nativo ($conn)
 $sql = "SELECT t.*, u.nome AS nome_responsavel 
         FROM trens t 
         LEFT JOIN usuarios u ON t.usuario_id = u.id 
