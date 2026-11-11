@@ -75,7 +75,6 @@ if ($resUsuarios) {
             width: auto;
             mix-blend-mode: multiply;
         }
-        /* Estilização Bege do Card de Clima */
         .card-clima-beige {
             background-color: var(--beige-card);
             border: 1px solid var(--beige-dark);
