@@ -13,7 +13,6 @@ $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
 $isAdmin     = ($_SESSION['usuario_tipo'] ?? '') === 'admin';
 
-// Contadores para o Dashboard utilizando MySQLi nativo ($conn)
 $totalTrens = 0;
 $resTrens = $conn->query("SELECT COUNT(*) AS total FROM trens");
 if ($resTrens) {
