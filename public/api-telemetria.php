@@ -1,20 +1,15 @@
 <?php
-// Define cabeçalhos para resposta JSON e suporte a requisições IoT (ESP32/Arduino)
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET");
 
 require_once __DIR__ . '/../config/conexao.php';
-
-// Captura requisições GET (leitura rápida) ou POST (envio de telemetria do ESP32)
 $metodo = $_SERVER['REQUEST_METHOD'];
 
 if ($metodo === 'POST') {
-    // Lê o payload JSON vindo do ESP32/cliente
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
 
-    // Aceita tanto formato JSON quanto dados via formulário POST tradicional
     $codigo_sensor = $dados['codigo_sensor'] ?? $_POST['codigo_sensor'] ?? null;
     $temperatura   = $dados['temperatura'] ?? $_POST['temperatura'] ?? null;
     $umidade       = $dados['umidade'] ?? $_POST['umidade'] ?? null;
@@ -28,8 +23,6 @@ if ($metodo === 'POST') {
         ]);
         exit;
     }
-
-    // 1. Busca o sensor cadastrado para vincular a leitura
     $sqlSensor = "SELECT id, trem_id FROM sensores WHERE codigo_sensor = ? LIMIT 1";
     $stmtSensor = $conn->prepare($sqlSensor);
 
@@ -42,17 +35,13 @@ if ($metodo === 'POST') {
         if ($sensorObj) {
             $sensor_id = $sensorObj['id'];
             $trem_id   = $sensorObj['trem_id'];
-
-            // 2. Grava a leitura de telemetria na tabela de leituras/logs
             $sqlInsert = "INSERT INTO leituras_telemetria (sensor_id, trem_id, temperatura, umidade, velocidade) VALUES (?, ?, ?, ?, ?)";
             $stmtInsert = $conn->prepare($sqlInsert);
 
             if ($stmtInsert) {
-                // "iiddd" -> integer, integer, double, double, double
                 $stmtInsert->bind_param("iiddd", $sensor_id, $trem_id, $temperatura, $umidade, $velocidade);
 
                 if ($stmtInsert->execute()) {
-                    // Atualiza o status do sensor para ativo após leitura bem-sucedida
                     $sqlUpdate = "UPDATE sensores SET status_leitura = 'Ativo' WHERE id = ?";
                     $stmtUpd = $conn->prepare($sqlUpdate);
                     if ($stmtUpd) {
