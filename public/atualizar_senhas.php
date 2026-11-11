@@ -1,28 +1,38 @@
 <?php
 require_once __DIR__ . '/../config/conexao.php';
 
-try {
-   
-    $stmt = $pdo->query("SELECT id, email, senha FROM usuarios");
-    $usuarios = $stmt->fetchAll();
+$result = $conn->query("SELECT id, email, senha FROM usuarios");
 
-    $atualizados = 0;
-
-    foreach ($usuarios as $u) {
-       
-        $info = password_get_info($u['senha']);
-        
-        if ($info['algo'] === 0) {
-            $novoHash = password_hash($u['senha'], PASSWORD_DEFAULT);
-            $update = $pdo->prepare("UPDATE usuarios SET senha = :senha WHERE id = :id");
-            $update->execute([':senha' => $novoHash, ':id' => $u['id']]);
-            $atualizados++;
-            echo "Senha do e-mail '{$u['email']}' convertida para Hash com sucesso.<br>";
-        }
-    }
-
-    echo "<hr><strong>Concluído! Total de senhas atualizadas para Hash seguro: $atualizados</strong>";
-
-} catch (PDOException $e) {
-    die("Erro ao atualizar senhas: " . $e->getMessage());
+if (!$result) {
+    die("Erro ao buscar usuários: " . $conn->error);
 }
+
+$atualizados = 0;
+
+while ($usuario = $result->fetch_assoc()) {
+    $info = password_get_info($usuario['senha']);
+
+    if ($info['algo'] === 0) {
+        $novoHash = password_hash($usuario['senha'], PASSWORD_DEFAULT);
+        $update = $conn->prepare("UPDATE usuarios SET senha = ? WHERE id = ?");
+
+        if (!$update) {
+            die("Erro ao preparar atualização: " . $conn->error);
+        }
+
+        $update->bind_param("si", $novoHash, $usuario['id']);
+
+        if (!$update->execute()) {
+            die("Erro ao atualizar senha: " . $update->error);
+        }
+
+        $update->close();
+        $atualizados++;
+        echo "Senha do e-mail '{$usuario['email']}' convertida para hash com sucesso.<br>";
+    }
+}
+
+$result->free();
+$conn->close();
+
+echo "<hr><strong>Concluído! Total de senhas atualizadas para hash seguro: $atualizados</strong>";

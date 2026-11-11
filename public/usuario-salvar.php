@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $stmt->bind_param("ssssii", $nome, $email, $senhaHash, $tipo, $ativo, $id);
         } else {
-            // Se não informou senha, mantém a atual
             $sql = "UPDATE usuarios SET nome = ?, email = ?, tipo = ?, ativo = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
 

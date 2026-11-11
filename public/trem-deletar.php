@@ -23,7 +23,6 @@ if (!$id) {
     exit;
 }
 
-// Instrução SQL usando a sintaxe do MySQLi (?)
 $sql = "DELETE FROM trens WHERE id = ?";
 $stmt = $conn->prepare($sql);
 
@@ -37,7 +36,6 @@ if ($stmt) {
             $_SESSION['mensagem_erro'] = "Trem não encontrado ou já eliminado.";
         }
     } else {
-        // Código 1451/23000 do MySQL indica restrição de Chave Estrangeira (FK)
         if ($conn->errno == 1451) {
             $_SESSION['mensagem_erro'] = "Não é possível eliminar este trem pois existem sensores ou dados vinculados a ele.";
         } else {

@@ -7,7 +7,7 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 
-require_once __DIR__ . '/../config/conexao.php';
+include '../config/conexao.php';
 
 $nomeUsuario = $_SESSION['usuario_nome'] ?? 'Utilizador';
 $paginaAtual = basename($_SERVER['PHP_SELF']);
@@ -75,7 +75,7 @@ if ($resUsuarios) {
             width: auto;
             mix-blend-mode: multiply;
         }
-
+        /* Estilização Bege do Card de Clima */
         .card-clima-beige {
             background-color: var(--beige-card);
             border: 1px solid var(--beige-dark);
@@ -85,6 +85,78 @@ if ($resUsuarios) {
             background-color: #e3d4ad;
             color: #5c4d3c;
             font-weight: 600;
+        }
+
+        /* Container de Telemetria Bege Harmonizado */
+        .telemetria-container-beige {
+            background-color: var(--beige-card);
+            border: 1px solid var(--beige-dark);
+            border-radius: 1.25rem;
+            padding: 30px;
+            color: var(--beige-text);
+        }
+
+        .track-box {
+            width: 100%;
+            max-width: 520px;
+            height: 340px;
+        }
+
+        .track-box svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        /* Estilização Laranja da Pista */
+        .track-glow {
+            fill: none;
+            stroke: #ff6600;
+            stroke-width: 12;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.25;
+            filter: blur(6px);
+        }
+
+        .track-line {
+            fill: none;
+            stroke: #ff6600;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .trem-gps-grupo {
+            transition: transform 0.05s linear;
+        }
+
+        .gps-dot {
+            fill: #ffffff;
+            stroke: #16a34a;
+            stroke-width: 3;
+            filter: drop-shadow(0 0 6px #16a34a);
+        }
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .info-block .label {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #786452;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .info-block .value {
+            font-size: 30px;
+            font-weight: 700;
+            color: #3b2e24;
         }
     </style>
 </head>
@@ -117,11 +189,12 @@ if ($resUsuarios) {
     <div class="row mb-4">
         <div class="col-lg-7 mb-3 mb-lg-0">
             <div class="p-4 rounded-4 bg-white shadow-sm border border-light-subtle h-100 d-flex flex-column justify-content-center">
-                <h2 class="fw-bold text-dark m-7">Bem-vindo(a) <?= htmlspecialchars($nomeUsuario); ?> ao Já Ismaga </h2>
+                <h2 class="fw-bold text-dark m-0">Bem-vindo(a) <?= htmlspecialchars($nomeUsuario); ?> ao Já Ismaga</h2>
                 <p class="text-muted mt-2 mb-0">Sistema industrial de monitoramento ferroviário e telemetria em tempo real.</p>
             </div>
         </div>
         
+        <!-- Card de Clima Personalizado em Bege -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 card-clima-beige">
                 <div class="card-body p-4">
@@ -158,7 +231,8 @@ if ($resUsuarios) {
             </div>
         </div>
     </div>
-    
+
+    <!-- Cards do Dashboard -->
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 bg-white p-3">
@@ -213,9 +287,9 @@ if ($resUsuarios) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Consumo dinâmico da Open-Meteo API focada na cidade de Joinville, SC
     async function carregarClimaJoinville() {
         try {
-            // Coordenadas geográficas de Joinville (-26.3045, -48.8487)
             const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true');
             if (!response.ok) throw new Error('Falha ao obter dados meteorológicos');
             const data = await response.json();
@@ -258,7 +332,10 @@ if ($resUsuarios) {
         return 'Noroeste (NO)';
     }
 
-    document.addEventListener('DOMContentLoaded', carregarClimaJoinville);
+    document.addEventListener('DOMContentLoaded', () => {
+        carregarClimaJoinville();
+        requestAnimationFrame(animateTrack);
+    });
 </script>
 </body>
 </html>

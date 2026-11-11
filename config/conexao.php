@@ -14,13 +14,13 @@ $banco   = "ja_ismaga";
 
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$conn = @new mysqli($host, $usuario, $senha, $banco);
+$conn = new mysqli($host, $usuario, $senha, $banco, 3306);
 
 if ($conn->connect_error) {
-    die("<div style='font-family:sans-serif; padding:20px; color:red;'>
-            <h3>Erro de Conexão com o Banco de Dados</h3>
-            <p>" . $conn->connect_error . "</p>
-         </div>");
+   die("<div style='font-family:sans-serif; padding:20px; color:red;'>
+           <h3>Erro de Conexão com o Banco de Dados</h3>
+           <p>" . $conn->connect_error . "</p>
+       </div>");
 }
 
 $conn->set_charset("utf8mb4");

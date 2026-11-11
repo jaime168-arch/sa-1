@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($id) {
-        // --- ATUALIZAR (UPDATE) ---
         if ($usuario_id !== null) {
             $sql = "UPDATE trens SET nome = ?, modelo = ?, capacidade = ?, status = ?, usuario_id = ? WHERE id = ?";
             $stmt = $conn->prepare($sql);
@@ -42,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        // --- INSERIR (INSERT) ---
         if ($usuario_id !== null) {
             $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);

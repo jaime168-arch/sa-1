@@ -29,7 +29,6 @@ $trem = [
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 if ($id) {
-    // Consulta adaptada para MySQLi nativo ($conn)
     $sql = "SELECT * FROM trens WHERE id = ? LIMIT 1";
     $stmt = $conn->prepare($sql);
 
@@ -53,7 +52,6 @@ if ($id) {
 }
 
 $listaUsuarios = [];
-// Listagem de usuários adaptada para MySQLi nativo ($conn)
 $resU = $conn->query("SELECT id, nome, tipo FROM usuarios WHERE ativo = 1 ORDER BY nome ASC");
 if ($resU) {
     $listaUsuarios = $resU->fetch_all(MYSQLI_ASSOC);
