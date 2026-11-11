@@ -31,7 +31,7 @@ $stmt2->bind_param("ss", $novaSenha, $emailOperador);
 
 if (!$stmt2->execute()) {
     die("Erro ao atualizar a senha do operador: " . $stmt2->error);
-}
+} 
 
 $stmt2->close();
 $conn->close();
