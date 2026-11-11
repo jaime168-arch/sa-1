@@ -41,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     } else {
-        // --- INSERIR (INSERT) ---
         if ($usuario_id !== null) {
             $sql = "INSERT INTO trens (nome, modelo, capacidade, status, usuario_id) VALUES (?, ?, ?, ?, ?)";
             $stmt = $conn->prepare($sql);
