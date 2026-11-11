@@ -28,7 +28,7 @@ Utilizando redes sem wi-fi e protocolos otimizados como MQTT e REST, as informa�
 Passo a passo com imagens
 
 <p align="center">
-  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
+  <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/passo1.png" />
 </p>
 <p align="center">
   <img width="100%" alt="Maquete / Protótipo Ferroviário" src="assets/" />
