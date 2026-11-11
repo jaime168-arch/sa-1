@@ -9,8 +9,7 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 if ($metodo === 'POST') {
     $json = file_get_contents('php://input');
     $dados = json_decode($json, true);
-
-    // Aceita tanto formato JSON quanto dados via formulário POST tradicional
+    
     $codigo_sensor = $dados['codigo_sensor'] ?? $_POST['codigo_sensor'] ?? null;
     $temperatura   = $dados['temperatura'] ?? $_POST['temperatura'] ?? null;
     $umidade       = $dados['umidade'] ?? $_POST['umidade'] ?? null;
