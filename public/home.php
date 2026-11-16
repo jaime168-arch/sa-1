@@ -58,7 +58,6 @@ if ($resUsuarios) {
         body {
             background-color: var(--bg-page);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #334155;
         }
         .btn-brand {
             background-color: var(--brand-color);
