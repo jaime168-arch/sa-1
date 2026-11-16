@@ -58,6 +58,7 @@ if ($resUsuarios) {
         body {
             background-color: var(--bg-page);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+           
         }
         .btn-brand {
             background-color: var(--brand-color);
@@ -76,74 +77,13 @@ if ($resUsuarios) {
         }
         .card-clima-beige {
             background-color: var(--beige-card);
-          
+            border: 1px solid var(--beige-dark);
             color: var(--beige-text);
         }
-       
-
-     
-
-        .track-box {
-            width: 100%;
-            max-width: 520px;
-            height: 340px;
-        }
-
-        .track-box svg {
-            width: 100%;
-            height: 100%;
-            overflow: visible;
-        }
-
-        /* Estilização Laranja da Pista */
-        .track-glow {
-            fill: none;
-            stroke: #ff6600;
-            stroke-width: 12;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            opacity: 0.25;
-            filter: blur(6px);
-        }
-
-        .track-line {
-            fill: none;
-            stroke: #ff6600;
-            stroke-width: 5;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .trem-gps-grupo {
-            transition: transform 0.05s linear;
-        }
-
-        .gps-dot {
-            fill: #ffffff;
-            stroke: #16a34a;
-            stroke-width: 3;
-            filter: drop-shadow(0 0 6px #16a34a);
-        }
-
-        .info-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .info-block .label {
-            font-size: 13px;
+        .badge-beige-tag {
+            background-color: #e3d4ad;
+            color: #5c4d3c;
             font-weight: 600;
-            letter-spacing: 1.5px;
-            color: #786452;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .info-block .value {
-            font-size: 30px;
-            font-weight: 700;
-            color: #3b2e24;
         }
     </style>
 </head>
