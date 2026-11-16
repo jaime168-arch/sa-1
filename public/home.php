@@ -66,23 +66,12 @@ if ($resUsuarios) {
         }
         .card-clima-beige {
             background-color: var(--beige-card);
-            border: 1px solid var(--beige-dark);
+          
             color: var(--beige-text);
         }
-        .badge-beige-tag {
-            background-color: #e3d4ad;
-            color: #5c4d3c;
-            font-weight: 600;
-        }
+       
 
-        /* Container de Telemetria Bege Harmonizado */
-        .telemetria-container-beige {
-            background-color: var(--beige-card);
-            border: 1px solid var(--beige-dark);
-            border-radius: 1.25rem;
-            padding: 30px;
-            color: var(--beige-text);
-        }
+     
 
         .track-box {
             width: 100%;
