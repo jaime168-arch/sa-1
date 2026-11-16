@@ -58,17 +58,6 @@ if ($resUsuarios) {
         body {
             background-color: var(--bg-page);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-           
-        }
-        .btn-brand {
-            background-color: var(--brand-color);
-            border-color: var(--brand-color);
-            color: #ffffff;
-            font-weight: 600;
-        }
-        .btn-brand:hover {
-            background-color: var(--brand-hover);
-            color: #ffffff;
         }
         .logo-nav-central {
             max-height: 70px;
