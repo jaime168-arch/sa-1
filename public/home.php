@@ -64,7 +64,6 @@ if ($resUsuarios) {
             width: auto;
             mix-blend-mode: multiply;
         }
-        /* Estilização Bege do Card de Clima */
         .card-clima-beige {
             background-color: var(--beige-card);
             border: 1px solid var(--beige-dark);
@@ -182,8 +181,6 @@ if ($resUsuarios) {
                 <p class="text-muted mt-2 mb-0">Sistema industrial de monitoramento ferroviário e telemetria em tempo real.</p>
             </div>
         </div>
-        
-        <!-- Card de Clima Personalizado em Bege -->
         <div class="col-lg-5">
             <div class="card border-0 shadow-sm rounded-4 card-clima-beige">
                 <div class="card-body p-4">
@@ -221,7 +218,80 @@ if ($resUsuarios) {
         </div>
     </div>
 
-    <!-- Cards do Dashboard -->
+    <!-- Seção de Telemetria com Pista Laranja e Geometria Fiel à Imagem -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="telemetria-container-beige shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3" style="border-color: #d1c4b2 !important;">
+                    <h5 class="fw-bold m-0 text-dark d-flex align-items-center gap-2">
+                        <i class="bi bi-broadcast" style="color: #ff6600;"></i> Telemetria em Tempo Real — Circuito Ferrorama
+                    </h5>
+                    <span class="badge bg-success text-white px-3 py-2">
+                        <i class="bi bi-wifi me-1"></i> GPS Conectado
+                    </span>
+                </div>
+
+                <div class="d-flex flex-column flex-md-row justify-content-around align-items-center gap-4">
+                    <!-- Geometria Laranja horizontal idêntica ao esboço da imagem -->
+                    <div class="track-box">
+                        <svg viewBox="0 0 500 320" preserveAspectRatio="xMidYMid meet">
+                            <path id="track-path" class="track-glow" d="
+                                M 130,80 
+                                C 170,70 230,105 270,120 
+                                C 320,135 370,60 410,40 
+                                C 440,30 455,45 440,75 
+                                C 410,130 380,180 395,220 
+                                C 410,260 420,285 390,300 
+                                C 350,315 280,265 240,260 
+                                C 200,255 180,295 130,300 
+                                C 70,305 55,270 55,220 
+                                C 55,160 100,160 115,120 
+                                C 125,90 100,90 130,80 Z" />
+
+                            <path class="track-line" d="
+                                M 130,80 
+                                C 170,70 230,105 270,120 
+                                C 320,135 370,60 410,40 
+                                C 440,30 455,45 440,75 
+                                C 410,130 380,180 395,220 
+                                C 410,260 420,285 390,300 
+                                C 350,315 280,265 240,260 
+                                C 200,255 180,295 130,300 
+                                C 70,305 55,270 55,220 
+                                C 55,160 100,160 115,120 
+                                C 125,90 100,90 130,80 Z" />
+
+                            <!-- Marcador de Trem Laranja com Sinal GPS em Movimento -->
+                            <g id="trem-grupo" class="trem-gps-grupo">
+                                <circle class="gps-dot" r="7" cx="0" cy="0" />
+                                <path d="M -12,-5 L 7,-5 L 12,0 L 7,5 L -12,5 Z" fill="#ff6600" opacity="0.9" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <!-- Painel de Informações Operacionais -->
+                    <div class="info-panel">
+                        <div class="info-block">
+                            <div class="label">Extensão do Trajeto</div>
+                            <div class="value">7,960 km</div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="label">Sensores GPS Ativos</div>
+                            <div class="value">7</div>
+                        </div>
+
+                        <div class="info-block">
+                            <div class="label">Velocidade Média</div>
+                            <div class="value" style="color: #d97706;">48.5 km/h</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Métricas -->
     <div class="row g-4">
         <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 bg-white p-3">
@@ -276,7 +346,28 @@ if ($resUsuarios) {
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Consumo dinâmico da Open-Meteo API focada na cidade de Joinville, SC
+    // Animação contínua da locomotiva tangenciando as curvas da pista
+    const path = document.getElementById('track-path');
+    const tremGrupo = document.getElementById('trem-grupo');
+    const pathLength = path.getTotalLength();
+    const duration = 10000; // 10 segundos por volta
+    let startTime = null;
+
+    function animateTrack(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+        const progress = (elapsed % duration) / duration;
+        
+        const point = path.getPointAtLength(progress * pathLength);
+        
+        const nextPoint = path.getPointAtLength(Math.min((progress + 0.005) * pathLength, pathLength));
+        const angle = Math.atan2(nextPoint.y - point.y, nextPoint.x - point.x) * (180 / Math.PI);
+
+        tremGrupo.setAttribute('transform', `translate(${point.x}, ${point.y}) rotate(${angle})`);
+
+        requestAnimationFrame(animateTrack);
+    }
+
     async function carregarClimaJoinville() {
         try {
             const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-26.3045&longitude=-48.8487&current_weather=true');
