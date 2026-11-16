@@ -48,26 +48,15 @@ if ($resUsuarios) {
     <link rel="stylesheet" href="../styles/style.css">
     <style>
         :root {
-            --brand-color: #ff6600;
-            --brand-hover: #e05500;
             --bg-page: #f8fafc;
             --beige-card: #f5efe6;
-            --beige-dark: #e8dec9;
-            --beige-text: #4a3f35;
         }
         body {
             background-color: var(--bg-page);
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: #334155;
         }
-        .btn-brand {
-            background-color: var(--brand-color);
-            border-color: var(--brand-color);
-            color: #ffffff;
-            font-weight: 600;
-        }
+    
         .btn-brand:hover {
-            background-color: var(--brand-hover);
             color: #ffffff;
         }
         .logo-nav-central {
