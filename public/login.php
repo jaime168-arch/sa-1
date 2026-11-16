@@ -42,12 +42,7 @@ $pageTitle = "Já Ismaga - Login";
             border-radius: 8px;
             transition: all 0.2s ease;
         }
-
-        .btn-login-custom:hover {
-            background-color: var(--brand-orange-hover) !important;
-            border-color: var(--brand-orange-hover) !important;
-            transform: translateY(-1px);
-        }
+        
          .logo-nav-central {
             max-height: 70px;
             width: auto;
