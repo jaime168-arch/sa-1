@@ -14,7 +14,7 @@ $banco   = "ja_ismaga";
 
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$conn = new mysqli($host, $usuario, $senha, $banco, 3306);
+$conn = new mysqli($host, $usuario, $senha, $banco, 3309);
 
 if ($conn->connect_error) {
    die("<div style='font-family:sans-serif; padding:20px; color:red;'>
