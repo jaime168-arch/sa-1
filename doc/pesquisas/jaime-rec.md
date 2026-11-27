@@ -1,0 +1,7 @@
+# Redação sobre a SA ferroma Já Ismaga
+
+ A Já Ismaga, é uma empresa desvolvida para o gestão e acompanhamento das ferrovias integrando com: controle de frota, o mapeamento de rotas e o monitoramento remotos via sensores IoT. E este documento fornece as orientações necessárias para a navegação e teste para a demonstração do site.
+ Mas, este projeto foi criado com o intuito educacional e funcional para mostrar habilidades com o tempo e funcionalidades como: SQL, PHP, CSS e HTML com o projeto correndo nos últimos 9 meses. Enquanto faziamos os projetos aprendiamos novas linhas de código e aprendiamos novas coisas em Desenvolvimento de sistemas.
+ Entretanto, foi usado o excesso de inteligência artificial no projeto que nos fez agilizar muito a nossa vida e fazendo um projeto muito funcional mas, infelizmente sem entender o que o nosso grupo estava codando e em um curto período de tempo e relaxamos na maioria das vezes o grupo não olhava o que estava codando e sem entender o que estava no código.
+ Enfim, fizemos a SA para primeira vez e com uso excessivo aconteceu que as pessoas: Isabela, Gabriela e Maria auxiliaram pouco no código e junto com a falta de comunicação essas três pessoas sabiam pouco. E o Jaime cuidou da maioria do código tentava entender mesmo cansado e com dificuldades usando a IA para entender e mesmo com dificuldade de interpretar dentro do código ele tentava descrever e pensar: "O que aquela linha faz de funcionalidade".
+
